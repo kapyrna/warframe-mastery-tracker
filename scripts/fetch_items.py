@@ -17,7 +17,12 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 LANG = "en"
-INDEX_URL = f"https://origin.warframe.com/PublicExport/index_{LANG}.txt.lzma"
+INDEX_URLS = [
+    f"https://origin.warframe.com/PublicExport/index_{LANG}.txt.lzma",
+    f"http://origin.warframe.com/PublicExport/index_{LANG}.txt.lzma",
+    f"https://content.warframe.com/PublicExport/index_{LANG}.txt.lzma",
+    f"http://content.warframe.com/PublicExport/index_{LANG}.txt.lzma",
+]
 MANIFEST_BASE = "https://content.warframe.com/PublicExport/Manifest/"
 OUT = Path(__file__).resolve().parent.parent / "data" / "items.json"
 USER_AGENT = "warframe-mastery-tracker (+https://github.com/kapyrna/warframe-mastery-tracker)"
@@ -38,17 +43,41 @@ MIN_WARFRAMES = 30
 MIN_WEAPONS = 200
 
 
+# None means "leave urllib's default User-Agent in place".
+UA_VARIANTS = (USER_AGENT, None)
+
+
+def fetch_once(url, user_agent, timeout):
+    headers = {"User-Agent": user_agent} if user_agent else {}
+    with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=timeout) as resp:
+        return resp.read()
+
+
 def fetch(url, retries=3, timeout=60):
-    last = None
+    errors = []
     for attempt in range(retries):
-        try:
-            req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-            with urllib.request.urlopen(req, timeout=timeout) as resp:
-                return resp.read()
-        except Exception as exc:  # noqa: BLE001 - report whatever went wrong
-            last = exc
+        for ua in UA_VARIANTS:
+            try:
+                return fetch_once(url, ua, timeout)
+            except Exception as exc:  # noqa: BLE001 - report whatever went wrong
+                errors.append(f"{'default UA' if ua is None else 'custom UA'}: {exc}")
+        if attempt < retries - 1:
             time.sleep(2 * (attempt + 1))
-    raise RuntimeError(f"Could not fetch {url}: {last}")
+    raise RuntimeError(f"Could not fetch {url} ({'; '.join(dict.fromkeys(errors))})")
+
+
+def fetch_index():
+    """Download the compressed index, trying each known address until one answers."""
+    failures = []
+    for url in INDEX_URLS:
+        try:
+            data = fetch(url, retries=1)
+            annotate("notice", f"Index downloaded from {url}", "Index source")
+            return data
+        except RuntimeError as exc:
+            failures.append(str(exc))
+            annotate("warning", str(exc), "Index attempt failed")
+    raise RuntimeError("Every index address failed:\n" + "\n".join(failures))
 
 
 def lzma_decompress(data):
@@ -162,8 +191,7 @@ def annotate(level, message, title=""):
 
 
 def run():
-    annotate("notice", f"Fetching index {INDEX_URL}", "Step 1")
-    index_bytes = fetch(INDEX_URL)
+    index_bytes = fetch_index()
     index_text = lzma_decompress(index_bytes).decode("utf-8", "replace")
     index = parse_index(index_text)
     annotate(

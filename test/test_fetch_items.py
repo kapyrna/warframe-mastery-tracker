@@ -93,6 +93,25 @@ class FailureReportingTests(unittest.TestCase):
         self.assertIn("::error title=Fetch item data failed::RuntimeError: boom", out.getvalue())
 
 
+class IndexFallbackTests(unittest.TestCase):
+    def test_falls_through_to_first_working_address(self):
+        def fake(url, retries=3, timeout=60):
+            if url.startswith("http://content"):
+                return b"index-bytes"
+            raise RuntimeError(f"Could not fetch {url} (HTTP Error 403: Forbidden)")
+        with mock.patch.object(F, "fetch", side_effect=fake), contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(F.fetch_index(), b"index-bytes")
+
+    def test_reports_every_failure_when_none_work(self):
+        def fake(url, retries=3, timeout=60):
+            raise RuntimeError(f"Could not fetch {url} (HTTP Error 403: Forbidden)")
+        with mock.patch.object(F, "fetch", side_effect=fake), contextlib.redirect_stdout(io.StringIO()):
+            with self.assertRaises(RuntimeError) as ctx:
+                F.fetch_index()
+        for url in F.INDEX_URLS:
+            self.assertIn(url, str(ctx.exception))
+
+
 class RenderTests(unittest.TestCase):
     def test_output_is_valid_json_the_page_can_read(self):
         items = [{"uniqueName": "/A", "name": "Å", "type": "melee", "list": "weapons", "masteryReq": 0}]
