@@ -78,10 +78,13 @@ class BuildTests(unittest.TestCase):
             {"uniqueName": "/H/Hound", "name": "Hound", "productCategory": "Hounds", "masteryReq": 0},
             {"uniqueName": "/S/Hidden", "name": "Hidden", "productCategory": "Sentinels", "masteryReq": 0, "excludeFromCodex": True},
             {"uniqueName": "/S/NoCat", "name": "NoCat", "masteryReq": 0},
+            {"uniqueName": "/S/NoReq", "name": "NoReq", "productCategory": "Sentinels"},
         ]
         items, stats = F.build_items([], [], companions)
         self.assertEqual({i["uniqueName"]: i["type"] for i in items},
-                         {"/S/Carrier": "sentinel", "/K/Kavat": "beast", "/H/Hound": "hounds"})
+                         {"/S/Carrier": "sentinel", "/K/Kavat": "beast", "/H/Hound": "hounds", "/S/NoReq": "sentinel"})
+        # Companions have no mastery gate, so the field is simply left out.
+        self.assertNotIn("masteryReq", next(i for i in items if i["uniqueName"] == "/S/NoReq"))
         self.assertTrue(all(i["list"] == "companions" for i in items))
         self.assertEqual(stats["companions: kept as hounds"], 1)
 

@@ -135,7 +135,7 @@ def build_items(warframes_raw, weapons_raw, companions_raw=()):
     items = {}
     stats = collections.Counter()
 
-    def add(raw, list_id, type_of):
+    def add(raw, list_id, type_of, needs_req=True):
         stats[f"{list_id}: raw"] += 1
         category = raw.get("productCategory")
         item_type = type_of(category)
@@ -149,16 +149,14 @@ def build_items(warframes_raw, weapons_raw, companions_raw=()):
         if not unique or not name:
             stats[f"{list_id}: dropped, missing name"] += 1
             return
-        if not isinstance(raw.get("masteryReq"), int):
+        has_req = isinstance(raw.get("masteryReq"), int)
+        if needs_req and not has_req:
             stats[f"{list_id}: dropped, no masteryReq"] += 1
             return
-        items[unique] = {
-            "uniqueName": unique,
-            "name": name,
-            "type": item_type,
-            "list": list_id,
-            "masteryReq": raw["masteryReq"],
-        }
+        item = {"uniqueName": unique, "name": name, "type": item_type, "list": list_id}
+        if has_req:
+            item["masteryReq"] = raw["masteryReq"]
+        items[unique] = item
         stats[f"{list_id}: kept"] += 1
         stats[f"{list_id}: kept as {item_type}"] += 1
 
@@ -170,7 +168,7 @@ def build_items(warframes_raw, weapons_raw, companions_raw=()):
     for raw in weapons_raw:
         add(raw, "weapons", WEAPON_CATEGORIES.get)
     for raw in companions_raw:
-        add(raw, "companions", companion_type)
+        add(raw, "companions", companion_type, needs_req=False)  # companions have no mastery gate
 
     ordered = sorted(items.values(), key=lambda i: (i["list"], i["name"].lower(), i["uniqueName"]))
     return ordered, stats
