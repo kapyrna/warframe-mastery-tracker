@@ -1,58 +1,61 @@
 # Warframe Mastery Tracker
 
-A static web page for tracking Warframe mastery rank progress. It runs entirely in the browser, so it can be hosted on GitHub Pages. Imported profile data is kept in `localStorage` and never leaves your machine.
+Track your Warframe mastery rank progress: see which items you've mastered, how much mastery XP you have, and what rank you'd reach once everything is maxed.
 
-Unofficial fan project. Warframe is a trademark of Digital Extremes.
+**Use it here: https://kapyrna.github.io/warframe-mastery-tracker/**
 
-## Hosting
+Nothing to install and no account needed. It works in any modern browser, on desktop or phone.
 
-In the repo settings, enable Pages and serve from the `main` branch, root folder.
+> **Current status:** the item list is still being added. Until it appears, the page shows a notice instead of items, and your rank figures won't be meaningful yet. Check back soon.
 
-## How it works
+## How to use it
 
-1. `data/items.json` holds the item list. It is meant to be generated from Digital Extremes' Public Export by a separate script (not included yet).
-2. You fetch your own profile JSON while logged in at warframe.com and paste or upload it on the page.
-3. The page works out per-item rank and mastery XP, your current mastery rank, and what rank you would reach with everything maxed.
+### 1. Get your profile data
 
-You can also tick items by hand if you don't want to import a profile.
+The tracker reads your own public profile data from Warframe. It can't log in for you, so you grab it yourself:
 
-## `data/items.json` format
+1. Log in at [warframe.com](https://www.warframe.com) and find your account ID on your account page.
+2. Open your profile data address in a new tab. For PC it looks like this, with your ID in place of `YOUR_ACCOUNT_ID`:
+   `https://api.warframe.com/cdn/getProfileViewingData.php?playerId=YOUR_ACCOUNT_ID`
+   Console players use the equivalent address for their platform.
+3. Copy everything on the page, or save it as a `.json` file.
 
-Either a bare array or an object with an `items` array:
+### 2. Import it
 
-```json
-{
-  "generatedAt": "2026-10-31T00:00:00Z",
-  "items": [
-    {
-      "uniqueName": "/Lotus/Weapons/Tenno/Pistol/LATO",
-      "name": "Lato",
-      "type": "secondary",
-      "masteryReq": 0
-    }
-  ]
-}
-```
+Open the tracker, expand **Import your progress**, then either paste the data into the box and press **Import pasted JSON**, or press **Choose file** and pick the file you saved.
 
-| Field | Required | Notes |
-| --- | --- | --- |
-| `uniqueName` | yes | Must match `ItemType` in the profile's `XPInfo` |
-| `name` | yes | Display name |
-| `type` | no | `warframe`, `companion`, `archwing`, `necramech`, `vehicle` use the Warframe rules; anything else is treated as a weapon |
-| `masteryReq` | no | Mastery rank needed to use the item |
-| `maxRank` | no | Default 30 |
-| `masteryRanks` | no | Ranks that award mastery, default 30 |
-| `xpPerRank` | no | Override mastery XP per rank (default 100 for weapons, 200 for Warframe-like) |
-| `affinityFactor` | no | Override affinity curve: rank is `floor(sqrt(xp / factor))` (default 500 for weapons, 1000 for Warframe-like) |
+You'll see a confirmation with the number of items found. If you see an error instead, check that you copied the whole page.
 
-## Assumptions to verify
+### 3. Read your progress
 
-- Rank thresholds are `2500 * rank^2` up to rank 30, then 147,500 per Legendary rank.
-- The profile JSON is expected to contain `XPInfo` entries (`ItemType`, `XP`), plus optional `DisplayName` and `PlayerLevel`, either at the top level or in `Results[0]`.
-- XP from the star chart, intrinsics and similar sources isn't in the item list, so the page asks for it (and offers a lower-bound estimate from your reported rank).
+- **Mastery rank** and a bar showing how close you are to the next rank.
+- **Items mastered** out of everything that counts toward mastery.
+- **Item XP**: the mastery XP you've earned from items.
+- **If everything is maxed**: the rank you'd reach by maxing every item on the list.
 
-## Tests
+### 4. Fill in the gaps
 
-```
-node --test test/mastery.test.js
-```
+Your profile data only covers items. Mastery XP also comes from the star chart, intrinsics and other sources, so the tracker asks for that figure. It starts with an estimate worked out from your current rank, which is a minimum. If you know your real number, type it in for more accurate projections. **Use estimate** switches back.
+
+You can also tick any item by hand to mark it as mastered, for example if you'd rather not import a profile. Items mastered through your profile data are ticked automatically and can't be unticked.
+
+### 5. Find what to level next
+
+Use the search box and the filters above the table to narrow the list by name, type or status (mastered or not). Sorting by **Most XP remaining** shows where the biggest gains are.
+
+## Your data and privacy
+
+- Everything stays in your browser. Your profile data is never sent to a server.
+- It's saved on this device so it's still there next time you visit. Clearing your browser's site data removes it, and it won't appear on your other devices.
+- To keep a backup or move to another device, press **Download my progress**, then import that file on the other device.
+- **Clear saved data** removes everything the tracker has stored in this browser.
+
+## Good to know
+
+- Mastery XP counts the first 30 ranks of each item, even for items that go higher, and each item counts once however many copies you own.
+- Ranks above 30 are the Legendary ranks.
+- The tracker is only as accurate as the data it's given. Warframe's data sources are unofficial and could change, which may temporarily break importing or the item list.
+
+---
+
+This is an unofficial fan project and is not affiliated with Digital Extremes. Warframe is a trademark of Digital Extremes.
