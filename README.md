@@ -39,9 +39,15 @@ Your profile data only covers items. Mastery XP also comes from the star chart, 
 
 You can also tick any item by hand to mark it as mastered, for example if you'd rather not import a profile. Items mastered through your profile data are ticked automatically and can't be unticked.
 
-### 5. Find what to level next
+### 5. Work through your Progress
 
-Use the search box and the filters above the table to narrow the list by name, type or status (mastered or not). Sorting by **Most XP remaining** shows where the biggest gains are.
+The **Progress** section has one expandable list for **Warframes** and one for **Weapons**. Click a list's heading to open or close it. Each heading shows how many items in that list you've mastered, with a small bar.
+
+Inside each list you'll see every item with its type, the mastery rank needed to use it, your current rank, and your mastery XP for it. Tick the box beside an item to mark it as mastered.
+
+Use the search box and filters above the lists to narrow things down by name, type or status (mastered or not). Searching opens any list that has a match. Sorting by **Most XP remaining** shows where the biggest gains are.
+
+The item lists are refreshed automatically every day from Warframe's game data, so new Warframes and weapons show up without you doing anything.
 
 ## Your data and privacy
 

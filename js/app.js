@@ -11,6 +11,7 @@
     String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
   let items = [];
+  const openLists = new Set();
   let state = { version: 1, profile: null, manual: [], otherXp: null };
 
   // ---- persistence (localStorage can be blocked or empty; never rely on it) ----
@@ -95,33 +96,64 @@
     return out;
   }
 
-  function renderTable(c) {
-    const rows = visibleRows(c.summary.rows);
-    $("count").textContent = items.length ? "Showing " + rows.length + " of " + items.length + " items" : "";
-    $("rows").innerHTML = rows
-      .map((r) => {
-        const id = esc(r.item.uniqueName);
-        const byHand = c.manual.has(r.item.uniqueName);
-        const locked = r.mastered && !byHand;
+  function rowHtml(r, manual) {
+    const id = esc(r.item.uniqueName);
+    const byHand = manual.has(r.item.uniqueName);
+    const locked = r.mastered && !byHand;
+    return (
+      '<tr class="' + (r.mastered ? "done" : "") + '">' +
+      '<td><input type="checkbox" data-id="' + id + '"' + (r.mastered ? " checked" : "") + (locked ? " disabled" : "") +
+      ' aria-label="Mark ' + esc(r.item.name) + ' as mastered"></td>' +
+      "<td>" + esc(r.item.name) + "</td>" +
+      "<td>" + esc(r.item.type) + "</td>" +
+      '<td class="num">' + (r.item.masteryReq != null ? esc(r.item.masteryReq) : "\u2013") + "</td>" +
+      '<td class="num">' + r.rank + " / " + r.maxRank + "</td>" +
+      '<td class="num">' + fmt(r.masteryXp) + " / " + fmt(r.maxMasteryXp) + "</td>" +
+      "</tr>"
+    );
+  }
+
+  const TABLE_HEAD =
+    "<thead><tr>" +
+    '<th scope="col"><span class="sr-only">Mastered</span></th>' +
+    '<th scope="col">Item</th><th scope="col">Type</th>' +
+    '<th scope="col" class="num">MR req</th><th scope="col" class="num">Rank</th>' +
+    '<th scope="col" class="num">Mastery XP</th></tr></thead>';
+
+  // One expandable section per list. Counts in the header always cover the whole
+  // list; the table inside respects the search and filters.
+  function renderLists(c) {
+    const searching = $("search").value.trim() !== "";
+    let shown = 0;
+    $("lists").innerHTML = M.groupRows(c.summary.rows)
+      .map((g) => {
+        const done = g.rows.filter((r) => r.mastered).length;
+        const pct = g.rows.length ? Math.round((done / g.rows.length) * 100) : 0;
+        const visible = visibleRows(g.rows);
+        shown += visible.length;
+        // While searching, sections with matches open so results are not hidden.
+        const forced = searching && visible.length > 0;
+        const open = forced || openLists.has(g.id);
+        const body = visible.length
+          ? '<div class="table-wrap"><table>' + TABLE_HEAD + "<tbody>" + visible.map((r) => rowHtml(r, c.manual)).join("") + "</tbody></table></div>"
+          : '<p class="muted small empty">No items match the current filters.</p>';
         return (
-          '<tr class="' + (r.mastered ? "done" : "") + '">' +
-          '<td><input type="checkbox" data-id="' + id + '"' + (r.mastered ? " checked" : "") + (locked ? " disabled" : "") +
-          ' aria-label="Mark ' + esc(r.item.name) + ' as mastered"></td>' +
-          "<td>" + esc(r.item.name) + "</td>" +
-          "<td>" + esc(r.item.type) + "</td>" +
-          '<td class="num">' + (r.item.masteryReq != null ? esc(r.item.masteryReq) : "–") + "</td>" +
-          '<td class="num">' + r.rank + " / " + r.maxRank + "</td>" +
-          '<td class="num">' + fmt(r.masteryXp) + " / " + fmt(r.maxMasteryXp) + "</td>" +
-          "</tr>"
+          '<details class="list" data-list="' + esc(g.id) + '" data-forced="' + (forced ? "1" : "0") + '"' + (open ? " open" : "") + ">" +
+          "<summary>" +
+          '<span class="list-name">' + esc(g.label) + "</span>" +
+          '<span class="list-count">' + done + " / " + g.rows.length + " mastered</span>" +
+          '<span class="mini-bar" role="img" aria-label="' + pct + '% mastered"><span style="width:' + pct + '%"></span></span>' +
+          "</summary>" + body + "</details>"
         );
       })
       .join("");
+    $("count").textContent = items.length ? "Showing " + shown + " of " + items.length + " items" : "";
   }
 
   function renderAll() {
     const c = compute();
     renderSummary(c);
-    renderTable(c);
+    renderLists(c);
   }
 
   function fillTypeFilter() {
@@ -215,10 +247,22 @@
     });
 
     ["search", "filter-type", "filter-status", "sort"].forEach((id) =>
-      $(id).addEventListener(id === "search" ? "input" : "change", () => renderTable(compute()))
+      $(id).addEventListener(id === "search" ? "input" : "change", () => renderLists(compute()))
     );
 
-    $("rows").addEventListener("change", (e) => {
+    // toggle does not bubble, so listen in the capture phase.
+    $("lists").addEventListener(
+      "toggle",
+      (e) => {
+        const d = e.target;
+        if (!(d instanceof HTMLDetailsElement) || d.dataset.forced === "1") return;
+        if (d.open) openLists.add(d.dataset.list);
+        else openLists.delete(d.dataset.list);
+      },
+      true
+    );
+
+    $("lists").addEventListener("change", (e) => {
       const box = e.target;
       if (!(box instanceof HTMLInputElement) || !box.dataset.id) return;
       const set = new Set(state.manual);

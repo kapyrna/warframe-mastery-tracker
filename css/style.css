@@ -131,6 +131,25 @@ tr.done td { color: var(--muted); }
 tr.done td:nth-child(2) { text-decoration: line-through; text-decoration-color: var(--good); }
 td input[type="checkbox"] { width: 18px; height: 18px; }
 
+.list { border: 1px solid var(--border); border-radius: 8px; margin: 12px 0; }
+.list > summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  list-style: none;
+  font-size: 1rem;
+}
+.list > summary::-webkit-details-marker { display: none; }
+.list > summary::before { content: "\25B8"; color: var(--muted); width: 1em; }
+.list[open] > summary::before { content: "\25BE"; }
+.list-name { flex: 1; font-weight: 600; }
+.list-count { color: var(--muted); font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+.mini-bar { width: 80px; height: 8px; background: var(--bar); border-radius: 4px; overflow: hidden; flex: none; }
+.mini-bar > span { display: block; height: 100%; background: var(--good); }
+.list .table-wrap { padding: 0 8px 8px; }
+.list .empty { padding: 0 14px 12px; margin: 0; }
+
 .site-footer { padding-bottom: 32px; color: var(--muted); font-size: 0.85rem; }
 
 @media (max-width: 640px) {

@@ -84,6 +84,20 @@ test("summarize totals and projections", () => {
   assert.equal(s.potential.xp, 10000);
 });
 
+test("groupRows splits into ordered lists and falls back on type", () => {
+  const items = [
+    { uniqueName: "/w1", name: "W1", type: "melee" },
+    { uniqueName: "/f1", name: "F1", type: "warframe" },
+    { uniqueName: "/w2", name: "W2", type: "primary", list: "weapons" },
+    { uniqueName: "/x1", name: "X1", type: "other", list: "extras" },
+  ];
+  const groups = M.groupRows(M.summarize(items, {}, [], 0).rows);
+  assert.deepEqual(groups.map((g) => g.id), ["warframes", "weapons", "extras"]);
+  assert.deepEqual(groups.map((g) => g.label), ["Warframes", "Weapons", "Extras"]);
+  assert.deepEqual(groups[1].rows.map((r) => r.item.uniqueName), ["/w1", "/w2"]);
+  assert.deepEqual(M.groupRows([]), []);
+});
+
 test("estimateOtherXp never goes negative", () => {
   assert.equal(M.estimateOtherXp(1, 999999), 0);
   assert.equal(M.estimateOtherXp(2, 1000), 10000 - 1000);

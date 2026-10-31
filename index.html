@@ -15,7 +15,7 @@
 
   <main>
     <section class="card" aria-labelledby="summary-h">
-      <h2 id="summary-h">Progress <span id="player-name" class="muted"></span></h2>
+      <h2 id="summary-h">Overview <span id="player-name" class="muted"></span></h2>
       <div class="stats">
         <div class="stat"><span class="label">Mastery rank</span><span class="value" id="stat-rank">0</span></div>
         <div class="stat"><span class="label">Items mastered</span><span class="value" id="stat-items">0 / 0</span></div>
@@ -60,7 +60,7 @@
     </section>
 
     <section class="card" aria-labelledby="items-h">
-      <h2 id="items-h">Items</h2>
+      <h2 id="items-h">Progress</h2>
       <p id="data-msg" class="msg" role="status"></p>
       <div class="filters">
         <input type="search" id="search" placeholder="Search items" aria-label="Search items">
@@ -77,21 +77,7 @@
         </select>
       </div>
       <p class="muted small" id="count"></p>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th scope="col"><span class="sr-only">Mastered</span></th>
-              <th scope="col">Item</th>
-              <th scope="col">Type</th>
-              <th scope="col" class="num">MR req</th>
-              <th scope="col" class="num">Rank</th>
-              <th scope="col" class="num">Mastery XP</th>
-            </tr>
-          </thead>
-          <tbody id="rows"></tbody>
-        </table>
-      </div>
+      <div id="lists"></div>
     </section>
   </main>
 

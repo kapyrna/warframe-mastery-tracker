@@ -124,5 +124,34 @@
     return Math.max(0, xpForRank(reportedRank) - itemXp);
   }
 
-  return { xpForRank, rankFromXp, rankProgress, rulesFor, evaluateItem, parseProfile, summarize, estimateOtherXp };
+  // ---- grouping into the lists shown on the page ----
+  const LIST_ORDER = ["warframes", "weapons"];
+  const LIST_LABELS = { warframes: "Warframes", weapons: "Weapons" };
+
+  function listOf(item) {
+    if (item.list) return item.list;
+    return item.type === "warframe" ? "warframes" : "weapons";
+  }
+
+  function listLabel(id) {
+    return LIST_LABELS[id] || id.charAt(0).toUpperCase() + id.slice(1);
+  }
+
+  // Split evaluated rows into [{ id, label, rows }], known lists first, empty lists omitted.
+  function groupRows(rows) {
+    const byId = new Map();
+    for (const r of rows) {
+      const id = listOf(r.item);
+      if (!byId.has(id)) byId.set(id, []);
+      byId.get(id).push(r);
+    }
+    const ids = Array.from(byId.keys()).sort((a, b) => {
+      const ia = LIST_ORDER.indexOf(a);
+      const ib = LIST_ORDER.indexOf(b);
+      return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b);
+    });
+    return ids.map((id) => ({ id, label: listLabel(id), rows: byId.get(id) }));
+  }
+
+  return { xpForRank, rankFromXp, rankProgress, rulesFor, evaluateItem, parseProfile, summarize, estimateOtherXp, listOf, listLabel, groupRows };
 });
