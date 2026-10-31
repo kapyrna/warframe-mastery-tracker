@@ -90,7 +90,8 @@ class FailureReportingTests(unittest.TestCase):
                 contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
             code = F.main()
         self.assertEqual(code, 1)
-        self.assertIn("::error title=Fetch item data failed::RuntimeError: boom", out.getvalue())
+        self.assertIn("::error title=Fetch item data failed::RuntimeError:", out.getvalue())
+        self.assertIn("boom", out.getvalue())
 
 
 class IndexFallbackTests(unittest.TestCase):

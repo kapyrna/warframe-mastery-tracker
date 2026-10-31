@@ -6,8 +6,6 @@ Track your Warframe mastery rank progress: see which items you've mastered, how 
 
 Nothing to install and no account needed. It works in any modern browser, on desktop or phone.
 
-> **Current status:** the item list is still being added. Until it appears, the page shows a notice instead of items, and your rank figures won't be meaningful yet. Check back soon.
-
 ## How to use it
 
 ### 1. Get your profile data
