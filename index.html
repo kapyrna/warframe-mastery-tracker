@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Warframe Mastery Tracker</title>
+  <meta name="description" content="Track Warframe mastery rank progress from your own profile data. Runs entirely in your browser.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>Warframe Mastery Tracker</h1>
+    <p class="sub">Your data stays in this browser. Nothing is uploaded.</p>
+  </header>
+
+  <main>
+    <section class="card" aria-labelledby="summary-h">
+      <h2 id="summary-h">Progress <span id="player-name" class="muted"></span></h2>
+      <div class="stats">
+        <div class="stat"><span class="label">Mastery rank</span><span class="value" id="stat-rank">0</span></div>
+        <div class="stat"><span class="label">Items mastered</span><span class="value" id="stat-items">0 / 0</span></div>
+        <div class="stat"><span class="label">Item XP</span><span class="value" id="stat-xp">0</span></div>
+        <div class="stat"><span class="label">If everything is maxed</span><span class="value" id="stat-potential">MR 0</span></div>
+      </div>
+      <div class="bar" role="progressbar" aria-label="Progress to next mastery rank" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="rank-bar">
+        <div class="bar-fill" id="rank-bar-fill"></div>
+      </div>
+      <p class="muted" id="rank-caption"></p>
+
+      <div class="other-xp">
+        <label for="other-xp">Mastery XP from other sources (star chart, intrinsics, etc.)</label>
+        <div class="row">
+          <input type="number" id="other-xp" min="0" step="1" inputmode="numeric" placeholder="auto">
+          <button type="button" id="other-xp-auto" class="secondary">Use estimate</button>
+        </div>
+        <p class="muted small" id="other-xp-note">Your profile only reports item XP, so this is a guess until you enter your own figure.</p>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="import-h">
+      <details id="import-panel" open>
+        <summary id="import-h">Import your progress</summary>
+        <ol class="steps">
+          <li>Log in at warframe.com and find your account ID on your account page.</li>
+          <li>Open the profile viewing URL for your platform in a new tab and copy or save the JSON.</li>
+          <li>Paste it below, or choose the saved file.</li>
+        </ol>
+        <textarea id="paste" rows="5" placeholder="Paste profile JSON here" spellcheck="false" aria-label="Profile JSON"></textarea>
+        <div class="row">
+          <button type="button" id="btn-parse">Import pasted JSON</button>
+          <label class="button secondary" for="file">Choose file</label>
+          <input type="file" id="file" accept=".json,application/json" hidden>
+        </div>
+        <p id="import-msg" class="msg" role="status"></p>
+        <div class="row">
+          <button type="button" id="btn-export" class="secondary">Download my progress</button>
+          <button type="button" id="btn-clear" class="danger">Clear saved data</button>
+        </div>
+      </details>
+    </section>
+
+    <section class="card" aria-labelledby="items-h">
+      <h2 id="items-h">Items</h2>
+      <p id="data-msg" class="msg" role="status"></p>
+      <div class="filters">
+        <input type="search" id="search" placeholder="Search items" aria-label="Search items">
+        <select id="filter-type" aria-label="Filter by type"><option value="">All types</option></select>
+        <select id="filter-status" aria-label="Filter by status">
+          <option value="">All</option>
+          <option value="todo">Not mastered</option>
+          <option value="done">Mastered</option>
+        </select>
+        <select id="sort" aria-label="Sort items">
+          <option value="name">Name</option>
+          <option value="req">Mastery requirement</option>
+          <option value="remaining">Most XP remaining</option>
+        </select>
+      </div>
+      <p class="muted small" id="count"></p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col"><span class="sr-only">Mastered</span></th>
+              <th scope="col">Item</th>
+              <th scope="col">Type</th>
+              <th scope="col" class="num">MR req</th>
+              <th scope="col" class="num">Rank</th>
+              <th scope="col" class="num">Mastery XP</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Fan-made and unofficial. Warframe is a trademark of Digital Extremes. Item data comes from Public Export and may change without notice.</p>
+    <p id="generated" class="muted small"></p>
+  </footer>
+
+  <script src="js/mastery.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
