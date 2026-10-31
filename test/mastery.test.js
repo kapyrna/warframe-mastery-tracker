@@ -50,6 +50,18 @@ test("rank-40 items only give mastery for 30 ranks", () => {
   assert.ok(e.mastered);
 });
 
+test("companions use the Warframe rules whatever their type string", () => {
+  for (const type of ["sentinel", "beast", "moa", "something-new"]) {
+    const item = { uniqueName: "/c", name: "C", type, list: "companions" };
+    const e = M.evaluateItem(item, 900000);
+    assert.equal(e.rank, 30);
+    assert.equal(e.masteryXp, 6000);
+    assert.ok(e.mastered);
+  }
+  // Same type string outside the companions list is still treated as a weapon.
+  assert.equal(M.evaluateItem({ uniqueName: "/w", name: "W", type: "sentinel" }, 450000).masteryXp, 3000);
+});
+
 test("manual tick marks an item mastered without profile data", () => {
   const e = M.evaluateItem({ uniqueName: "m", name: "M", type: "melee" }, undefined, true);
   assert.ok(e.mastered);
@@ -94,6 +106,9 @@ test("groupRows splits into ordered lists and falls back on type", () => {
   const groups = M.groupRows(M.summarize(items, {}, [], 0).rows);
   assert.deepEqual(groups.map((g) => g.id), ["warframes", "weapons", "extras"]);
   assert.deepEqual(groups.map((g) => g.label), ["Warframes", "Weapons", "Extras"]);
+  const withCompanions = M.groupRows(M.summarize([...items, { uniqueName: "/c1", name: "C1", type: "sentinel", list: "companions" }], {}, [], 0).rows);
+  assert.deepEqual(withCompanions.map((g) => g.id), ["warframes", "weapons", "companions", "extras"]);
+  assert.equal(withCompanions[2].label, "Companions");
   assert.deepEqual(groups[1].rows.map((r) => r.item.uniqueName), ["/w1", "/w2"]);
   assert.deepEqual(M.groupRows([]), []);
 });

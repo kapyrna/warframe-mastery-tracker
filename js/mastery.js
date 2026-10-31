@@ -48,7 +48,8 @@
   }
 
   function rulesFor(item) {
-    const frameLike = FRAME_LIKE.has(item.type);
+    // Companions follow the Warframe rules whatever their exact type string is.
+    const frameLike = FRAME_LIKE.has(item.type) || item.list === "companions";
     return {
       xpPerRank: item.xpPerRank ?? (frameLike ? 200 : 100),
       affinityFactor: item.affinityFactor ?? (frameLike ? 1000 : 500),
@@ -125,8 +126,8 @@
   }
 
   // ---- grouping into the lists shown on the page ----
-  const LIST_ORDER = ["warframes", "weapons"];
-  const LIST_LABELS = { warframes: "Warframes", weapons: "Weapons" };
+  const LIST_ORDER = ["warframes", "weapons", "companions"];
+  const LIST_LABELS = { warframes: "Warframes", weapons: "Weapons", companions: "Companions" };
 
   function listOf(item) {
     if (item.list) return item.list;

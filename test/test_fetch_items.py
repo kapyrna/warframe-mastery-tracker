@@ -71,10 +71,26 @@ class BuildTests(unittest.TestCase):
         items, _ = F.build_items([], [w, dict(w, name="A2")])
         self.assertEqual(len(items), 1)
 
+    def test_companions_are_included_with_friendly_and_fallback_types(self):
+        companions = [
+            {"uniqueName": "/S/Carrier", "name": "Carrier", "productCategory": "Sentinels", "masteryReq": 0},
+            {"uniqueName": "/K/Kavat", "name": "Kavat", "productCategory": "KubrowPets", "masteryReq": 0},
+            {"uniqueName": "/H/Hound", "name": "Hound", "productCategory": "Hounds", "masteryReq": 0},
+            {"uniqueName": "/S/Hidden", "name": "Hidden", "productCategory": "Sentinels", "masteryReq": 0, "excludeFromCodex": True},
+            {"uniqueName": "/S/NoCat", "name": "NoCat", "masteryReq": 0},
+        ]
+        items, stats = F.build_items([], [], companions)
+        self.assertEqual({i["uniqueName"]: i["type"] for i in items},
+                         {"/S/Carrier": "sentinel", "/K/Kavat": "beast", "/H/Hound": "hounds"})
+        self.assertTrue(all(i["list"] == "companions" for i in items))
+        self.assertEqual(stats["companions: kept as hounds"], 1)
+
     def test_sanity_check_flags_small_results(self):
         self.assertTrue(F.check_sane([]))
-        enough = [{"list": "warframes"}] * F.MIN_WARFRAMES + [{"list": "weapons"}] * F.MIN_WEAPONS
+        enough = ([{"list": "warframes"}] * F.MIN_WARFRAMES + [{"list": "weapons"}] * F.MIN_WEAPONS
+                  + [{"list": "companions"}] * F.MIN_COMPANIONS)
         self.assertEqual(F.check_sane(enough), [])
+        self.assertTrue(any("companions" in p for p in F.check_sane(enough[:-1])))
 
 
 class FailureReportingTests(unittest.TestCase):

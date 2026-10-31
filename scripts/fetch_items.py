@@ -38,9 +38,15 @@ WEAPON_CATEGORIES = {
     "SentinelWeapons": "sentinel-weapon",
 }
 
+# Companions (sentinels and pets): known categories get a friendly type; any other
+# category in the sentinels export is kept under its lowercased name so it shows up
+# in the output (and the run annotations) where it can be reviewed.
+COMPANION_TYPES = {"Sentinels": "sentinel", "KubrowPets": "beast", "MoaPets": "moa"}
+
 # Sanity floors: a result smaller than this means the format probably changed.
 MIN_WARFRAMES = 30
 MIN_WEAPONS = 200
+MIN_COMPANIONS = 10
 
 
 # None means "leave urllib's default User-Agent in place".
@@ -124,15 +130,16 @@ def clean_name(name):
     return re.sub(r"<[^>]*>", "", str(name)).strip()
 
 
-def build_items(warframes_raw, weapons_raw):
+def build_items(warframes_raw, weapons_raw, companions_raw=()):
     """Filter and normalise raw export entries. Returns (items, stats)."""
     items = {}
     stats = collections.Counter()
 
-    def add(raw, categories, list_id):
+    def add(raw, list_id, type_of):
         stats[f"{list_id}: raw"] += 1
         category = raw.get("productCategory")
-        if category not in categories:
+        item_type = type_of(category)
+        if item_type is None:
             stats[f"{list_id}: dropped, category {category!r}"] += 1
             return
         if raw.get("excludeFromCodex"):
@@ -148,16 +155,22 @@ def build_items(warframes_raw, weapons_raw):
         items[unique] = {
             "uniqueName": unique,
             "name": name,
-            "type": categories[category],
+            "type": item_type,
             "list": list_id,
             "masteryReq": raw["masteryReq"],
         }
         stats[f"{list_id}: kept"] += 1
+        stats[f"{list_id}: kept as {item_type}"] += 1
+
+    def companion_type(category):
+        return COMPANION_TYPES.get(category, str(category).lower()) if category else None
 
     for raw in warframes_raw:
-        add(raw, WARFRAME_CATEGORIES, "warframes")
+        add(raw, "warframes", WARFRAME_CATEGORIES.get)
     for raw in weapons_raw:
-        add(raw, WEAPON_CATEGORIES, "weapons")
+        add(raw, "weapons", WEAPON_CATEGORIES.get)
+    for raw in companions_raw:
+        add(raw, "companions", companion_type)
 
     ordered = sorted(items.values(), key=lambda i: (i["list"], i["name"].lower(), i["uniqueName"]))
     return ordered, stats
@@ -170,6 +183,8 @@ def check_sane(items):
         problems.append(f"only {counts['warframes']} warframes (expected at least {MIN_WARFRAMES})")
     if counts["weapons"] < MIN_WEAPONS:
         problems.append(f"only {counts['weapons']} weapons (expected at least {MIN_WEAPONS})")
+    if counts["companions"] < MIN_COMPANIONS:
+        problems.append(f"only {counts['companions']} companions (expected at least {MIN_COMPANIONS})")
     return problems
 
 
@@ -202,9 +217,14 @@ def run():
     )
     warframes = load_export(index, "ExportWarframes")
     weapons = load_export(index, "ExportWeapons")
-    annotate("notice", f"Raw entries: {len(warframes)} warframes, {len(weapons)} weapons", "Step 3")
+    companions = load_export(index, "ExportSentinels")
+    annotate(
+        "notice",
+        f"Raw entries: {len(warframes)} warframes, {len(weapons)} weapons, {len(companions)} companions",
+        "Step 3",
+    )
 
-    items, stats = build_items(warframes, weapons)
+    items, stats = build_items(warframes, weapons, companions)
     summary = "\n".join(f"{line}: {stats[line]}" for line in sorted(stats))
     print(summary)
     annotate("notice", summary, "Filter results")
