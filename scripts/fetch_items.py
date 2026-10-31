@@ -10,6 +10,7 @@ import lzma
 import re
 import sys
 import time
+import traceback
 import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
@@ -153,18 +154,38 @@ def render(items, generated_at):
     )
 
 
-def main():
-    index = parse_index(lzma_decompress(fetch(INDEX_URL)).decode("utf-8", "replace"))
+def annotate(level, message, title=""):
+    """Emit a GitHub Actions workflow command so the message shows on the run page."""
+    escaped = message.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+    head = f"::{level} title={title}::" if title else f"::{level}::"
+    print(head + escaped, flush=True)
+
+
+def run():
+    annotate("notice", f"Fetching index {INDEX_URL}", "Step 1")
+    index_bytes = fetch(INDEX_URL)
+    index_text = lzma_decompress(index_bytes).decode("utf-8", "replace")
+    index = parse_index(index_text)
+    annotate(
+        "notice",
+        f"Index {len(index_bytes)} bytes compressed, {len(index_text.splitlines())} lines; "
+        f"export files found: {', '.join(sorted(index)) or 'none'}",
+        "Step 2",
+    )
     warframes = load_export(index, "ExportWarframes")
     weapons = load_export(index, "ExportWeapons")
+    annotate("notice", f"Raw entries: {len(warframes)} warframes, {len(weapons)} weapons", "Step 3")
 
     items, stats = build_items(warframes, weapons)
-    for line in sorted(stats):
-        print(f"{line}: {stats[line]}")
+    summary = "\n".join(f"{line}: {stats[line]}" for line in sorted(stats))
+    print(summary)
+    annotate("notice", summary, "Filter results")
 
     problems = check_sane(items)
     if problems:
-        print("Refusing to write data file: " + "; ".join(problems), file=sys.stderr)
+        message = "Refusing to write data file: " + "; ".join(problems)
+        print(message, file=sys.stderr)
+        annotate("error", message, "Sanity check")
         return 1
 
     if OUT.exists():
@@ -179,6 +200,15 @@ def main():
     OUT.write_text(render(items, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")), encoding="utf-8")
     print(f"Wrote {len(items)} items to {OUT}")
     return 0
+
+
+def main():
+    try:
+        return run()
+    except Exception as exc:  # noqa: BLE001 - surface any failure on the run page
+        traceback.print_exc()
+        annotate("error", f"{type(exc).__name__}: {exc}", "Fetch item data failed")
+        return 1
 
 
 if __name__ == "__main__":

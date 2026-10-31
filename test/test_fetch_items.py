@@ -1,7 +1,10 @@
+import contextlib
+import io
 import json
 import lzma
 import sys
 import unittest
+from unittest import mock
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
@@ -72,6 +75,22 @@ class BuildTests(unittest.TestCase):
         self.assertTrue(F.check_sane([]))
         enough = [{"list": "warframes"}] * F.MIN_WARFRAMES + [{"list": "weapons"}] * F.MIN_WEAPONS
         self.assertEqual(F.check_sane(enough), [])
+
+
+class FailureReportingTests(unittest.TestCase):
+    def test_annotation_escapes_newlines_and_percent(self):
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            F.annotate("error", "a\nb 100%", "T")
+        self.assertEqual(buf.getvalue().strip(), "::error title=T::a%0Ab 100%25")
+
+    def test_failure_is_reported_and_returns_nonzero(self):
+        out, err = io.StringIO(), io.StringIO()
+        with mock.patch.object(F, "fetch", side_effect=RuntimeError("boom")), \
+                contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
+            code = F.main()
+        self.assertEqual(code, 1)
+        self.assertIn("::error title=Fetch item data failed::RuntimeError: boom", out.getvalue())
 
 
 class RenderTests(unittest.TestCase):
