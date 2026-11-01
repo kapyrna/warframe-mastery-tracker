@@ -79,9 +79,9 @@
     const mine = c.summary.current.rank;
     if (mine === reported) return "This matches the rank your profile reports (MR " + reported + ").";
     if (mine < reported) {
-      return "Your profile reports MR " + reported + ", so some mastery XP is missing here. It may be in Other sources, or in items this tracker does not list yet (Zaws, Kitguns, K-Drives, Moas, Hounds).";
+      return "Your profile reports MR " + reported + ", so some mastery XP is missing here. It may be in Star Chart or Intrinsics, or in items this tracker does not list yet (Zaws, Kitguns, K-Drives, Moas, Hounds).";
     }
-    return "Your profile reports MR " + reported + ", which is lower than this total. Check your Other sources entries and ticked items.";
+    return "Your profile reports MR " + reported + ", which is lower than this total. Check your Star Chart and Intrinsics entries and ticked items.";
   }
 
   function visibleRows(rows) {
