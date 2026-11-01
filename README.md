@@ -12,10 +12,10 @@ Nothing to install and no account needed. It works in any modern browser, on des
 
 The tracker reads your own public profile data from Warframe. It can't log in for you, so you grab it yourself:
 
-1. Log in at [warframe.com](https://www.warframe.com) and find your account ID on your account page.
+1. Log in at [warframe.com](https://www.warframe.com), then open [warframe.com/api/user-data](https://www.warframe.com/api/user-data). Copy the text inside the quotes after `"user_id":`. That is your account ID. (On PC you can also find it in `EE.log`, on the line containing `Logged in`.)
 2. Open your profile data address in a new tab. For PC it looks like this, with your ID in place of `YOUR_ACCOUNT_ID`:
    `https://api.warframe.com/cdn/getProfileViewingData.php?playerId=YOUR_ACCOUNT_ID`
-   Console players use the equivalent address for their platform.
+   Console players replace `api` with `api-ps4` (PlayStation), `api-xb1` (Xbox) or `api-swi` (Switch).
 3. Copy everything on the page, or save it as a `.json` file.
 
 ### 2. Import it

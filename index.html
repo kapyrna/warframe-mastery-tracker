@@ -86,8 +86,8 @@
       <details id="import-panel">
         <summary id="import-h">Import and Export</summary>
         <ol class="steps">
-          <li>Log in at <a href="https://www.warframe.com" target="_blank" rel="noopener noreferrer">warframe.com</a> and find your account ID on your account page.</li>
-          <li>Open the profile viewing URL for your platform in a new tab and copy or save the JSON.</li>
+          <li>Log in at <a href="https://www.warframe.com" target="_blank" rel="noopener noreferrer">warframe.com</a>, then open <a href="https://www.warframe.com/api/user-data" target="_blank" rel="noopener noreferrer">warframe.com/api/user-data</a> and copy the text inside the quotes after <code>"user_id":</code>. That is your account ID.</li>
+          <li>Open <code>https://api.warframe.com/cdn/getProfileViewingData.php?playerId=YOUR_ACCOUNT_ID</code> in a new tab (console players use <code>api-ps4</code>, <code>api-xb1</code> or <code>api-swi</code> in place of <code>api</code>), then copy the page or save it as a file.</li>
           <li>Paste it below, or choose the saved file.</li>
         </ol>
         <textarea id="paste" rows="5" placeholder="Paste profile JSON here" spellcheck="false" aria-label="Profile JSON"></textarea>
