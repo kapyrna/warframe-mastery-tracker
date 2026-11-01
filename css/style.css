@@ -208,6 +208,7 @@ td select { padding: 4px 8px; }
 .list .empty { padding: 0 14px 12px; margin: 0; }
 
 .site-footer { padding-bottom: 32px; color: var(--muted); font-size: 0.85rem; }
+.site-footer > p { text-align: center; }
 
 /* Source link on the left and the data timestamp on the right when they fit
    side by side; stacked and centred on narrow screens. */

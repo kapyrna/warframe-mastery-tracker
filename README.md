@@ -19,7 +19,7 @@ PC players can also find it in the `EE.log` file: search for `Logged in`, and th
 
 ### 2. Import it
 
-Open the tracker and expand **Import and Export** (below Progress, closed until you open it). Type your account ID, choose your platform and press **Open profile data**. Your profile opens in a new tab as a page of text. Copy everything on it, come back, paste it into the box and press **Import pasted JSON**. You can also save that page as a `.json` file and press **Choose file**.
+Open the tracker and expand **Import and Export** (below Progress, closed until you open it). Choose your platform, type your account ID and press **Open profile data**. The platform you choose is shown in the Overview next to your name, because the profile data doesn't say which platform it came from. Your profile opens in a new tab as a page of text. Copy everything on it, come back, paste it into the box and press **Import pasted JSON**. You can also save that page as a `.json` file and press **Choose file**.
 
 Warframe doesn't allow other websites to read profile data directly, which is why the copy-and-paste step is needed. Your ID and profile stay in your browser.
 

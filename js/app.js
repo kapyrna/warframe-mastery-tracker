@@ -32,6 +32,10 @@
     } catch (e) { /* ignore */ }
   }
 
+  // The profile data does not say which platform it is from, so this is the platform
+  // chosen in Import and Export when the profile was imported.
+  const PLATFORMS = { api: "PC", "api-ps4": "PlayStation", "api-xb1": "Xbox", "api-swi": "Switch", "api-mob": "iOS", "api-and": "Android" };
+
   function saveState() {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) { /* ignore */ }
   }
@@ -54,7 +58,9 @@
   // ---- rendering ----
   function renderSummary(c) {
     const s = c.summary;
-    $("player-name").textContent = state.profile && state.profile.displayName ? "· " + state.profile.displayName : "";
+    const pf = state.profile;
+    const platform = pf && PLATFORMS[pf.platform];
+    $("player-name").textContent = pf && pf.displayName ? "· " + pf.displayName + (platform ? " · " + platform : "") : platform ? "· " + platform : "";
     $("stat-rank").textContent = "MR " + s.current.rank;
     $("stat-items").textContent = s.masteredCount + " / " + items.length;
     $("stat-xp").textContent = fmt(s.itemXp);
@@ -308,6 +314,7 @@
 
     try {
       const profile = M.parseProfile(json);
+      profile.platform = $("platform").value;
       state.profile = profile;
       // Intrinsic ranks are in the profile, so fill them in (they stay editable).
       const filled = Object.keys(profile.intrinsics || {});
