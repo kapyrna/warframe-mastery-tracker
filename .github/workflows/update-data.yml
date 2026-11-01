@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "17 6 * * *"
   workflow_dispatch:
+    inputs:
+      inspect:
+        description: "Only report the categories found in the game data; do not update anything"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -23,7 +28,7 @@ jobs:
           python-version: "3.12"
 
       - name: Fetch item data
-        run: python scripts/fetch_items.py
+        run: python scripts/fetch_items.py ${{ inputs.inspect && '--inspect' || '' }}
 
       - name: Commit changes
         run: |

@@ -248,8 +248,32 @@ def run():
     return 0
 
 
+def inspect_exports():
+    """Report every category in the item exports so new ones can be reviewed. Writes nothing."""
+    index_bytes = fetch_index()
+    index = parse_index(lzma_decompress(index_bytes).decode("utf-8", "replace"))
+    for key in ("ExportWarframes", "ExportWeapons", "ExportSentinels"):
+        entries = load_export(index, key)
+        by_cat = collections.defaultdict(list)
+        for e in entries:
+            by_cat[e.get("productCategory")].append(e)
+        lines = [f"{key}: {len(entries)} entries"]
+        for cat, group in sorted(by_cat.items(), key=lambda kv: str(kv[0])):
+            with_req = sum(isinstance(e.get("masteryReq"), int) for e in group)
+            hidden = sum(bool(e.get("excludeFromCodex")) for e in group)
+            sample = ", ".join(clean_name(e.get("name", "?")) or "?" for e in group[:8])
+            lines.append(f"  {cat!r}: {len(group)} (masteryReq {with_req}, excludeFromCodex {hidden}) e.g. {sample}")
+        lines.append("  fields on first entry: " + ", ".join(sorted(entries[0])) if entries else "  (empty)")
+        annotate("notice", "\n".join(lines), f"Inspect {key}")
+        print("\n".join(lines))
+    annotate("notice", "All export files in the index: " + ", ".join(sorted(index)), "Inspect index")
+    return 0
+
+
 def main():
     try:
+        if "--inspect" in sys.argv[1:]:
+            return inspect_exports()
         return run()
     except Exception as exc:  # noqa: BLE001 - surface any failure on the run page
         traceback.print_exc()
