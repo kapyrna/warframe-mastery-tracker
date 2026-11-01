@@ -117,6 +117,21 @@
     return out;
   }
 
+  // Completed Star Chart nodes and junctions come from the Missions list. A Tier of
+  // 1 marks the Steel Path completion. Railjack, dojo and event nodes are skipped.
+  function readStarChart(missions) {
+    const out = { "star-chart/nodes": 0, "star-chart/junctions": 0, "steel-path/nodes": 0, "steel-path/junctions": 0 };
+    if (!Array.isArray(missions)) return out;
+    for (const m of missions) {
+      const tag = m && typeof m.Tag === "string" ? m.Tag : "";
+      const kind = /^SolNode\d+$/.test(tag) ? "nodes" : /Junction$/.test(tag) ? "junctions" : null;
+      if (!kind) continue;
+      out["star-chart/" + kind]++;
+      if (m.Tier === 1) out["steel-path/" + kind]++;
+    }
+    return out;
+  }
+
   function parseProfile(json) {
     const root = json && Array.isArray(json.Results) ? json.Results[0] : json;
     if (!root || typeof root !== "object") throw new Error("Not a profile JSON object.");
@@ -136,6 +151,7 @@
       reportedRank: Number.isFinite(root.PlayerLevel) ? root.PlayerLevel : null,
       xpByItem,
       intrinsics: readIntrinsics(root.PlayerSkills),
+      starChart: readStarChart(root.Missions),
     };
   }
 
@@ -168,10 +184,17 @@
   const INTRINSIC_XP_PER_RANK = 1500;
   const INTRINSIC_MAX_RANK = 10;
   const MAX_ENTERED_XP = 10000000;
+  // Star Chart: a junction is worth 1,000. Nodes vary, with an average of about 63
+  // (the wiki gives no per-node table), so node XP is an estimate. Steel Path replays
+  // are said to grant the same again; that is assumed for junctions too.
+  const NODE_XP_ESTIMATE = 63;
+  const JUNCTION_XP = 1000;
+  const MAX_NODES = 400;
+  const MAX_JUNCTIONS = 30;
 
   const OTHER_SOURCES = [
-    { id: "star-chart", label: "Normal", fullLabel: "Star Chart", kind: "xp" },
-    { id: "steel-path", label: "Steel Path", fullLabel: "Steel Path Star Chart", kind: "xp" },
+    { id: "star-chart", label: "Normal", fullLabel: "Star Chart", kind: "chart" },
+    { id: "steel-path", label: "Steel Path", fullLabel: "Steel Path Star Chart", kind: "chart" },
     {
       id: "drifter-intrinsics",
       label: "Drifter",
@@ -217,12 +240,16 @@
   // Shape: { xp: { "star-chart": n, ... }, ranks: { "railjack-intrinsics/piloting": n, ... } }.
   // Anything unknown or out of range is dropped or clamped, whatever came in.
   function sanitizeOther(raw) {
-    const out = { xp: {}, ranks: {} };
+    const out = { xp: {}, ranks: {}, counts: {} };
     const src = raw && typeof raw === "object" ? raw : {};
     for (const s of OTHER_SOURCES) {
-      if (s.kind === "xp") {
-        const n = wholeNumber(src.xp && src.xp[s.id], MAX_ENTERED_XP);
-        if (n) out.xp[s.id] = n;
+      if (s.kind === "chart") {
+        const extra = wholeNumber(src.xp && src.xp[s.id], MAX_ENTERED_XP);
+        if (extra) out.xp[s.id] = extra;
+        const nodes = wholeNumber(src.counts && src.counts[s.id + "/nodes"], MAX_NODES);
+        if (nodes) out.counts[s.id + "/nodes"] = nodes;
+        const junctions = wholeNumber(src.counts && src.counts[s.id + "/junctions"], MAX_JUNCTIONS);
+        if (junctions) out.counts[s.id + "/junctions"] = junctions;
       } else {
         for (const sk of s.skills) {
           const key = s.id + "/" + sk.id;
@@ -237,9 +264,13 @@
   function summarizeOther(raw) {
     const o = sanitizeOther(raw);
     const sources = OTHER_SOURCES.map((s) => {
-      if (s.kind === "xp") {
-        const xp = o.xp[s.id] || 0;
-        return { id: s.id, label: s.label, fullLabel: s.fullLabel, kind: "xp", xp, maxXp: null };
+      if (s.kind === "chart") {
+        const nodes = o.counts[s.id + "/nodes"] || 0;
+        const junctions = o.counts[s.id + "/junctions"] || 0;
+        const extra = o.xp[s.id] || 0;
+        const nodeXp = nodes * NODE_XP_ESTIMATE;
+        const junctionXp = junctions * JUNCTION_XP;
+        return { id: s.id, label: s.label, fullLabel: s.fullLabel, kind: "chart", nodes, junctions, extra, nodeXp, junctionXp, nodeKey: s.id + "/nodes", junctionKey: s.id + "/junctions", xp: nodeXp + junctionXp + extra, maxXp: null };
       }
       const skills = s.skills.map((sk) => {
         const key = s.id + "/" + sk.id;
@@ -353,5 +384,5 @@
     return ids.map((id) => ({ id, label: listLabel(id), rows: byId.get(id), types: groupByType(id, byId.get(id)) }));
   }
 
-  return { xpForRank, rankFromXp, rankProgress, rulesFor, evaluateItem, parseProfile, summarize, OTHER_SOURCES, OTHER_GROUPS, sanitizeOther, summarizeOther, listOf, listLabel, typeLabel, groupByType, groupRows };
+  return { xpForRank, rankFromXp, rankProgress, rulesFor, evaluateItem, parseProfile, summarize, OTHER_SOURCES, OTHER_GROUPS, NODE_XP_ESTIMATE, JUNCTION_XP, sanitizeOther, summarizeOther, listOf, listLabel, typeLabel, groupByType, groupRows };
 });

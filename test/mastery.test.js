@@ -210,9 +210,9 @@ test("sanitizeOther clamps, floors and drops anything unknown", () => {
     xp: { "star-chart": -5, "steel-path": "1e3", bogus: 99, "drifter-intrinsics": 5 },
     ranks: { "railjack-intrinsics/piloting": 99, "railjack-intrinsics/gunnery": 2.9, "railjack-intrinsics/nope": 4, "drifter-intrinsics/riding": "abc" },
   });
-  assert.deepEqual(o, { xp: { "steel-path": 1000 }, ranks: { "railjack-intrinsics/piloting": 10, "railjack-intrinsics/gunnery": 2 } });
+  assert.deepEqual(o, { xp: { "steel-path": 1000 }, ranks: { "railjack-intrinsics/piloting": 10, "railjack-intrinsics/gunnery": 2 }, counts: {} });
   assert.equal(M.sanitizeOther({ xp: { "star-chart": 1e15 } }).xp["star-chart"], 10000000);
-  for (const junk of [null, undefined, 5, "x", [], { xp: 7, ranks: "y" }]) assert.deepEqual(M.sanitizeOther(junk), { xp: {}, ranks: {} });
+  for (const junk of [null, undefined, 5, "x", [], { xp: 7, ranks: "y" }]) assert.deepEqual(M.sanitizeOther(junk), { xp: {}, ranks: {}, counts: {} });
 });
 
 test("other-sources XP feeds the rank total", () => {
@@ -231,4 +231,23 @@ test("parseProfile reads intrinsic ranks from PlayerSkills", () => {
   const p = M.parseProfile({ XPInfo: [], PlayerSkills: { LPS_DRIFT_RIDING: 10, LPS_PILOTING: 7, LPS_COMMAND: 99, LPP_SPACE: 5, LPS_GUNNERY: 0 } });
   assert.deepEqual(p.intrinsics, { "drifter-intrinsics/riding": 10, "railjack-intrinsics/piloting": 7, "railjack-intrinsics/command": 10, "railjack-intrinsics/gunnery": 0 });
   assert.deepEqual(M.parseProfile({ XPInfo: [] }).intrinsics, {});
+});
+
+test("star chart: junctions are 1,000 each, nodes use the estimate, extra XP adds on", () => {
+  const o = M.summarizeOther({ counts: { "star-chart/nodes": 10, "star-chart/junctions": 3, "steel-path/nodes": 2, "steel-path/junctions": 1, "star-chart/bogus": 5 }, xp: { "steel-path": 500 } });
+  const sc = o.sources.find((x) => x.id === "star-chart");
+  assert.equal(sc.junctionXp, 3000);
+  assert.equal(sc.nodeXp, 10 * M.NODE_XP_ESTIMATE);
+  assert.equal(sc.xp, 3000 + 10 * M.NODE_XP_ESTIMATE);
+  assert.equal(o.sources.find((x) => x.id === "steel-path").xp, 1000 + 2 * M.NODE_XP_ESTIMATE + 500);
+  assert.equal(M.sanitizeOther({ counts: { "star-chart/nodes": 9999, "star-chart/junctions": -2 } }).counts["star-chart/nodes"], 400);
+});
+
+test("parseProfile counts Star Chart nodes and junctions, Steel Path by Tier 1", () => {
+  const p = M.parseProfile({ XPInfo: [], Missions: [
+    { Tag: "SolNode1", Completes: 3 }, { Tag: "SolNode2", Tier: 1 }, { Tag: "SolNode3" },
+    { Tag: "EarthToVenusJunction", Tier: 1 }, { Tag: "MarsToCeresJunction" },
+    { Tag: "CrewBattleNode5" }, { Tag: "ClanNode0" }, { Tag: "EarthHUB" },
+  ] });
+  assert.deepEqual(p.starChart, { "star-chart/nodes": 3, "star-chart/junctions": 2, "steel-path/nodes": 1, "steel-path/junctions": 1 });
 });

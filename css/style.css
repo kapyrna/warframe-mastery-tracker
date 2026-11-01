@@ -246,3 +246,7 @@ td select { padding: 4px 8px; }
   .list td { overflow-wrap: anywhere; }
   .list > summary { flex-wrap: wrap; row-gap: 2px; padding: 10px; }
 }
+
+/* Star Chart rows */
+.list td .count-input { width: 4.5rem; min-width: 0; max-width: 100%; }
+.hint-line { display: block; font-weight: 400; }

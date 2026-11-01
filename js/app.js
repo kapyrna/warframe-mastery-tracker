@@ -162,11 +162,19 @@
   function otherSourceHtml(src, groupId) {
     const key = "other/" + groupId + "/" + src.id;
     let inner;
-    if (src.kind === "xp") {
+    if (src.kind === "chart") {
+      const row = (label, hint, key, count, xp) =>
+        "<tr><td>" + esc(label) + (hint ? '<span class="muted small hint-line">' + esc(hint) + "</span>" : "") + "</td>" +
+        '<td><input type="number" class="count-input" data-other-count="' + esc(key) + '" min="0" step="1" inputmode="numeric" placeholder="0" aria-label="' + esc(src.fullLabel + " " + label.toLowerCase() + " completed") + '"' + (count ? ' value="' + count + '"' : "") + "></td>" +
+        '<td class="num" id="xp-' + esc(slugOf(key)) + '">' + fmt(xp) + "</td></tr>";
       inner =
-        '<div class="other-row"><label for="xp-' + esc(src.id) + '">Mastery XP earned</label>' +
+        '<div class="table-wrap"><table><thead><tr><th scope="col">Completed</th><th scope="col">Count</th><th scope="col" class="num">Mastery XP</th></tr></thead><tbody>' +
+        row("Nodes", "~" + M.NODE_XP_ESTIMATE + " each (estimate)", src.nodeKey, src.nodes, src.nodeXp) +
+        row("Junctions", fmt(M.JUNCTION_XP) + " each", src.junctionKey, src.junctions, src.junctionXp) +
+        "</tbody></table></div>" +
+        '<div class="other-row"><label for="xp-' + esc(src.id) + '">Extra mastery XP (optional)</label>' +
         '<input type="number" class="xp-input" id="xp-' + esc(src.id) + '" data-other-xp="' + esc(src.id) + '" min="0" step="1" inputmode="numeric" placeholder="0"' +
-        (src.xp ? ' value="' + src.xp + '"' : "") + "></div>";
+        (src.extra ? ' value="' + src.extra + '"' : "") + "></div>";
     } else {
       inner =
         '<div class="table-wrap"><table><thead><tr><th scope="col">Skill</th><th scope="col">Rank</th><th scope="col" class="num">Mastery XP</th></tr></thead><tbody>' +
@@ -208,6 +216,10 @@
       for (const src of g.sources) {
         const slug = slugOf("other/" + g.id + "/" + src.id);
         $("cnt-" + slug).textContent = otherCount(src);
+        if (src.kind === "chart") {
+          $("xp-" + slugOf(src.nodeKey)).textContent = fmt(src.nodeXp);
+          $("xp-" + slugOf(src.junctionKey)).textContent = fmt(src.junctionXp);
+        }
         if (src.kind === "ranks") {
           $("bar-" + slug).style.width = pctOf(src.rank, src.maxRank) + "%";
           for (const k of src.skills) $("xp-" + slugOf(k.key)).textContent = fmt(k.xp);
@@ -299,18 +311,23 @@
       state.profile = profile;
       // Intrinsic ranks are in the profile, so fill them in (they stay editable).
       const filled = Object.keys(profile.intrinsics || {});
-      if (filled.length) {
+      const chartKeys = Object.keys(profile.starChart || {});
+      if (filled.length || chartKeys.length) {
         const other = M.sanitizeOther(state.other);
         for (const k of filled) {
           if (profile.intrinsics[k]) other.ranks[k] = profile.intrinsics[k];
           else delete other.ranks[k];
         }
-        state.other = other;
+        for (const k of chartKeys) {
+          if (profile.starChart[k]) other.counts[k] = profile.starChart[k];
+          else delete other.counts[k];
+        }
+        state.other = M.sanitizeOther(other);
       }
       saveState();
       renderAll();
       const n = Object.keys(profile.xpByItem).length;
-      setMsg($("import-msg"), "Imported " + n + " items with XP" + (profile.displayName ? " for " + profile.displayName : "") + (filled.length ? " and your intrinsic ranks" : "") + ".", "ok");
+      setMsg($("import-msg"), "Imported " + n + " items with XP" + (profile.displayName ? " for " + profile.displayName : "") + (filled.length || chartKeys.length ? ", your Star Chart progress and your intrinsic ranks" : "") + ".", "ok");
     } catch (e) {
       setMsg($("import-msg"), e.message, "error");
     }
@@ -393,6 +410,10 @@
         const v = String(e.target.value).trim();
         if (v === "") delete next.xp[d.otherXp];
         else next.xp[d.otherXp] = Number(v);
+      } else if (d.otherCount) {
+        const v = String(e.target.value).trim();
+        if (v === "") delete next.counts[d.otherCount];
+        else next.counts[d.otherCount] = Number(v);
       } else if (d.otherRank) {
         next.ranks[d.otherRank] = Number(e.target.value);
       } else {
