@@ -272,6 +272,23 @@
     $("other-sources").hidden = searching || $("filter-prime").value !== "" || $("filter-status").value !== "";
   }
 
+  // Make every filter dropdown as wide as the widest of them, which a native
+  // select works out from its longest option. Falls back to the CSS default.
+  function sizeFilters() {
+    const box = document.querySelector(".filters");
+    if (!box) return;
+    const selects = Array.prototype.slice.call(box.querySelectorAll("select"));
+    box.style.removeProperty("--fw");
+    let widest = 0;
+    selects.forEach((sel) => {
+      const prev = sel.style.cssText;
+      sel.style.cssText = "flex:none;width:auto;max-width:none";
+      widest = Math.max(widest, Math.ceil(sel.getBoundingClientRect().width));
+      sel.style.cssText = prev;
+    });
+    if (widest > 0) box.style.setProperty("--fw", widest + "px");
+  }
+
   function renderAll() {
     const c = compute();
     renderSummary(c);
@@ -451,6 +468,9 @@
   async function init() {
     loadState();
     bind();
+    sizeFilters();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(sizeFilters);
+    window.addEventListener("resize", sizeFilters);
     await loadItems();
     renderAll();
   }

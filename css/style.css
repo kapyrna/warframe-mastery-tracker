@@ -163,10 +163,11 @@ summary { cursor: pointer; font-weight: 600; font-size: 1.05rem; }
 .msg.error { color: var(--danger); }
 .msg.ok { color: var(--good); }
 
-.filters { display: flex; flex-wrap: wrap; gap: 8px; }
-/* Search has a row to itself; each dropdown is as wide as its longest option. */
-.filters > input { flex: 1 1 100%; min-width: 0; }
-.filters > select { flex: 0 0 auto; width: auto; max-width: 100%; }
+/* A centred block. Every dropdown is as wide as the widest of them (--fw, measured
+   from their options by app.js), and search spans three of them on its own row. */
+.filters { --fw: 17rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.filters > input { flex: 0 0 min(100%, calc(3 * var(--fw) + 16px)); min-width: 0; }
+.filters > select { flex: 0 0 min(var(--fw), 100%); width: min(var(--fw), 100%); }
 
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
@@ -232,7 +233,8 @@ td select { padding: 4px 8px; }
 }
 
 @media (max-width: 640px) {
-  .filters > select { flex: 1 1 100%; }
+  .filters { flex-direction: column; align-items: center; }
+  .filters > input, .filters > select { flex: none; width: min(var(--fw), 100%); }
   .stat .value { font-size: 1.25rem; }
 }
 
