@@ -12,7 +12,7 @@
 
   let items = [];
   const openLists = new Set();
-  let state = { version: 1, profile: null, manual: [], other: M.sanitizeOther(null) };
+  let state = { version: 1, profile: null, manual: [], other: M.sanitizeOther(null), hintDismissed: false };
 
   // ---- persistence (localStorage can be blocked or empty; never rely on it) ----
   function loadState() {
@@ -26,6 +26,7 @@
           profile: s.profile || null,
           manual: Array.isArray(s.manual) ? s.manual : [],
           other: M.sanitizeOther(s.other),
+          hintDismissed: s.hintDismissed === true,
         };
       }
     } catch (e) { /* ignore */ }
@@ -65,6 +66,7 @@
     $("rank-caption").textContent =
       fmt(s.current.remaining) + " XP to MR " + (s.current.rank + 1) + " (" + pct + "% of this rank)";
 
+    $("start-hint").hidden = !!state.profile || state.hintDismissed;
     $("stat-other").textContent = fmt(c.other.total);
     $("rank-note").textContent = rankNote(c);
   }
@@ -284,6 +286,7 @@
         profile: json.profile || null,
         manual: json.manual,
         other: M.sanitizeOther(json.other),
+        hintDismissed: state.hintDismissed || json.hintDismissed === true,
       };
       saveState();
       renderAll();
@@ -333,9 +336,15 @@
 
     $("btn-export").addEventListener("click", download);
 
+    $("hint-dismiss").addEventListener("click", () => {
+      state.hintDismissed = true;
+      saveState();
+      renderSummary(compute());
+    });
+
     $("btn-clear").addEventListener("click", () => {
       if (!confirm("Remove your imported profile and ticked items from this browser?")) return;
-      state = { version: 1, profile: null, manual: [], other: M.sanitizeOther(null) };
+      state = { version: 1, profile: null, manual: [], other: M.sanitizeOther(null), hintDismissed: false };
       try { localStorage.removeItem(STORAGE_KEY); } catch (e) { /* ignore */ }
       $("paste").value = "";
       renderAll();

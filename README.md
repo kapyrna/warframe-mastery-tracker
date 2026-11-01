@@ -22,6 +22,8 @@ The tracker reads your own public profile data from Warframe. It can't log in fo
 
 Open the tracker and expand **Import and Export** (below Progress, closed until you open it), then either paste the data into the box and press **Import pasted JSON**, or press **Choose file** and pick the file you saved.
 
+Until you've imported a profile, a hint at the top of the page points you here. It goes away once you import, or you can press **Wake up...** to dismiss it.
+
 You'll see a confirmation with the number of items found. If you see an error instead, check that you copied the whole page.
 
 ### 3. Read your progress
