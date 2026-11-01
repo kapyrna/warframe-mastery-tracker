@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Warframe Mastery Tracker</title>
   <meta name="description" content="Track Warframe mastery rank progress from your own profile data. Runs entirely in your browser.">
-  <link rel="stylesheet" href="css/style.css?v=20261101b">
-  <script src="js/theme.js?v=20261101b"></script>
+  <link rel="stylesheet" href="css/style.css?v=20261101c">
+  <script src="js/theme.js?v=20261101c"></script>
 </head>
 <body>
   <header class="site-header">
@@ -85,7 +85,7 @@
     <section class="card" aria-labelledby="import-h">
       <details id="import-panel">
         <summary id="import-h">Import and Export</summary>
-        <p class="muted small">Enter your account ID and the tracker fetches your profile directly. If your browser blocks that, copy the profile page and paste it below instead.</p>
+        <p class="muted small">Enter your account ID to open your profile data in a new tab. Copy everything on that page and paste it below. (Warframe does not allow this page to read it directly.)</p>
         <div class="row">
           <input type="text" id="player-id" placeholder="Account ID" autocomplete="off" spellcheck="false" aria-label="Account ID">
           <select id="platform" aria-label="Platform">
@@ -96,7 +96,7 @@
             <option value="api-mob">iOS</option>
             <option value="api-and">Android</option>
           </select>
-          <button type="button" id="btn-fetch">Fetch profile</button>
+          <button type="button" id="btn-fetch">Open profile data</button>
         </div>
         <p class="muted small" id="id-help">Find your account ID with the <strong>Warframe Account ID Grabber</strong> extension (<a href="https://chromewebstore.google.com/detail/warframe-account-id-grabb/kjjjjdcjnanbbghoebnjnbjlkmmfaiga" target="_blank" rel="noopener noreferrer">Chrome</a>, <a href="https://addons.mozilla.org/en-GB/firefox/addon/warframe-account-id-grabber/" target="_blank" rel="noopener noreferrer">Firefox</a>, <a href="https://github.com/Sainan/warframe-account-id-grabber" target="_blank" rel="noopener noreferrer">source</a>) while logged in at <a href="https://www.warframe.com" target="_blank" rel="noopener noreferrer">warframe.com</a>, or on PC in <code>EE.log</code> on the line containing <code>Logged in</code>.</p>
         <textarea id="paste" rows="5" placeholder="Paste profile JSON here" spellcheck="false" aria-label="Profile JSON"></textarea>
@@ -122,7 +122,7 @@
     </div>
   </footer>
 
-  <script src="js/mastery.js?v=20261101b"></script>
-  <script src="js/app.js?v=20261101b"></script>
+  <script src="js/mastery.js?v=20261101c"></script>
+  <script src="js/app.js?v=20261101c"></script>
 </body>
 </html>

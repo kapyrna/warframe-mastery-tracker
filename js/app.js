@@ -319,35 +319,14 @@
 
   // ---- events ----
   function bind() {
-    $("btn-fetch").addEventListener("click", async () => {
+    // Warframe's server does not allow other sites to read the profile, so the
+    // page cannot fetch it. Opening it in a new tab lets the person copy it.
+    $("btn-fetch").addEventListener("click", () => {
       const id = $("player-id").value.trim();
       if (!/^[0-9a-f]{24}$/i.test(id)) return setMsg($("import-msg"), "An account ID is 24 letters and digits, like 505875fb1a4d80894a000000.", "error");
-      const host = $("platform").value;
-      const btn = $("btn-fetch");
-      btn.disabled = true;
-      setMsg($("import-msg"), "Fetching your profile...", "");
-      try {
-        const ctl = new AbortController();
-        const timer = setTimeout(() => ctl.abort(), 15000);
-        let res;
-        try {
-          res = await fetch("https://" + host + ".warframe.com/cdn/getProfileViewingData.php?playerId=" + encodeURIComponent(id), { signal: ctl.signal });
-        } finally {
-          clearTimeout(timer);
-        }
-        if (!res.ok) throw new Error("Warframe answered with status " + res.status + ".");
-        importText(await res.text());
-      } catch (e) {
-        const blocked = e instanceof TypeError || (e && e.name === "AbortError");
-        setMsg(
-          $("import-msg"),
-          (blocked ? "The profile could not be fetched from this page (your browser blocked it or Warframe did not answer)." : e.message) +
-            " Open https://" + host + ".warframe.com/cdn/getProfileViewingData.php?playerId=" + id + " in a new tab, copy the page, and paste it below.",
-          "error"
-        );
-      } finally {
-        btn.disabled = false;
-      }
+      const url = "https://" + $("platform").value + ".warframe.com/cdn/getProfileViewingData.php?playerId=" + encodeURIComponent(id);
+      window.open(url, "_blank", "noopener");
+      setMsg($("import-msg"), "Opened your profile data in a new tab. Copy everything on that page, then paste it below.", "ok");
     });
     $("btn-parse").addEventListener("click", () => {
       const text = $("paste").value.trim();
