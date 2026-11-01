@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build data/items.json (Warframes and weapons) from Warframe's Public Export.
+"""Build data/items.json (Warframes and weapons) from Warframe's Public Export (https://wiki.warframe.com/w/Public_Export).
 
 Public Export is undocumented and may change. The script prints what it kept and
 dropped, and refuses to overwrite the data file if the result looks wrong.

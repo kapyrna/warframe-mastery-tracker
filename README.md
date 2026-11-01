@@ -55,7 +55,7 @@ Inside each list you'll see every item with the mastery rank needed to use it, y
 
 Use the search box and filters above the lists to narrow things down by name, Prime or non-Prime (variants such as Umbra, Prisma, Vandal, Wraith and Kuva count as non-Prime), or status (mastered or not). Searching opens any list that has a match, and Intrinsics and Star Chart step aside while you search or filter. Sorting by **Most XP remaining** shows where the biggest gains are.
 
-The item lists are refreshed automatically every day from Warframe's game data, so new Warframes, weapons and companions show up without you doing anything.
+The item lists are refreshed automatically every day from Warframe's game data ([Public Export](https://wiki.warframe.com/w/Public_Export)), so new Warframes, weapons and companions show up without you doing anything.
 
 ## Light and dark mode
 
