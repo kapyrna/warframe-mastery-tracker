@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light dark;
   --bg: #f5f6f8;
   --surface: #ffffff;
   --text: #1c2230;
@@ -11,8 +12,9 @@
   --bar: #e3e7ef;
 }
 
+/* Follow the browser's setting unless a theme has been chosen with the toggle. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #11141b;
     --surface: #1a1f2a;
     --text: #e7eaf1;
@@ -24,6 +26,22 @@
     --danger: #ef7676;
     --bar: #283042;
   }
+}
+
+:root[data-theme="light"] { color-scheme: light; }
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+    --bg: #11141b;
+    --surface: #1a1f2a;
+    --text: #e7eaf1;
+    --muted: #9aa3b5;
+    --border: #2c3444;
+    --accent: #6a9bf0;
+    --accent-text: #0e1320;
+    --good: #52c27f;
+    --danger: #ef7676;
+    --bar: #283042;
 }
 
 * { box-sizing: border-box; }
@@ -41,9 +59,24 @@ body {
   padding: 0 16px;
 }
 
-.site-header { padding-top: 28px; padding-bottom: 8px; }
+.site-header { padding-top: 28px; padding-bottom: 8px; text-align: center; }
 .site-header h1 { margin: 0; font-size: 1.6rem; }
-.sub { margin: 4px 0 0; color: var(--muted); }
+.header-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px 20px; margin-top: 6px; }
+.sub { margin: 0; color: var(--muted); }
+
+/* Three-position theme slider: glyphs above, track below, one knob lit. */
+.theme-toggle { display: inline-grid; grid-template-columns: repeat(3, 40px); flex: none; }
+.theme-opt { position: relative; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
+.theme-opt input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.theme-opt .glyph { display: flex; align-items: center; height: 1.5rem; font-size: 1.05rem; line-height: 1; color: var(--muted); }
+.theme-opt .slot { position: relative; align-self: stretch; height: 22px; display: flex; align-items: center; justify-content: center; }
+.theme-opt .slot::before { content: ""; position: absolute; top: 50%; left: 0; right: 0; height: 4px; margin-top: -2px; background: var(--bar); }
+.theme-opt:first-child .slot::before { left: 50%; border-radius: 2px 0 0 2px; }
+.theme-opt:last-child .slot::before { right: 50%; border-radius: 0 2px 2px 0; }
+.theme-opt .knob { position: relative; width: 10px; height: 10px; border-radius: 50%; background: var(--surface); border: 2px solid var(--muted); transition: width 0.15s, height 0.15s, background 0.15s, border-color 0.15s; }
+.theme-opt input:checked ~ .glyph { color: var(--text); }
+.theme-opt input:checked ~ .slot .knob { width: 16px; height: 16px; background: var(--accent); border-color: var(--accent); }
+.theme-opt input:focus-visible ~ .slot .knob { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 .card {
   background: var(--surface);

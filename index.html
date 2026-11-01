@@ -6,11 +6,34 @@
   <title>Warframe Mastery Tracker</title>
   <meta name="description" content="Track Warframe mastery rank progress from your own profile data. Runs entirely in your browser.">
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/theme.js"></script>
 </head>
 <body>
   <header class="site-header">
     <h1>Warframe Mastery Tracker</h1>
-    <p class="sub">Your data stays in this browser. Nothing is uploaded. Learn how it works <a href="https://github.com/kapyrna/warframe-mastery-tracker" target="_blank" rel="noopener noreferrer">here</a>.</p>
+    <div class="header-row">
+      <p class="sub">Your data stays in this browser. Nothing is uploaded. Learn how it works <a href="https://github.com/kapyrna/warframe-mastery-tracker" target="_blank" rel="noopener noreferrer">here</a>.</p>
+      <div class="theme-toggle" role="radiogroup" aria-label="Colour theme">
+        <label class="theme-opt" title="Light">
+          <input type="radio" name="theme" value="light">
+          <span class="glyph" aria-hidden="true">☉</span>
+          <span class="slot" aria-hidden="true"><span class="knob"></span></span>
+          <span class="sr-only">Light</span>
+        </label>
+        <label class="theme-opt" title="Match system">
+          <input type="radio" name="theme" value="system" checked>
+          <span class="glyph" id="theme-system-glyph" aria-hidden="true">🖥</span>
+          <span class="slot" aria-hidden="true"><span class="knob"></span></span>
+          <span class="sr-only">Match system</span>
+        </label>
+        <label class="theme-opt" title="Dark">
+          <input type="radio" name="theme" value="dark">
+          <span class="glyph" aria-hidden="true">☽</span>
+          <span class="slot" aria-hidden="true"><span class="knob"></span></span>
+          <span class="sr-only">Dark</span>
+        </label>
+      </div>
+    </div>
   </header>
 
   <main>

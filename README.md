@@ -56,6 +56,10 @@ Use the search box and filters above the lists to narrow things down by name, ty
 
 The item lists are refreshed automatically every day from Warframe's game data, so new Warframes, weapons and companions show up without you doing anything.
 
+## Light and dark mode
+
+Under the title there's a three-position switch. The sun is light mode, the moon is dark mode, and the middle position (shown as an icon for your operating system) follows your device or browser setting, which is the default. Your choice is saved in this browser.
+
 ## Your data and privacy
 
 - Everything stays in your browser. Your profile data is never sent to a server.
