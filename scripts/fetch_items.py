@@ -27,8 +27,13 @@ MANIFEST_BASE = "https://content.warframe.com/PublicExport/Manifest/"
 OUT = Path(__file__).resolve().parent.parent / "data" / "items.json"
 USER_AGENT = "warframe-mastery-tracker (+https://github.com/kapyrna/warframe-mastery-tracker)"
 
-# productCategory -> our item type
-WARFRAME_CATEGORIES = {"Suits": "warframe"}
+# ExportWarframes holds several kinds of item: productCategory -> (list, type)
+WARFRAME_LISTS = {
+    "Suits": ("warframes", "warframe"),
+    "SpaceSuits": ("archwings", "archwing"),
+    "MechSuits": ("necramechs", "necramech"),
+}
+# ExportWeapons: productCategory -> our item type
 WEAPON_CATEGORIES = {
     "LongGuns": "primary",
     "Pistols": "secondary",
@@ -47,6 +52,8 @@ COMPANION_TYPES = {"Sentinels": "sentinel", "KubrowPets": "beast", "MoaPets": "m
 MIN_WARFRAMES = 30
 MIN_WEAPONS = 200
 MIN_COMPANIONS = 10
+MIN_ARCHWINGS = 3
+MIN_NECRAMECHS = 1
 
 
 # None means "leave urllib's default User-Agent in place".
@@ -135,23 +142,24 @@ def build_items(warframes_raw, weapons_raw, companions_raw=()):
     items = {}
     stats = collections.Counter()
 
-    def add(raw, list_id, type_of, needs_req=True):
-        stats[f"{list_id}: raw"] += 1
+    def add(raw, source, resolve, needs_req=True):
+        stats[f"{source}: raw"] += 1
         category = raw.get("productCategory")
-        item_type = type_of(category)
-        if item_type is None:
-            stats[f"{list_id}: dropped, category {category!r}"] += 1
+        target = resolve(category)
+        if target is None:
+            stats[f"{source}: dropped, category {category!r}"] += 1
             return
+        list_id, item_type = target
         if raw.get("excludeFromCodex"):
-            stats[f"{list_id}: dropped, excluded from codex"] += 1
+            stats[f"{source}: dropped, excluded from codex"] += 1
             return
         unique, name = raw.get("uniqueName"), clean_name(raw.get("name", ""))
         if not unique or not name:
-            stats[f"{list_id}: dropped, missing name"] += 1
+            stats[f"{source}: dropped, missing name"] += 1
             return
         has_req = isinstance(raw.get("masteryReq"), int)
         if needs_req and not has_req:
-            stats[f"{list_id}: dropped, no masteryReq"] += 1
+            stats[f"{source}: dropped, no masteryReq"] += 1
             return
         item = {"uniqueName": unique, "name": name, "type": item_type, "list": list_id}
         if has_req:
@@ -160,15 +168,20 @@ def build_items(warframes_raw, weapons_raw, companions_raw=()):
         stats[f"{list_id}: kept"] += 1
         stats[f"{list_id}: kept as {item_type}"] += 1
 
-    def companion_type(category):
-        return COMPANION_TYPES.get(category, str(category).lower()) if category else None
+    def weapon_target(category):
+        return ("weapons", WEAPON_CATEGORIES[category]) if category in WEAPON_CATEGORIES else None
+
+    def companion_target(category):
+        if not category:
+            return None
+        return ("companions", COMPANION_TYPES.get(category, str(category).lower()))
 
     for raw in warframes_raw:
-        add(raw, "warframes", WARFRAME_CATEGORIES.get)
+        add(raw, "warframes", WARFRAME_LISTS.get)
     for raw in weapons_raw:
-        add(raw, "weapons", WEAPON_CATEGORIES.get)
+        add(raw, "weapons", weapon_target)
     for raw in companions_raw:
-        add(raw, "companions", companion_type, needs_req=False)  # companions have no mastery gate
+        add(raw, "companions", companion_target, needs_req=False)  # companions have no mastery gate
 
     ordered = sorted(items.values(), key=lambda i: (i["list"], i["name"].lower(), i["uniqueName"]))
     return ordered, stats
@@ -183,6 +196,10 @@ def check_sane(items):
         problems.append(f"only {counts['weapons']} weapons (expected at least {MIN_WEAPONS})")
     if counts["companions"] < MIN_COMPANIONS:
         problems.append(f"only {counts['companions']} companions (expected at least {MIN_COMPANIONS})")
+    if counts["archwings"] < MIN_ARCHWINGS:
+        problems.append(f"only {counts['archwings']} archwings (expected at least {MIN_ARCHWINGS})")
+    if counts["necramechs"] < MIN_NECRAMECHS:
+        problems.append(f"only {counts['necramechs']} necramechs (expected at least {MIN_NECRAMECHS})")
     return problems
 
 

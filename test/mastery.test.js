@@ -62,6 +62,17 @@ test("companions use the Warframe rules whatever their type string", () => {
   assert.equal(M.evaluateItem({ uniqueName: "/w", name: "W", type: "sentinel" }, 450000).masteryXp, 3000);
 });
 
+test("archwings and necramechs use the Warframe rules and list order", () => {
+  for (const [type, list] of [["archwing", "archwings"], ["necramech", "necramechs"]]) {
+    const e = M.evaluateItem({ uniqueName: "/v", name: "V", type, list }, 900000);
+    assert.equal(e.masteryXp, 6000);
+    assert.ok(e.mastered);
+  }
+  const mk = (list, type) => ({ uniqueName: "/" + list, name: list, type, list });
+  const rows = M.summarize([mk("necramechs", "necramech"), mk("archwings", "archwing"), mk("companions", "sentinel"), mk("weapons", "melee"), mk("warframes", "warframe")], {}, [], 0).rows;
+  assert.deepEqual(M.groupRows(rows).map((g) => g.label), ["Warframes", "Weapons", "Companions", "Archwings", "Necramechs"]);
+});
+
 test("manual tick marks an item mastered without profile data", () => {
   const e = M.evaluateItem({ uniqueName: "m", name: "M", type: "melee" }, undefined, true);
   assert.ok(e.mastered);

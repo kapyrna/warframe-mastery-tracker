@@ -39,13 +39,13 @@ You can also tick any item by hand to mark it as mastered, for example if you'd 
 
 ### 5. Work through your Progress
 
-The **Progress** section has one expandable list each for **Warframes**, **Weapons** and **Companions** (sentinels and pets). Click a list's heading to open or close it. Each heading shows how many items in that list you've mastered, with a small bar.
+The **Progress** section has one expandable list each for **Warframes**, **Weapons**, **Companions** (sentinels and pets), **Archwings** and **Necramechs**. Click a list's heading to open or close it. Each heading shows how many items in that list you've mastered, with a small bar.
 
 Inside each list you'll see every item with its type, the mastery rank needed to use it, your current rank, and your mastery XP for it. Tick the box beside an item to mark it as mastered.
 
 Use the search box and filters above the lists to narrow things down by name, type or status (mastered or not). Searching opens any list that has a match. Sorting by **Most XP remaining** shows where the biggest gains are.
 
-The item lists are refreshed automatically every day from Warframe's game data, so new Warframes and weapons show up without you doing anything.
+The item lists are refreshed automatically every day from Warframe's game data, so new Warframes, weapons and companions show up without you doing anything.
 
 ## Your data and privacy
 

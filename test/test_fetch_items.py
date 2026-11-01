@@ -46,7 +46,7 @@ class BuildTests(unittest.TestCase):
     def test_filters_and_normalises(self):
         warframes = [
             {"uniqueName": "/F/Excal", "name": "Excalibur", "productCategory": "Suits", "masteryReq": 0},
-            {"uniqueName": "/F/Odonata", "name": "Odonata", "productCategory": "SpaceSuits", "masteryReq": 0},
+            {"uniqueName": "/F/Orion", "name": "Orion", "productCategory": "SpecialItems", "masteryReq": 0},
         ]
         weapons = [
             {"uniqueName": "/W/Lato", "name": "Lato", "productCategory": "Pistols", "masteryReq": 0},
@@ -65,6 +65,23 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(next(i for i in items if i["list"] == "warframes")["type"], "warframe")
         self.assertEqual(stats["weapons: kept"], 2)
         self.assertEqual(stats["weapons: dropped, no masteryReq"], 1)
+
+    def test_archwings_and_necramechs_get_their_own_lists(self):
+        warframes = [
+            {"uniqueName": "/F/Excal", "name": "Excalibur", "productCategory": "Suits", "masteryReq": 0},
+            {"uniqueName": "/A/Odonata", "name": "Odonata", "productCategory": "SpaceSuits", "masteryReq": 5},
+            {"uniqueName": "/M/Voidrig", "name": "Voidrig", "productCategory": "MechSuits", "masteryReq": 8},
+            {"uniqueName": "/X/Orion", "name": "Orion & Sirius", "productCategory": "SpecialItems", "masteryReq": 0, "excludeFromCodex": True},
+        ]
+        items, stats = F.build_items(warframes, [])
+        got = {i["uniqueName"]: (i["list"], i["type"], i["masteryReq"]) for i in items}
+        self.assertEqual(got, {
+            "/F/Excal": ("warframes", "warframe", 0),
+            "/A/Odonata": ("archwings", "archwing", 5),
+            "/M/Voidrig": ("necramechs", "necramech", 8),
+        })
+        self.assertEqual(stats["archwings: kept as archwing"], 1)
+        self.assertEqual(stats["warframes: dropped, category 'SpecialItems'"], 1)
 
     def test_duplicates_collapse_by_unique_name(self):
         w = {"uniqueName": "/W/A", "name": "A", "productCategory": "Melee", "masteryReq": 0}
@@ -91,9 +108,11 @@ class BuildTests(unittest.TestCase):
     def test_sanity_check_flags_small_results(self):
         self.assertTrue(F.check_sane([]))
         enough = ([{"list": "warframes"}] * F.MIN_WARFRAMES + [{"list": "weapons"}] * F.MIN_WEAPONS
-                  + [{"list": "companions"}] * F.MIN_COMPANIONS)
+                  + [{"list": "companions"}] * F.MIN_COMPANIONS
+                  + [{"list": "archwings"}] * F.MIN_ARCHWINGS + [{"list": "necramechs"}] * F.MIN_NECRAMECHS)
         self.assertEqual(F.check_sane(enough), [])
-        self.assertTrue(any("companions" in p for p in F.check_sane(enough[:-1])))
+        self.assertTrue(any("necramechs" in p for p in F.check_sane(enough[:-1])))
+        self.assertTrue(any("archwings" in p for p in F.check_sane([i for i in enough if i["list"] != "archwings"])))
 
 
 class FailureReportingTests(unittest.TestCase):

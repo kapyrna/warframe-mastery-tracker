@@ -126,8 +126,8 @@
   }
 
   // ---- grouping into the lists shown on the page ----
-  const LIST_ORDER = ["warframes", "weapons", "companions"];
-  const LIST_LABELS = { warframes: "Warframes", weapons: "Weapons", companions: "Companions" };
+  const LIST_ORDER = ["warframes", "weapons", "companions", "archwings", "necramechs"];
+  const LIST_LABELS = { warframes: "Warframes", weapons: "Weapons", companions: "Companions", archwings: "Archwings", necramechs: "Necramechs" };
 
   function listOf(item) {
     if (item.list) return item.list;
