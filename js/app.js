@@ -152,7 +152,10 @@
   function sectionHtml(key, label, allRows, visible, forced, inner, cls) {
     const done = allRows.filter((r) => r.mastered).length;
     const pct = allRows.length ? Math.round((done / allRows.length) * 100) : 0;
-    return detailsHtml(key, label, done + " / " + allRows.length, pct, forced || openLists.has(key), forced, inner, cls);
+    const xp = allRows.reduce((n, r) => n + r.masteryXp, 0);
+    const maxXp = allRows.reduce((n, r) => n + r.maxMasteryXp, 0);
+    const countText = done + " / " + allRows.length + " maxed \u00b7 " + fmt(xp) + "\u00a0/\u00a0" + fmt(maxXp) + "\u00a0XP";
+    return detailsHtml(key, label, countText, pct, forced || openLists.has(key), forced, inner, cls);
   }
 
   // ---- other sources: Star Chart (Normal, Steel Path) and Intrinsics (Drifter, Railjack) ----
@@ -161,7 +164,7 @@
 
   // Works for a single source and for a group of them.
   function otherCount(x) {
-    return x.kind === "ranks" ? x.rank + " / " + x.maxRank + " ranks \u00b7 " + fmt(x.xp) + " XP" : fmt(x.xp) + " XP";
+    return x.kind === "ranks" ? x.rank + " / " + x.maxRank + " ranks \u00b7 " + fmt(x.xp) + "\u00a0/\u00a0" + fmt(x.maxXp) + "\u00a0XP" : fmt(x.xp) + " XP";
   }
   const otherPct = (x) => (x.kind === "ranks" ? pctOf(x.rank, x.maxRank) : null);
 

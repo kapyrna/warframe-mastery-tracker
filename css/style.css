@@ -250,6 +250,9 @@ td select { padding: 4px 8px; }
   .list table { font-size: 0.9rem; }
   .list td { overflow-wrap: anywhere; }
   .list > summary { row-gap: 6px; padding: 10px; }
+  /* Title on one row, the count on the next, then the bar. */
+  /* 1.316em of this smaller text equals the 1em marker, so it lines up with the bar. */
+  .list-count { flex: 0 0 calc(100% - 1.316em - 12px); margin-left: calc(1.316em + 12px); white-space: normal; font-size: 0.76rem; text-align: left; }
 }
 
 /* Star Chart rows */

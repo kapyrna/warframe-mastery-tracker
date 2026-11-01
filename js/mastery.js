@@ -306,6 +306,7 @@
         xp: members.reduce((n, s) => n + s.xp, 0),
         rank: ranked ? members.reduce((n, s) => n + s.rank, 0) : null,
         maxRank: ranked ? members.reduce((n, s) => n + s.maxRank, 0) : null,
+        maxXp: ranked ? members.reduce((n, s) => n + s.maxXp, 0) : null,
       };
     });
     return { sources, groups, total: sources.reduce((n, s) => n + s.xp, 0) };

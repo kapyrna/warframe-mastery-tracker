@@ -49,7 +49,7 @@ You can also tick any item by hand to mark it as mastered, for example if you'd 
 
 ### 5. Work through your Progress
 
-The **Progress** section has one expandable list each for **Warframes**, **Weapons**, **Companions** and **Vehicles**. Click a list's heading to open or close it. Weapons, Companions and Vehicles are split further into expandable sections by type: Primary, Secondary, Melee, Archgun, Archmelee and Companion weapons; Sentinels and Beasts (Kubrows, Kavats, Vulpaphylas and Predasites); and Archwings and Necramechs. Every heading shows how many items you've mastered out of the total, with a small bar.
+The **Progress** section has one expandable list each for **Warframes**, **Weapons**, **Companions** and **Vehicles**. Click a list's heading to open or close it. Weapons, Companions and Vehicles are split further into expandable sections by type: Primary, Secondary, Melee, Archgun, Archmelee and Companion weapons; Sentinels and Beasts (Kubrows, Kavats, Vulpaphylas and Predasites); and Archwings and Necramechs. Every heading shows how many items are maxed out of the total, then your mastery XP out of the most the section can give (for example "75 / 119 maxed · 450,000 / 714,000 XP"), with a progress bar underneath. Intrinsics show ranks in place of maxed items, for example "72 / 90 ranks".
 
 Inside each list you'll see every item with the mastery rank needed to use it, your current rank, and awarded mastery XP for it. Tick the box beside an item to mark it as mastered.
 
