@@ -70,7 +70,7 @@ Under the title there's a three-position switch. The sun is light mode, the moon
 
 ## Good to know
 
-- Mastery XP counts the first 30 ranks of each item, even for items that go higher, and each item counts once however many copies you own.
+- Mastery XP counts the first 30 ranks of each item, even for items that go higher, and each item counts once however many copies you own. The exception is the Paracesis and every Kuva, Tenet and Coda weapon: Forma can take them to rank 40, and they keep granting mastery for the extra ranks (4,000 in total instead of 3,000).
 - Ranks above 30 are the Legendary ranks.
 - The tracker is only as accurate as the data it's given. Warframe's data sources are unofficial and could change, which may temporarily break importing or the item list.
 

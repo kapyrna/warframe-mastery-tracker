@@ -137,6 +137,17 @@ def clean_name(name):
     return re.sub(r"<[^>]*>", "", str(name)).strip()
 
 
+# Weapons that Forma can take to rank 40, and which keep granting mastery for the
+# extra ranks (4,000 in total instead of 3,000): the Paracesis and every Kuva,
+# Tenet and Coda weapon. Source: the Warframe wiki.
+EXTENDED_RANK = 40
+EXTENDED_PREFIXES = ("Kuva ", "Tenet ", "Coda ")
+
+
+def has_extended_ranks(list_id, name):
+    return list_id == "weapons" and (name == "Paracesis" or name.startswith(EXTENDED_PREFIXES))
+
+
 def build_items(warframes_raw, weapons_raw, companions_raw=()):
     """Filter and normalise raw export entries. Returns (items, stats)."""
     items = {}
@@ -164,6 +175,9 @@ def build_items(warframes_raw, weapons_raw, companions_raw=()):
         item = {"uniqueName": unique, "name": name, "type": item_type, "list": list_id}
         if has_req:
             item["masteryReq"] = raw["masteryReq"]
+        if has_extended_ranks(list_id, name):
+            item["maxRank"] = EXTENDED_RANK
+            item["masteryRanks"] = EXTENDED_RANK
         items[unique] = item
         stats[f"{list_id}: kept"] += 1
         stats[f"{list_id}: kept as {item_type}"] += 1

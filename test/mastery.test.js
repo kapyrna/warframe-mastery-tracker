@@ -251,3 +251,16 @@ test("parseProfile counts Star Chart nodes and junctions, Steel Path by Tier 1",
   ] });
   assert.deepEqual(p.starChart, { "star-chart/nodes": 3, "star-chart/junctions": 2, "steel-path/nodes": 1, "steel-path/junctions": 1 });
 });
+
+test("rank-40 weapons (Kuva, Tenet, Coda, Paracesis) count 40 ranks for 4,000 mastery", () => {
+  const item = { uniqueName: "/K", name: "Kuva Hek", type: "primary", list: "weapons", maxRank: 40, masteryRanks: 40 };
+  const maxed30 = M.evaluateItem(item, 500 * 30 * 30);
+  assert.equal(maxed30.masteryXp, 3000);
+  assert.equal(maxed30.mastered, false);
+  assert.equal(maxed30.maxMasteryXp, 4000);
+  const maxed40 = M.evaluateItem(item, 500 * 40 * 40);
+  assert.equal(maxed40.rank, 40);
+  assert.equal(maxed40.masteryXp, 4000);
+  assert.equal(maxed40.mastered, true);
+  assert.equal(M.evaluateItem(item, null, true).masteryXp, 4000);
+});

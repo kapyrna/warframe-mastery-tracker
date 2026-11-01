@@ -153,6 +153,18 @@ class IndexFallbackTests(unittest.TestCase):
             self.assertIn(url, str(ctx.exception))
 
 
+class ExtendedRankTests(unittest.TestCase):
+    def test_kuva_tenet_coda_and_paracesis_go_to_rank_40(self):
+        def raw(name):
+            return {"uniqueName": "/L/" + name, "name": name, "productCategory": "LongGuns", "masteryReq": 5}
+        items, _ = F.build_items([], [raw("Kuva Hek"), raw("Tenet Envoy"), raw("Coda Hema"), raw("Paracesis"), raw("Hek"), raw("Kuvarian")])
+        by = {i["name"]: i for i in items}
+        for name in ("Kuva Hek", "Tenet Envoy", "Coda Hema", "Paracesis"):
+            self.assertEqual((by[name]["maxRank"], by[name]["masteryRanks"]), (40, 40), name)
+        for name in ("Hek", "Kuvarian"):
+            self.assertNotIn("maxRank", by[name], name)
+
+
 class RenderTests(unittest.TestCase):
     def test_output_is_valid_json_the_page_can_read(self):
         items = [{"uniqueName": "/A", "name": "Å", "type": "melee", "list": "weapons", "masteryReq": 0}]
