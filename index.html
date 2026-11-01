@@ -10,14 +10,14 @@
 <body>
   <header class="site-header">
     <h1>Warframe Mastery Tracker</h1>
-    <p class="sub">Your data stays in this browser. Nothing is uploaded.</p>
+    <p class="sub">Your data stays in this browser. Nothing is uploaded. Learn how it works <a href="https://github.com/kapyrna/warframe-mastery-tracker" target="_blank" rel="noopener noreferrer">here</a>.</p>
   </header>
 
   <main>
     <section class="card" aria-labelledby="summary-h">
       <h2 id="summary-h">Overview <span id="player-name" class="muted"></span></h2>
       <div class="hint" id="start-hint" hidden>
-        <p>New here? Open <strong>Import and Export</strong> at the bottom of the page to load your Warframe profile and fill in your progress.</p>
+        <p>New here? Open <strong>Import and Export</strong> at the bottom of the page to import your Tenno and fill in your progress.</p>
         <button type="button" id="hint-dismiss" class="secondary">Wake up...</button>
       </div>
       <div class="stats">
@@ -40,9 +40,11 @@
       <p id="data-msg" class="msg" role="status"></p>
       <div class="filters">
         <input type="search" id="search" placeholder="Search items" aria-label="Search items">
-        <select id="filter-type" aria-label="Filter by type"><option value="">All types</option></select>
+        <select id="filter-type" aria-label="Filter by type">
+          <option value="">All types</option>
+        </select>
         <select id="filter-status" aria-label="Filter by status">
-          <option value="">All</option>
+          <option value="">Mastery State</option>
           <option value="todo">Not mastered</option>
           <option value="done">Mastered</option>
         </select>
