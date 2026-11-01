@@ -86,9 +86,9 @@
       <details id="import-panel">
         <summary id="import-h">Import and Export</summary>
         <ol class="steps">
-          <li>Log in at <a href="https://www.warframe.com" target="_blank" rel="noopener noreferrer">warframe.com</a>, then open <a href="https://www.warframe.com/api/user-data" target="_blank" rel="noopener noreferrer">warframe.com/api/user-data</a> and copy the text inside the quotes after <code>"user_id":</code>. That is your account ID.</li>
-          <li>Open <code>https://api.warframe.com/cdn/getProfileViewingData.php?playerId=YOUR_ACCOUNT_ID</code> in a new tab (console players use <code>api-ps4</code>, <code>api-xb1</code> or <code>api-swi</code> in place of <code>api</code>), then copy the page or save it as a file.</li>
-          <li>Paste it below, or choose the saved file.</li>
+          <li>Log in at <a href="https://www.warframe.com" target="_blank" rel="noopener noreferrer">warframe.com</a>.</li>
+          <li>Install the open-source <strong>Warframe Account ID Grabber</strong> extension for <a href="https://chromewebstore.google.com/detail/warframe-account-id-grabb/kjjjjdcjnanbbghoebnjnbjlkmmfaiga" target="_blank" rel="noopener noreferrer">Chrome</a> or <a href="https://addons.mozilla.org/en-GB/firefox/addon/warframe-account-id-grabber/" target="_blank" rel="noopener noreferrer">Firefox</a> (<a href="https://github.com/Sainan/warframe-account-id-grabber" target="_blank" rel="noopener noreferrer">source</a>), open it, pick your platform and press <strong>Open Profile Viewing Data</strong>.</li>
+          <li>Copy the whole page, then paste it below or save it as a file and choose it. PC players can instead find their account ID in <code>EE.log</code> (the line containing <code>Logged in</code>) and open <code>https://api.warframe.com/cdn/getProfileViewingData.php?playerId=YOUR_ACCOUNT_ID</code>.</li>
         </ol>
         <textarea id="paste" rows="5" placeholder="Paste profile JSON here" spellcheck="false" aria-label="Profile JSON"></textarea>
         <div class="row">

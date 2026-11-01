@@ -12,11 +12,12 @@ Nothing to install and no account needed. It works in any modern browser, on des
 
 The tracker reads your own public profile data from Warframe. It can't log in for you, so you grab it yourself:
 
-1. Log in at [warframe.com](https://www.warframe.com), then open [warframe.com/api/user-data](https://www.warframe.com/api/user-data). Copy the text inside the quotes after `"user_id":`. That is your account ID. (On PC you can also find it in `EE.log`, on the line containing `Logged in`.)
-2. Open your profile data address in a new tab. For PC it looks like this, with your ID in place of `YOUR_ACCOUNT_ID`:
-   `https://api.warframe.com/cdn/getProfileViewingData.php?playerId=YOUR_ACCOUNT_ID`
-   Console players replace `api` with `api-ps4` (PlayStation), `api-xb1` (Xbox) or `api-swi` (Switch).
-3. Copy everything on the page, or save it as a `.json` file.
+1. Log in at [warframe.com](https://www.warframe.com).
+2. Install the open-source **Warframe Account ID Grabber** extension for [Chrome](https://chromewebstore.google.com/detail/warframe-account-id-grabb/kjjjjdcjnanbbghoebnjnbjlkmmfaiga) or [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/warframe-account-id-grabber/) ([source code](https://github.com/Sainan/warframe-account-id-grabber)). Open it, pick your platform and press **Open Profile Viewing Data**.
+3. Copy everything on the page that opens, or save it as a `.json` file.
+
+If you'd rather not install an extension, PC players can find their account ID in the `EE.log` file (search for `Logged in`; the ID is in the brackets on that line) and open this address with it in place of `YOUR_ACCOUNT_ID`:
+`https://api.warframe.com/cdn/getProfileViewingData.php?playerId=YOUR_ACCOUNT_ID`
 
 ### 2. Import it
 
