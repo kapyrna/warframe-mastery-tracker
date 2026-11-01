@@ -37,8 +37,8 @@ You'll see a confirmation with the number of items found. If you see an error in
 
 Your profile data only covers items. Mastery XP also comes from things that aren't items, so the **Other sources** section at the bottom of Progress lets you add it. The tracker doesn't read these from your profile, so you enter them yourself:
 
-- **Star Chart** and **Steel Path Star Chart**: type in the mastery XP you've earned from each.
-- **Drifter Intrinsics** (Riding, Combat, Opportunity, Endurance) and **Railjack Intrinsics** (Tactical, Piloting, Gunnery, Engineering, Command): pick your rank, from 0 to 10, for each skill. Each rank counts as 1,500 mastery XP.
+- **Star Chart**, split into **Normal** and **Steel Path**: type in the mastery XP you've earned from each.
+- **Intrinsics**, split into **Drifter** (Riding, Combat, Opportunity, Endurance) and **Railjack** (Tactical, Piloting, Gunnery, Engineering, Command): pick your rank, from 0 to 10, for each skill. Each rank counts as 1,500 mastery XP.
 
 Whatever you enter counts toward your rank at the top, and the **Other sources XP** figure shows the total.
 
@@ -50,7 +50,7 @@ You can also tick any item by hand to mark it as mastered, for example if you'd 
 
 The **Progress** section has one expandable list each for **Warframes**, **Weapons**, **Companions** and **Vehicles**. Click a list's heading to open or close it. Weapons, Companions and Vehicles are split further into expandable sections by type: Primary, Secondary, Melee, Archgun, Archmelee and Companion weapons; Sentinels and Beasts (Kubrows, Kavats, Vulpaphylas and Predasites); and Archwings and Necramechs. Every heading shows how many items you've mastered, with a small bar.
 
-Inside each list you'll see every item with its type, the mastery rank needed to use it, your current rank, and your mastery XP for it. Tick the box beside an item to mark it as mastered.
+Inside each list you'll see every item with the mastery rank needed to use it, your current rank, and your mastery XP for it. Tick the box beside an item to mark it as mastered.
 
 Use the search box and filters above the lists to narrow things down by name, type or status (mastered or not). Searching opens any list that has a match, and Other sources steps aside while you search or filter. Sorting by **Most XP remaining** shows where the biggest gains are.
 

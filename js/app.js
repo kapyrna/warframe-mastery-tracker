@@ -108,11 +108,10 @@
     const byHand = manual.has(r.item.uniqueName);
     const locked = r.mastered && !byHand;
     return (
-      '<tr class="' + (r.mastered ? "done" : "") + '">' +
+      '<tr class="' + (r.mastered ? "done" : "") + '" data-type="' + esc(r.item.type) + '">' +
       '<td><input type="checkbox" data-id="' + id + '"' + (r.mastered ? " checked" : "") + (locked ? " disabled" : "") +
       ' aria-label="Mark ' + esc(r.item.name) + ' as mastered"></td>' +
       "<td>" + esc(r.item.name) + "</td>" +
-      "<td>" + esc(M.typeLabel(r.item.type)) + "</td>" +
       '<td class="num">' + (r.item.masteryReq != null ? esc(r.item.masteryReq) : "\u2013") + "</td>" +
       '<td class="num">' + r.rank + " / " + r.maxRank + "</td>" +
       '<td class="num">' + fmt(r.masteryXp) + " / " + fmt(r.maxMasteryXp) + "</td>" +
@@ -123,7 +122,7 @@
   const TABLE_HEAD =
     "<thead><tr>" +
     '<th scope="col"><span class="sr-only">Mastered</span></th>' +
-    '<th scope="col">Item</th><th scope="col">Type</th>' +
+    '<th scope="col">Item</th>' +
     '<th scope="col" class="num">MR req</th><th scope="col" class="num">Rank</th>' +
     '<th scope="col" class="num">Mastery XP</th></tr></thead>';
 
@@ -150,16 +149,18 @@
     return detailsHtml(key, label, done + " / " + allRows.length + " mastered", pct, forced || openLists.has(key), forced, inner, cls);
   }
 
-  // ---- other sources (star chart, steel path, intrinsics) ----
+  // ---- other sources: Star Chart (Normal, Steel Path) and Intrinsics (Drifter, Railjack) ----
   const slugOf = (key) => key.replace(/\W+/g, "-");
   const pctOf = (n, max) => (max ? Math.round((n / max) * 100) : 0);
 
-  function otherCount(src) {
-    return src.kind === "xp" ? fmt(src.xp) + " XP" : src.rank + " / " + src.maxRank + " ranks \u00b7 " + fmt(src.xp) + " XP";
+  // Works for a single source and for a group of them.
+  function otherCount(x) {
+    return x.kind === "ranks" ? x.rank + " / " + x.maxRank + " ranks \u00b7 " + fmt(x.xp) + " XP" : fmt(x.xp) + " XP";
   }
+  const otherPct = (x) => (x.kind === "ranks" ? pctOf(x.rank, x.maxRank) : null);
 
-  function otherSourceHtml(src) {
-    const key = "other/" + src.id;
+  function otherSourceHtml(src, groupId) {
+    const key = "other/" + groupId + "/" + src.id;
     let inner;
     if (src.kind === "xp") {
       inner =
@@ -175,15 +176,20 @@
             for (let r = 0; r <= k.maxRank; r++) opts.push('<option value="' + r + '"' + (r === k.rank ? " selected" : "") + ">" + r + "</option>");
             return (
               "<tr><td>" + esc(k.label) + "</td>" +
-              '<td><select data-other-rank="' + esc(k.key) + '" aria-label="' + esc(src.label + " " + k.label + " rank") + '">' + opts.join("") + "</select></td>" +
+              '<td><select data-other-rank="' + esc(k.key) + '" aria-label="' + esc(src.fullLabel + " " + k.label + " rank") + '">' + opts.join("") + "</select></td>" +
               '<td class="num" id="xp-' + esc(slugOf(k.key)) + '">' + fmt(k.xp) + "</td></tr>"
             );
           })
           .join("") +
         "</tbody></table></div>";
     }
-    const pct = src.kind === "ranks" ? pctOf(src.rank, src.maxRank) : null;
-    return detailsHtml(key, src.label, otherCount(src), pct, openLists.has(key), false, inner, "sub", slugOf(key));
+    return detailsHtml(key, src.label, otherCount(src), otherPct(src), openLists.has(key), false, inner, "sub sub2", slugOf(key));
+  }
+
+  function otherGroupHtml(g) {
+    const key = "other/" + g.id;
+    const inner = '<div class="sublists">' + g.sources.map((src) => otherSourceHtml(src, g.id)).join("") + "</div>";
+    return detailsHtml(key, g.label, otherCount(g), otherPct(g), openLists.has(key), false, inner, "sub", slugOf(key));
   }
 
   function renderOther(o) {
@@ -195,7 +201,7 @@
       openLists.has("other"),
       false,
       '<div class="sublists"><p class="muted small other-note">Mastery XP that does not come from items. Enter what you have earned; it counts toward your rank above.</p>' +
-        o.sources.map(otherSourceHtml).join("") + "</div>",
+        o.groups.map(otherGroupHtml).join("") + "</div>",
       "",
       "other"
     );
@@ -205,12 +211,17 @@
   function updateOtherView() {
     const o = M.summarizeOther(state.other);
     $("cnt-other").textContent = fmt(o.total) + " XP";
-    for (const src of o.sources) {
-      const slug = slugOf("other/" + src.id);
-      $("cnt-" + slug).textContent = otherCount(src);
-      if (src.kind === "ranks") {
-        $("bar-" + slug).style.width = pctOf(src.rank, src.maxRank) + "%";
-        for (const k of src.skills) $("xp-" + slugOf(k.key)).textContent = fmt(k.xp);
+    for (const g of o.groups) {
+      const gslug = slugOf("other/" + g.id);
+      $("cnt-" + gslug).textContent = otherCount(g);
+      if (g.kind === "ranks") $("bar-" + gslug).style.width = pctOf(g.rank, g.maxRank) + "%";
+      for (const src of g.sources) {
+        const slug = slugOf("other/" + g.id + "/" + src.id);
+        $("cnt-" + slug).textContent = otherCount(src);
+        if (src.kind === "ranks") {
+          $("bar-" + slug).style.width = pctOf(src.rank, src.maxRank) + "%";
+          for (const k of src.skills) $("xp-" + slugOf(k.key)).textContent = fmt(k.xp);
+        }
       }
     }
     renderSummary(compute());

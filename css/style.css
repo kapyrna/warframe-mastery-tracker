@@ -188,7 +188,7 @@ td input[type="checkbox"] { width: 18px; height: 18px; }
 .list > summary::before { content: "\25B8"; color: var(--muted); width: 1em; }
 .list[open] > summary::before { content: "\25BE"; }
 .list-name { flex: 1; font-weight: 600; }
-.list-count { color: var(--muted); font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+.list-count { white-space: nowrap; color: var(--muted); font-size: 0.9rem; font-variant-numeric: tabular-nums; }
 .mini-bar { flex: 0 1 80px; min-width: 32px; height: 8px; background: var(--bar); border-radius: 4px; overflow: hidden; }
 .mini-bar > span { display: block; height: 100%; background: var(--good); }
 .list .table-wrap { padding: 0 8px 8px; }
@@ -197,6 +197,7 @@ td input[type="checkbox"] { width: 18px; height: 18px; }
 .list.sub > summary { padding: 9px 12px; font-size: 0.95rem; }
 .list.sub .list-name { font-weight: 500; }
 .list.sub .mini-bar { flex-basis: 64px; }
+.list.sub.sub2 { background: var(--surface); }
 #other-sources { margin-top: 12px; }
 #other-sources[hidden] { display: none; }
 .other-note { margin: 0 4px 6px; }
@@ -230,4 +231,17 @@ td select { padding: 4px 8px; }
   .filters { grid-template-columns: 1fr 1fr; }
   .filters > :first-child { grid-column: 1 / -1; }
   .stat .value { font-size: 1.25rem; }
+}
+
+/* Phones: tighten the nested sections so three levels still leave room for their tables. */
+@media (max-width: 520px) {
+  .card { padding: 12px; }
+  .sublists { padding: 0 6px 8px; }
+  .list .table-wrap { padding: 0 4px 6px; }
+  .list th, .list td { padding: 8px 6px; }
+  .list th, .list td { white-space: normal; }
+  .list td.num:nth-child(4) { white-space: nowrap; } /* keeps "30 / 30" on one line */
+  .list table { font-size: 0.9rem; }
+  .list td { overflow-wrap: anywhere; }
+  .list > summary { flex-wrap: wrap; row-gap: 2px; padding: 10px; }
 }

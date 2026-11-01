@@ -151,11 +151,38 @@ test("groupRows splits into ordered lists and falls back on type", () => {
   assert.deepEqual(M.groupRows([]), []);
 });
 
-test("other sources are the four requested, in order", () => {
-  assert.deepEqual(M.OTHER_SOURCES.map((s) => s.label), ["Star Chart", "Steel Path Star Chart", "Drifter Intrinsics", "Railjack Intrinsics"]);
+test("other sources nest as Star Chart (Normal, Steel Path) and Intrinsics (Drifter, Railjack)", () => {
   const o = M.summarizeOther(null);
   assert.equal(o.total, 0);
-  assert.deepEqual(o.sources.map((s) => s.kind), ["xp", "xp", "ranks", "ranks"]);
+  assert.deepEqual(o.groups.map((g) => g.label), ["Star Chart", "Intrinsics"]);
+  assert.deepEqual(o.groups.map((g) => g.sources.map((s) => s.label)), [["Normal", "Steel Path"], ["Drifter", "Railjack"]]);
+  assert.deepEqual(o.groups.map((g) => g.kind), ["xp", "ranks"]);
+  assert.deepEqual(o.sources.map((s) => s.fullLabel), ["Star Chart", "Steel Path Star Chart", "Drifter Intrinsics", "Railjack Intrinsics"]);
+  // every source belongs to exactly one group
+  const grouped = o.groups.flatMap((g) => g.sources.map((s) => s.id)).sort();
+  assert.deepEqual(grouped, o.sources.map((s) => s.id).sort());
+});
+
+test("group totals add up their sources", () => {
+  const o = M.summarizeOther({
+    xp: { "star-chart": 1000, "steel-path": 500 },
+    ranks: { "railjack-intrinsics/piloting": 10, "drifter-intrinsics/riding": 4, "drifter-intrinsics/combat": 1 },
+  });
+  const [chart, intr] = o.groups;
+  assert.equal(chart.xp, 1500);
+  assert.equal(chart.rank, null);
+  assert.equal(intr.rank, 15);
+  assert.equal(intr.maxRank, 90);
+  assert.equal(intr.xp, 15 * 1500);
+  assert.equal(o.total, 1500 + 15 * 1500);
+});
+
+test("saved entries from before the regrouping still load", () => {
+  // keys written by the previous layout
+  const o = M.summarizeOther({ xp: { "star-chart": 12345, "steel-path": 678 }, ranks: { "railjack-intrinsics/gunnery": 3 } });
+  assert.equal(o.sources.find((s) => s.id === "star-chart").xp, 12345);
+  assert.equal(o.sources.find((s) => s.id === "steel-path").xp, 678);
+  assert.equal(o.sources.find((s) => s.id === "railjack-intrinsics").rank, 3);
 });
 
 test("intrinsic ranks give 1,500 mastery XP each and add up", () => {

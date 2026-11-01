@@ -127,11 +127,12 @@
   const MAX_ENTERED_XP = 10000000;
 
   const OTHER_SOURCES = [
-    { id: "star-chart", label: "Star Chart", kind: "xp" },
-    { id: "steel-path", label: "Steel Path Star Chart", kind: "xp" },
+    { id: "star-chart", label: "Normal", fullLabel: "Star Chart", kind: "xp" },
+    { id: "steel-path", label: "Steel Path", fullLabel: "Steel Path Star Chart", kind: "xp" },
     {
       id: "drifter-intrinsics",
-      label: "Drifter Intrinsics",
+      label: "Drifter",
+      fullLabel: "Drifter Intrinsics",
       kind: "ranks",
       xpPerRank: INTRINSIC_XP_PER_RANK,
       maxRank: INTRINSIC_MAX_RANK,
@@ -144,7 +145,8 @@
     },
     {
       id: "railjack-intrinsics",
-      label: "Railjack Intrinsics",
+      label: "Railjack",
+      fullLabel: "Railjack Intrinsics",
       kind: "ranks",
       xpPerRank: INTRINSIC_XP_PER_RANK,
       maxRank: INTRINSIC_MAX_RANK,
@@ -156,6 +158,12 @@
         { id: "command", label: "Command" },
       ],
     },
+  ];
+
+  // How the sources are nested on the page. Source ids (and so saved entries) are unchanged.
+  const OTHER_GROUPS = [
+    { id: "star-chart", label: "Star Chart", sources: ["star-chart", "steel-path"] },
+    { id: "intrinsics", label: "Intrinsics", sources: ["drifter-intrinsics", "railjack-intrinsics"] },
   ];
 
   function wholeNumber(v, max) {
@@ -188,7 +196,7 @@
     const sources = OTHER_SOURCES.map((s) => {
       if (s.kind === "xp") {
         const xp = o.xp[s.id] || 0;
-        return { id: s.id, label: s.label, kind: "xp", xp, maxXp: null };
+        return { id: s.id, label: s.label, fullLabel: s.fullLabel, kind: "xp", xp, maxXp: null };
       }
       const skills = s.skills.map((sk) => {
         const key = s.id + "/" + sk.id;
@@ -198,6 +206,7 @@
       return {
         id: s.id,
         label: s.label,
+        fullLabel: s.fullLabel,
         kind: "ranks",
         skills,
         rank: skills.reduce((n, k) => n + k.rank, 0),
@@ -206,7 +215,20 @@
         maxXp: skills.length * s.maxRank * s.xpPerRank,
       };
     });
-    return { sources, total: sources.reduce((n, s) => n + s.xp, 0) };
+    const groups = OTHER_GROUPS.map((g) => {
+      const members = g.sources.map((id) => sources.find((s) => s.id === id));
+      const ranked = members.every((s) => s.kind === "ranks");
+      return {
+        id: g.id,
+        label: g.label,
+        kind: ranked ? "ranks" : "xp",
+        sources: members,
+        xp: members.reduce((n, s) => n + s.xp, 0),
+        rank: ranked ? members.reduce((n, s) => n + s.rank, 0) : null,
+        maxRank: ranked ? members.reduce((n, s) => n + s.maxRank, 0) : null,
+      };
+    });
+    return { sources, groups, total: sources.reduce((n, s) => n + s.xp, 0) };
   }
 
   // ---- grouping into the lists shown on the page ----
@@ -288,5 +310,5 @@
     return ids.map((id) => ({ id, label: listLabel(id), rows: byId.get(id), types: groupByType(id, byId.get(id)) }));
   }
 
-  return { xpForRank, rankFromXp, rankProgress, rulesFor, evaluateItem, parseProfile, summarize, OTHER_SOURCES, sanitizeOther, summarizeOther, listOf, listLabel, typeLabel, groupByType, groupRows };
+  return { xpForRank, rankFromXp, rankProgress, rulesFor, evaluateItem, parseProfile, summarize, OTHER_SOURCES, OTHER_GROUPS, sanitizeOther, summarizeOther, listOf, listLabel, typeLabel, groupByType, groupRows };
 });
