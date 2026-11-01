@@ -31,28 +31,6 @@
       <p class="muted small" id="rank-note"></p>
     </section>
 
-    <section class="card" aria-labelledby="import-h">
-      <details id="import-panel" open>
-        <summary id="import-h">Import your progress</summary>
-        <ol class="steps">
-          <li>Log in at <a href="https://www.warframe.com" target="_blank" rel="noopener noreferrer">warframe.com</a> and find your account ID on your account page.</li>
-          <li>Open the profile viewing URL for your platform in a new tab and copy or save the JSON.</li>
-          <li>Paste it below, or choose the saved file.</li>
-        </ol>
-        <textarea id="paste" rows="5" placeholder="Paste profile JSON here" spellcheck="false" aria-label="Profile JSON"></textarea>
-        <div class="row">
-          <button type="button" id="btn-parse">Import pasted JSON</button>
-          <label class="button secondary" for="file">Choose file</label>
-          <input type="file" id="file" accept=".json,application/json" hidden>
-        </div>
-        <p id="import-msg" class="msg" role="status"></p>
-        <div class="row">
-          <button type="button" id="btn-export" class="secondary">Download my progress</button>
-          <button type="button" id="btn-clear" class="danger">Clear saved data</button>
-        </div>
-      </details>
-    </section>
-
     <section class="card" aria-labelledby="items-h">
       <h2 id="items-h">Progress</h2>
       <p id="data-msg" class="msg" role="status"></p>
@@ -73,6 +51,28 @@
       <p class="muted small" id="count"></p>
       <div id="lists"></div>
       <div id="other-sources"></div>
+    </section>
+
+    <section class="card" aria-labelledby="import-h">
+      <details id="import-panel">
+        <summary id="import-h">Import and Export</summary>
+        <ol class="steps">
+          <li>Log in at <a href="https://www.warframe.com" target="_blank" rel="noopener noreferrer">warframe.com</a> and find your account ID on your account page.</li>
+          <li>Open the profile viewing URL for your platform in a new tab and copy or save the JSON.</li>
+          <li>Paste it below, or choose the saved file.</li>
+        </ol>
+        <textarea id="paste" rows="5" placeholder="Paste profile JSON here" spellcheck="false" aria-label="Profile JSON"></textarea>
+        <div class="row">
+          <button type="button" id="btn-parse">Import pasted JSON</button>
+          <label class="button secondary" for="file">Choose file</label>
+          <input type="file" id="file" accept=".json,application/json" hidden>
+        </div>
+        <p id="import-msg" class="msg" role="status"></p>
+        <div class="row">
+          <button type="button" id="btn-export" class="secondary">Download my progress</button>
+          <button type="button" id="btn-clear" class="danger">Clear saved data</button>
+        </div>
+      </details>
     </section>
   </main>
 
