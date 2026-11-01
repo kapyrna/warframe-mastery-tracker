@@ -198,7 +198,7 @@ td input[type="checkbox"] { width: 18px; height: 18px; }
 .list.sub .list-name { font-weight: 500; }
 .list.sub .mini-bar { flex-basis: 64px; }
 .list.sub.sub2 { background: var(--surface); }
-#other-sources { margin-top: 12px; }
+#other-sources { margin-top: 0; }
 #other-sources[hidden] { display: none; }
 .other-note { margin: 0 4px 6px; }
 .other-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 4px 14px 14px; }

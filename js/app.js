@@ -183,34 +183,24 @@
           .join("") +
         "</tbody></table></div>";
     }
-    return detailsHtml(key, src.label, otherCount(src), otherPct(src), openLists.has(key), false, inner, "sub sub2", slugOf(key));
+    return detailsHtml(key, src.label, otherCount(src), otherPct(src), openLists.has(key), false, inner, "sub", slugOf(key));
   }
 
   function otherGroupHtml(g) {
     const key = "other/" + g.id;
     const inner = '<div class="sublists">' + g.sources.map((src) => otherSourceHtml(src, g.id)).join("") + "</div>";
-    return detailsHtml(key, g.label, otherCount(g), otherPct(g), openLists.has(key), false, inner, "sub", slugOf(key));
+    return detailsHtml(key, g.label, otherCount(g), otherPct(g), openLists.has(key), false, inner, "", slugOf(key));
   }
 
+  // Star Chart and Intrinsics are top-level categories beside the item lists;
+  // the Overview still adds them up as "Other sources XP".
   function renderOther(o) {
-    $("other-sources").innerHTML = detailsHtml(
-      "other",
-      "Other sources",
-      fmt(o.total) + " XP",
-      null,
-      openLists.has("other"),
-      false,
-      '<div class="sublists"><p class="muted small other-note">Mastery XP that does not come from items. Enter what you have earned; it counts toward your rank above.</p>' +
-        o.groups.map(otherGroupHtml).join("") + "</div>",
-      "",
-      "other"
-    );
+    $("other-sources").innerHTML = o.groups.map(otherGroupHtml).join("");
   }
 
   // Update numbers in place while someone is typing, so inputs keep their focus.
   function updateOtherView() {
     const o = M.summarizeOther(state.other);
-    $("cnt-other").textContent = fmt(o.total) + " XP";
     for (const g of o.groups) {
       const gslug = slugOf("other/" + g.id);
       $("cnt-" + gslug).textContent = otherCount(g);
@@ -260,7 +250,7 @@
       })
       .join("");
     $("count").textContent = items.length ? "Showing " + shown + " of " + items.length + " items" : "";
-    // Search and filters are about items, so Other sources steps aside while they are in use.
+    // Search and filters are about items, so Star Chart and Intrinsics step aside while they are in use.
     $("other-sources").hidden = searching || $("filter-type").value !== "" || $("filter-status").value !== "";
   }
 

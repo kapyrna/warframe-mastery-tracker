@@ -33,16 +33,16 @@ You'll see a confirmation with the number of items found. If you see an error in
 - **Item XP**: the mastery XP you've earned from items.
 - **If everything is maxed**: the rank you'd reach by maxing every item on the list.
 
-### 4. Fill in Other sources
+### 4. Fill in Star Chart and Intrinsics
 
-Your profile data only covers items. Mastery XP also comes from things that aren't items, so the **Other sources** section at the bottom of Progress lets you add it. The tracker doesn't read these from your profile, so you enter them yourself:
+Your profile data only covers items. Mastery XP also comes from things that aren't items, so **Star Chart** and **Intrinsics** at the bottom of Progress let you add it. The tracker doesn't read these from your profile, so you enter them yourself:
 
 - **Star Chart**, split into **Normal** and **Steel Path**: type in the mastery XP you've earned from each.
 - **Intrinsics**, split into **Drifter** (Riding, Combat, Opportunity, Endurance) and **Railjack** (Tactical, Piloting, Gunnery, Engineering, Command): pick your rank, from 0 to 10, for each skill. Each rank counts as 1,500 mastery XP.
 
-Whatever you enter counts toward your rank at the top, and the **Other sources XP** figure shows the total.
+Whatever you enter counts toward your rank at the top, and the **Other sources XP** figure at the top shows the combined total.
 
-If you've imported a profile, a note under the progress bar compares your total with the rank Warframe itself reports. If yours is lower, some XP is missing: either in Other sources, or in items the tracker doesn't list yet (Zaws, Kitguns, K-Drives, Moas and Hounds).
+If you've imported a profile, a note under the progress bar compares your total with the rank Warframe itself reports. If yours is lower, some XP is missing: either in Star Chart or Intrinsics, or in items the tracker doesn't list yet (Zaws, Kitguns, K-Drives, Moas and Hounds).
 
 You can also tick any item by hand to mark it as mastered, for example if you'd rather not import a profile. Items mastered through your profile data are ticked automatically and can't be unticked.
 
@@ -52,7 +52,7 @@ The **Progress** section has one expandable list each for **Warframes**, **Weapo
 
 Inside each list you'll see every item with the mastery rank needed to use it, your current rank, and your mastery XP for it. Tick the box beside an item to mark it as mastered.
 
-Use the search box and filters above the lists to narrow things down by name, type or status (mastered or not). Searching opens any list that has a match, and Other sources steps aside while you search or filter. Sorting by **Most XP remaining** shows where the biggest gains are.
+Use the search box and filters above the lists to narrow things down by name, type or status (mastered or not). Searching opens any list that has a match, and Star Chart and Intrinsics step aside while you search or filter. Sorting by **Most XP remaining** shows where the biggest gains are.
 
 The item lists are refreshed automatically every day from Warframe's game data, so new Warframes, weapons and companions show up without you doing anything.
 
