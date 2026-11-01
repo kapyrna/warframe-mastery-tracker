@@ -144,7 +144,7 @@ button:focus-visible, .button:focus-within, input:focus-visible, select:focus-vi
   outline-offset: 2px;
 }
 
-input[type="number"], input[type="search"], select, textarea {
+input[type="number"], input[type="search"], input[type="text"], select, textarea {
   font: inherit;
   color: var(--text);
   background: var(--bg);
@@ -153,6 +153,7 @@ input[type="number"], input[type="search"], select, textarea {
   padding: 8px 10px;
 }
 input[type="number"] { width: 180px; }
+#player-id { flex: 1 1 240px; min-width: 0; }
 textarea { width: 100%; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.85rem; }
 
 summary { cursor: pointer; font-weight: 600; font-size: 1.05rem; }

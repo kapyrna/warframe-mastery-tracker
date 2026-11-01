@@ -8,24 +8,24 @@ Nothing to install and no account needed. It works in any modern browser, on des
 
 ## How to use it
 
-### 1. Get your profile data
+### 1. Find your account ID
 
-The tracker reads your own public profile data from Warframe. It can't log in for you, so you grab it yourself:
+The tracker reads your own public profile data from Warframe. You only need your account ID (24 letters and digits, like `505875fb1a4d80894a000000`):
 
 1. Log in at [warframe.com](https://www.warframe.com).
-2. Install the open-source **Warframe Account ID Grabber** extension for [Chrome](https://chromewebstore.google.com/detail/warframe-account-id-grabb/kjjjjdcjnanbbghoebnjnbjlkmmfaiga) or [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/warframe-account-id-grabber/) ([source code](https://github.com/Sainan/warframe-account-id-grabber)). Open it, pick your platform and press **Open Profile Viewing Data**.
-3. Copy everything on the page that opens, or save it as a `.json` file.
+2. Install the open-source **Warframe Account ID Grabber** extension for [Chrome](https://chromewebstore.google.com/detail/warframe-account-id-grabb/kjjjjdcjnanbbghoebnjnbjlkmmfaiga) or [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/warframe-account-id-grabber/) ([source code](https://github.com/Sainan/warframe-account-id-grabber)) and open it. It shows your ID.
 
-If you'd rather not install an extension, PC players can find their account ID in the `EE.log` file (search for `Logged in`; the ID is in the brackets on that line) and open this address with it in place of `YOUR_ACCOUNT_ID`:
-`https://api.warframe.com/cdn/getProfileViewingData.php?playerId=YOUR_ACCOUNT_ID`
+PC players can also find it in the `EE.log` file: search for `Logged in`, and the ID is in the brackets on that line.
 
 ### 2. Import it
 
-Open the tracker and expand **Import and Export** (below Progress, closed until you open it), then either paste the data into the box and press **Import pasted JSON**, or press **Choose file** and pick the file you saved.
+Open the tracker and expand **Import and Export** (below Progress, closed until you open it). Type your account ID, choose your platform and press **Fetch profile**.
+
+If your browser blocks the request, the tracker tells you so and shows the profile address to open in a new tab. Copy that page, paste it into the box and press **Import pasted JSON**, or save it as a `.json` file and press **Choose file**.
 
 Until you've imported a profile, a hint at the top of the page points you here. It goes away once you import, or you can press **Wake up...** to dismiss it.
 
-You'll see a confirmation with the number of items found. If you see an error instead, check that you copied the whole page.
+You'll see a confirmation with the number of items found. If you see an error instead, check that the ID is right, or that you copied the whole page.
 
 ### 3. Read your progress
 

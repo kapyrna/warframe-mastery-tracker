@@ -319,6 +319,29 @@
 
   // ---- events ----
   function bind() {
+    $("btn-fetch").addEventListener("click", async () => {
+      const id = $("player-id").value.trim();
+      if (!/^[0-9a-f]{24}$/i.test(id)) return setMsg($("import-msg"), "An account ID is 24 letters and digits, like 505875fb1a4d80894a000000.", "error");
+      const host = $("platform").value;
+      const btn = $("btn-fetch");
+      btn.disabled = true;
+      setMsg($("import-msg"), "Fetching your profile...", "");
+      try {
+        const res = await fetch("https://" + host + ".warframe.com/cdn/getProfileViewingData.php?playerId=" + encodeURIComponent(id));
+        if (!res.ok) throw new Error("Warframe answered with status " + res.status + ".");
+        importText(await res.text());
+      } catch (e) {
+        const blocked = e instanceof TypeError;
+        setMsg(
+          $("import-msg"),
+          (blocked ? "Your browser blocked the request, so the profile could not be fetched here." : e.message) +
+            " Open https://" + host + ".warframe.com/cdn/getProfileViewingData.php?playerId=" + id + " in a new tab, copy the page, and paste it below.",
+          "error"
+        );
+      } finally {
+        btn.disabled = false;
+      }
+    });
     $("btn-parse").addEventListener("click", () => {
       const text = $("paste").value.trim();
       if (!text) return setMsg($("import-msg"), "Paste some JSON first.", "error");

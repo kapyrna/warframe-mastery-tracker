@@ -85,11 +85,20 @@
     <section class="card" aria-labelledby="import-h">
       <details id="import-panel">
         <summary id="import-h">Import and Export</summary>
-        <ol class="steps">
-          <li>Log in at <a href="https://www.warframe.com" target="_blank" rel="noopener noreferrer">warframe.com</a>.</li>
-          <li>Install the open-source <strong>Warframe Account ID Grabber</strong> extension for <a href="https://chromewebstore.google.com/detail/warframe-account-id-grabb/kjjjjdcjnanbbghoebnjnbjlkmmfaiga" target="_blank" rel="noopener noreferrer">Chrome</a> or <a href="https://addons.mozilla.org/en-GB/firefox/addon/warframe-account-id-grabber/" target="_blank" rel="noopener noreferrer">Firefox</a> (<a href="https://github.com/Sainan/warframe-account-id-grabber" target="_blank" rel="noopener noreferrer">source</a>), open it, pick your platform and press <strong>Open Profile Viewing Data</strong>.</li>
-          <li>Copy the whole page, then paste it below or save it as a file and choose it. PC players can instead find their account ID in <code>EE.log</code> (the line containing <code>Logged in</code>) and open <code>https://api.warframe.com/cdn/getProfileViewingData.php?playerId=YOUR_ACCOUNT_ID</code>.</li>
-        </ol>
+        <p class="muted small">Enter your account ID and the tracker fetches your profile directly. If your browser blocks that, copy the profile page and paste it below instead.</p>
+        <div class="row">
+          <input type="text" id="player-id" placeholder="Account ID" autocomplete="off" spellcheck="false" aria-label="Account ID">
+          <select id="platform" aria-label="Platform">
+            <option value="api">PC</option>
+            <option value="api-ps4">PlayStation</option>
+            <option value="api-xb1">Xbox</option>
+            <option value="api-swi">Switch</option>
+            <option value="api-mob">iOS</option>
+            <option value="api-and">Android</option>
+          </select>
+          <button type="button" id="btn-fetch">Fetch profile</button>
+        </div>
+        <p class="muted small" id="id-help">Find your account ID with the <strong>Warframe Account ID Grabber</strong> extension (<a href="https://chromewebstore.google.com/detail/warframe-account-id-grabb/kjjjjdcjnanbbghoebnjnbjlkmmfaiga" target="_blank" rel="noopener noreferrer">Chrome</a>, <a href="https://addons.mozilla.org/en-GB/firefox/addon/warframe-account-id-grabber/" target="_blank" rel="noopener noreferrer">Firefox</a>, <a href="https://github.com/Sainan/warframe-account-id-grabber" target="_blank" rel="noopener noreferrer">source</a>) while logged in at <a href="https://www.warframe.com" target="_blank" rel="noopener noreferrer">warframe.com</a>, or on PC in <code>EE.log</code> on the line containing <code>Logged in</code>.</p>
         <textarea id="paste" rows="5" placeholder="Paste profile JSON here" spellcheck="false" aria-label="Profile JSON"></textarea>
         <div class="row">
           <button type="button" id="btn-parse">Import pasted JSON</button>
