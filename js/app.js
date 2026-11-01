@@ -327,14 +327,21 @@
       btn.disabled = true;
       setMsg($("import-msg"), "Fetching your profile...", "");
       try {
-        const res = await fetch("https://" + host + ".warframe.com/cdn/getProfileViewingData.php?playerId=" + encodeURIComponent(id));
+        const ctl = new AbortController();
+        const timer = setTimeout(() => ctl.abort(), 15000);
+        let res;
+        try {
+          res = await fetch("https://" + host + ".warframe.com/cdn/getProfileViewingData.php?playerId=" + encodeURIComponent(id), { signal: ctl.signal });
+        } finally {
+          clearTimeout(timer);
+        }
         if (!res.ok) throw new Error("Warframe answered with status " + res.status + ".");
         importText(await res.text());
       } catch (e) {
-        const blocked = e instanceof TypeError;
+        const blocked = e instanceof TypeError || (e && e.name === "AbortError");
         setMsg(
           $("import-msg"),
-          (blocked ? "Your browser blocked the request, so the profile could not be fetched here." : e.message) +
+          (blocked ? "The profile could not be fetched from this page (your browser blocked it or Warframe did not answer)." : e.message) +
             " Open https://" + host + ".warframe.com/cdn/getProfileViewingData.php?playerId=" + id + " in a new tab, copy the page, and paste it below.",
           "error"
         );
