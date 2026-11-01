@@ -71,4 +71,5 @@ The item lists are refreshed automatically every day from Warframe's game data, 
 
 ---
 
-This is an unofficial fan project and is not affiliated with Digital Extremes. Warframe is a trademark of Digital Extremes.
+This is an unofficial fan project and is not affiliated with Digital Extremes.
+Warframe is a trademark of Digital Extremes.
