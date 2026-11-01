@@ -53,7 +53,7 @@ The **Progress** section has one expandable list each for **Warframes**, **Weapo
 
 Inside each list you'll see every item with the mastery rank needed to use it, your current rank, and your mastery XP for it. Tick the box beside an item to mark it as mastered.
 
-Use the search box and filters above the lists to narrow things down by name, type or status (mastered or not). Searching opens any list that has a match, and Star Chart and Intrinsics step aside while you search or filter. Sorting by **Most XP remaining** shows where the biggest gains are.
+Use the search box and filters above the lists to narrow things down by name, Prime or non-Prime (a Prime is an item named "… Prime"; variants such as Umbra, Prisma, Vandal, Wraith and Kuva count as non-Prime), or status (mastered or not). Searching opens any list that has a match, and Star Chart and Intrinsics step aside while you search or filter. Sorting by **Most XP remaining** shows where the biggest gains are.
 
 The item lists are refreshed automatically every day from Warframe's game data, so new Warframes, weapons and companions show up without you doing anything.
 

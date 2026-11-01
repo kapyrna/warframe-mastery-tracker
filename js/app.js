@@ -92,10 +92,10 @@
 
   function visibleRows(rows) {
     const q = $("search").value.trim().toLowerCase();
-    const type = $("filter-type").value;
+    const prime = $("filter-prime").value;
     const status = $("filter-status").value;
     let out = rows.filter((r) => {
-      if (type && r.item.type !== type) return false;
+      if (prime && M.isPrime(r.item) !== (prime === "prime")) return false;
       if (status === "done" && !r.mastered) return false;
       if (status === "todo" && r.mastered) return false;
       if (q && !r.item.name.toLowerCase().includes(q)) return false;
@@ -269,7 +269,7 @@
       .join("");
     $("count").textContent = items.length ? "Showing " + shown + " of " + items.length + " items" : "";
     // Search and filters are about items, so Star Chart and Intrinsics step aside while they are in use.
-    $("other-sources").hidden = searching || $("filter-type").value !== "" || $("filter-status").value !== "";
+    $("other-sources").hidden = searching || $("filter-prime").value !== "" || $("filter-status").value !== "";
   }
 
   function renderAll() {
@@ -277,20 +277,6 @@
     renderSummary(c);
     renderLists(c);
     renderOther(c.other);
-  }
-
-  function fillTypeFilter() {
-    const rows = M.summarize(items, {}, [], 0).rows;
-    const seen = new Set();
-    const options = [];
-    for (const g of M.groupRows(rows)) {
-      for (const t of g.types) {
-        if (seen.has(t.id)) continue;
-        seen.add(t.id);
-        options.push('<option value="' + esc(t.id) + '">' + esc(t.label) + "</option>");
-      }
-    }
-    $("filter-type").innerHTML = '<option value="">All types</option>' + options.join("");
   }
 
   // ---- importing ----
@@ -395,7 +381,7 @@
       setMsg($("import-msg"), "Saved data cleared.", "ok");
     });
 
-    ["search", "filter-type", "filter-status", "sort"].forEach((id) =>
+    ["search", "filter-prime", "filter-status", "sort"].forEach((id) =>
       $(id).addEventListener(id === "search" ? "input" : "change", () => renderLists(compute()))
     );
 
@@ -466,7 +452,6 @@
     loadState();
     bind();
     await loadItems();
-    fillTypeFilter();
     renderAll();
   }
 

@@ -47,6 +47,12 @@
     };
   }
 
+  // A Prime is an item whose name ends in "Prime" (Excalibur Prime, Acceltra Prime).
+  // Variants such as Umbra, Prisma, Vandal, Wraith and Kuva are not Primes.
+  function isPrime(item) {
+    return /\sPrime$/.test(String(item && item.name));
+  }
+
   function rulesFor(item) {
     // Companions follow the Warframe rules whatever their exact type string is.
     const frameLike = FRAME_LIKE.has(item.type) || item.list === "companions";
@@ -384,5 +390,5 @@
     return ids.map((id) => ({ id, label: listLabel(id), rows: byId.get(id), types: groupByType(id, byId.get(id)) }));
   }
 
-  return { xpForRank, rankFromXp, rankProgress, rulesFor, evaluateItem, parseProfile, summarize, OTHER_SOURCES, OTHER_GROUPS, NODE_XP_ESTIMATE, JUNCTION_XP, sanitizeOther, summarizeOther, listOf, listLabel, typeLabel, groupByType, groupRows };
+  return { isPrime, xpForRank, rankFromXp, rankProgress, rulesFor, evaluateItem, parseProfile, summarize, OTHER_SOURCES, OTHER_GROUPS, NODE_XP_ESTIMATE, JUNCTION_XP, sanitizeOther, summarizeOther, listOf, listLabel, typeLabel, groupByType, groupRows };
 });

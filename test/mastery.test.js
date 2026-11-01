@@ -264,3 +264,8 @@ test("rank-40 weapons (Kuva, Tenet, Coda, Paracesis) count 40 ranks for 4,000 ma
   assert.equal(maxed40.mastered, true);
   assert.equal(M.evaluateItem(item, null, true).masteryXp, 4000);
 });
+
+test("isPrime: only names ending in Prime", () => {
+  for (const n of ["Excalibur Prime", "Acceltra Prime", "Euphona Prime"]) assert.equal(M.isPrime({ name: n }), true, n);
+  for (const n of ["Excalibur Umbra", "Prisma Gorgon", "Kuva Hek", "Mara Detron", "Primed Flow", "Prime Laser Rifle", "Proboscis Cernos"]) assert.equal(M.isPrime({ name: n }), false, n);
+});

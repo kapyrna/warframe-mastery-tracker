@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Warframe Mastery Tracker</title>
   <meta name="description" content="Track Warframe mastery rank progress from your own profile data. Runs entirely in your browser.">
-  <link rel="stylesheet" href="css/style.css?v=20261101i">
-  <script src="js/theme.js?v=20261101i"></script>
+  <link rel="stylesheet" href="css/style.css?v=20261101j">
+  <script src="js/theme.js?v=20261101j"></script>
 </head>
 <body>
   <header class="site-header">
@@ -63,8 +63,10 @@
       <p id="data-msg" class="msg" role="status"></p>
       <div class="filters">
         <input type="search" id="search" placeholder="Search items" aria-label="Search items">
-        <select id="filter-type" aria-label="Filter by type">
-          <option value="">All types</option>
+        <select id="filter-prime" aria-label="Filter by Prime">
+          <option value="">Prime and non-Prime</option>
+          <option value="prime">Prime only</option>
+          <option value="base">Non-Prime only</option>
         </select>
         <select id="filter-status" aria-label="Filter by status">
           <option value="">Mastery State</option>
@@ -122,7 +124,7 @@
     </div>
   </footer>
 
-  <script src="js/mastery.js?v=20261101i"></script>
-  <script src="js/app.js?v=20261101i"></script>
+  <script src="js/mastery.js?v=20261101j"></script>
+  <script src="js/app.js?v=20261101j"></script>
 </body>
 </html>
