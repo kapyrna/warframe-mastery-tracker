@@ -105,7 +105,7 @@
       '<td><input type="checkbox" data-id="' + id + '"' + (r.mastered ? " checked" : "") + (locked ? " disabled" : "") +
       ' aria-label="Mark ' + esc(r.item.name) + ' as mastered"></td>' +
       "<td>" + esc(r.item.name) + "</td>" +
-      "<td>" + esc(r.item.type) + "</td>" +
+      "<td>" + esc(M.typeLabel(r.item.type)) + "</td>" +
       '<td class="num">' + (r.item.masteryReq != null ? esc(r.item.masteryReq) : "\u2013") + "</td>" +
       '<td class="num">' + r.rank + " / " + r.maxRank + "</td>" +
       '<td class="num">' + fmt(r.masteryXp) + " / " + fmt(r.maxMasteryXp) + "</td>" +
@@ -120,31 +120,54 @@
     '<th scope="col" class="num">MR req</th><th scope="col" class="num">Rank</th>' +
     '<th scope="col" class="num">Mastery XP</th></tr></thead>';
 
-  // One expandable section per list. Counts in the header always cover the whole
-  // list; the table inside respects the search and filters.
+  function tableHtml(rows, manual) {
+    return '<div class="table-wrap"><table>' + TABLE_HEAD + "<tbody>" + rows.map((r) => rowHtml(r, manual)).join("") + "</tbody></table></div>";
+  }
+
+  function sectionHtml(key, label, allRows, visible, forced, inner, cls) {
+    const done = allRows.filter((r) => r.mastered).length;
+    const pct = allRows.length ? Math.round((done / allRows.length) * 100) : 0;
+    const open = forced || openLists.has(key);
+    return (
+      '<details class="list' + (cls ? " " + cls : "") + '" data-key="' + esc(key) + '" data-forced="' + (forced ? "1" : "0") + '"' + (open ? " open" : "") + ">" +
+      "<summary>" +
+      '<span class="list-name">' + esc(label) + "</span>" +
+      '<span class="list-count">' + done + " / " + allRows.length + " mastered</span>" +
+      '<span class="mini-bar" role="img" aria-label="' + pct + '% mastered"><span style="width:' + pct + '%"></span></span>' +
+      "</summary>" + inner + "</details>"
+    );
+  }
+
+  // One expandable section per list. A list with more than one type (weapons,
+  // companions, vehicles) holds an expandable sub-section per type. Counts in the
+  // headers always cover everything; the tables respect the search and filters.
+  // While searching, sections with matches open so results are not hidden.
   function renderLists(c) {
     const searching = $("search").value.trim() !== "";
     let shown = 0;
     $("lists").innerHTML = M.groupRows(c.summary.rows)
       .map((g) => {
-        const done = g.rows.filter((r) => r.mastered).length;
-        const pct = g.rows.length ? Math.round((done / g.rows.length) * 100) : 0;
         const visible = visibleRows(g.rows);
         shown += visible.length;
-        // While searching, sections with matches open so results are not hidden.
         const forced = searching && visible.length > 0;
-        const open = forced || openLists.has(g.id);
-        const body = visible.length
-          ? '<div class="table-wrap"><table>' + TABLE_HEAD + "<tbody>" + visible.map((r) => rowHtml(r, c.manual)).join("") + "</tbody></table></div>"
-          : '<p class="muted small empty">No items match the current filters.</p>';
-        return (
-          '<details class="list" data-list="' + esc(g.id) + '" data-forced="' + (forced ? "1" : "0") + '"' + (open ? " open" : "") + ">" +
-          "<summary>" +
-          '<span class="list-name">' + esc(g.label) + "</span>" +
-          '<span class="list-count">' + done + " / " + g.rows.length + " mastered</span>" +
-          '<span class="mini-bar" role="img" aria-label="' + pct + '% mastered"><span style="width:' + pct + '%"></span></span>' +
-          "</summary>" + body + "</details>"
-        );
+        let inner;
+        if (!visible.length) {
+          inner = '<p class="muted small empty">No items match the current filters.</p>';
+        } else if (g.types.length > 1) {
+          inner =
+            '<div class="sublists">' +
+            g.types
+              .map((t) => {
+                const vis = visibleRows(t.rows);
+                if (!vis.length) return "";
+                return sectionHtml(g.id + "/" + t.id, t.label, t.rows, vis, searching, tableHtml(vis, c.manual), "sub");
+              })
+              .join("") +
+            "</div>";
+        } else {
+          inner = tableHtml(visible, c.manual);
+        }
+        return sectionHtml(g.id, g.label, g.rows, visible, forced, inner, "");
       })
       .join("");
     $("count").textContent = items.length ? "Showing " + shown + " of " + items.length + " items" : "";
@@ -157,9 +180,17 @@
   }
 
   function fillTypeFilter() {
-    const types = Array.from(new Set(items.map((i) => i.type))).sort();
-    $("filter-type").innerHTML =
-      '<option value="">All types</option>' + types.map((t) => '<option value="' + esc(t) + '">' + esc(t) + "</option>").join("");
+    const rows = M.summarize(items, {}, [], 0).rows;
+    const seen = new Set();
+    const options = [];
+    for (const g of M.groupRows(rows)) {
+      for (const t of g.types) {
+        if (seen.has(t.id)) continue;
+        seen.add(t.id);
+        options.push('<option value="' + esc(t.id) + '">' + esc(t.label) + "</option>");
+      }
+    }
+    $("filter-type").innerHTML = '<option value="">All types</option>' + options.join("");
   }
 
   // ---- importing ----
@@ -256,8 +287,8 @@
       (e) => {
         const d = e.target;
         if (!(d instanceof HTMLDetailsElement) || d.dataset.forced === "1") return;
-        if (d.open) openLists.add(d.dataset.list);
-        else openLists.delete(d.dataset.list);
+        if (d.open) openLists.add(d.dataset.key);
+        else openLists.delete(d.dataset.key);
       },
       true
     );

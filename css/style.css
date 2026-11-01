@@ -148,6 +148,11 @@ td input[type="checkbox"] { width: 18px; height: 18px; }
 .mini-bar { width: 80px; height: 8px; background: var(--bar); border-radius: 4px; overflow: hidden; flex: none; }
 .mini-bar > span { display: block; height: 100%; background: var(--good); }
 .list .table-wrap { padding: 0 8px 8px; }
+.sublists { padding: 0 10px 10px; }
+.list.sub { margin: 8px 0 0; background: var(--bg); }
+.list.sub > summary { padding: 9px 12px; font-size: 0.95rem; }
+.list.sub .list-name { font-weight: 500; }
+.list.sub .mini-bar { width: 64px; }
 .list .empty { padding: 0 14px 12px; margin: 0; }
 
 .site-footer { padding-bottom: 32px; color: var(--muted); font-size: 0.85rem; }

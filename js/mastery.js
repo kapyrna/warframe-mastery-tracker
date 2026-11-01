@@ -126,19 +126,69 @@
   }
 
   // ---- grouping into the lists shown on the page ----
-  const LIST_ORDER = ["warframes", "weapons", "companions", "archwings", "necramechs"];
-  const LIST_LABELS = { warframes: "Warframes", weapons: "Weapons", companions: "Companions", archwings: "Archwings", necramechs: "Necramechs" };
+  const LIST_ORDER = ["warframes", "weapons", "companions", "vehicles"];
+  const LIST_LABELS = { warframes: "Warframes", weapons: "Weapons", companions: "Companions", vehicles: "Vehicles" };
+
+  // Order and names for the type sub-sections inside a list. Unknown types still
+  // show up, after the known ones, under a capitalised version of their name.
+  const TYPE_ORDER = {
+    weapons: ["primary", "secondary", "melee", "archgun", "archmelee", "sentinel-weapon"],
+    companions: ["sentinel", "beast", "moa", "hound"],
+    vehicles: ["archwing", "necramech"],
+  };
+  const TYPE_LABELS = {
+    warframe: "Warframes",
+    primary: "Primary",
+    secondary: "Secondary",
+    melee: "Melee",
+    archgun: "Archgun",
+    archmelee: "Archmelee",
+    "sentinel-weapon": "Companion weapons",
+    sentinel: "Sentinels",
+    beast: "Beasts",
+    moa: "Moas",
+    hound: "Hounds",
+    archwing: "Archwings",
+    necramech: "Necramechs",
+  };
 
   function listOf(item) {
     if (item.list) return item.list;
     return item.type === "warframe" ? "warframes" : "weapons";
   }
 
-  function listLabel(id) {
-    return LIST_LABELS[id] || id.charAt(0).toUpperCase() + id.slice(1);
+  function capitalise(id) {
+    return id.charAt(0).toUpperCase() + id.slice(1);
   }
 
-  // Split evaluated rows into [{ id, label, rows }], known lists first, empty lists omitted.
+  function listLabel(id) {
+    return LIST_LABELS[id] || capitalise(id);
+  }
+
+  function typeLabel(type) {
+    return TYPE_LABELS[type] || capitalise(String(type).replace(/-/g, " "));
+  }
+
+  // Split a list's rows into [{ id, label, rows }] by item type, known types first.
+  function groupByType(listId, rows) {
+    const byType = new Map();
+    for (const r of rows) {
+      const t = r.item.type || "other";
+      if (!byType.has(t)) byType.set(t, []);
+      byType.get(t).push(r);
+    }
+    const order = TYPE_ORDER[listId] || [];
+    const ids = Array.from(byType.keys()).sort((a, b) => {
+      const ia = order.indexOf(a);
+      const ib = order.indexOf(b);
+      return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b);
+    });
+    return ids.map((id) => ({ id, label: typeLabel(id), rows: byType.get(id) }));
+  }
+
+  // Split evaluated rows into [{ id, label, rows, types }], known lists first, empty
+  // lists omitted. `types` holds the type sub-groups (one entry means no sub-sections
+  // are worth showing).
   function groupRows(rows) {
     const byId = new Map();
     for (const r of rows) {
@@ -151,8 +201,8 @@
       const ib = LIST_ORDER.indexOf(b);
       return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b);
     });
-    return ids.map((id) => ({ id, label: listLabel(id), rows: byId.get(id) }));
+    return ids.map((id) => ({ id, label: listLabel(id), rows: byId.get(id), types: groupByType(id, byId.get(id)) }));
   }
 
-  return { xpForRank, rankFromXp, rankProgress, rulesFor, evaluateItem, parseProfile, summarize, estimateOtherXp, listOf, listLabel, groupRows };
+  return { xpForRank, rankFromXp, rankProgress, rulesFor, evaluateItem, parseProfile, summarize, estimateOtherXp, listOf, listLabel, typeLabel, groupByType, groupRows };
 });

@@ -30,8 +30,8 @@ USER_AGENT = "warframe-mastery-tracker (+https://github.com/kapyrna/warframe-mas
 # ExportWarframes holds several kinds of item: productCategory -> (list, type)
 WARFRAME_LISTS = {
     "Suits": ("warframes", "warframe"),
-    "SpaceSuits": ("archwings", "archwing"),
-    "MechSuits": ("necramechs", "necramech"),
+    "SpaceSuits": ("vehicles", "archwing"),
+    "MechSuits": ("vehicles", "necramech"),
 }
 # ExportWeapons: productCategory -> our item type
 WEAPON_CATEGORIES = {
@@ -196,10 +196,11 @@ def check_sane(items):
         problems.append(f"only {counts['weapons']} weapons (expected at least {MIN_WEAPONS})")
     if counts["companions"] < MIN_COMPANIONS:
         problems.append(f"only {counts['companions']} companions (expected at least {MIN_COMPANIONS})")
-    if counts["archwings"] < MIN_ARCHWINGS:
-        problems.append(f"only {counts['archwings']} archwings (expected at least {MIN_ARCHWINGS})")
-    if counts["necramechs"] < MIN_NECRAMECHS:
-        problems.append(f"only {counts['necramechs']} necramechs (expected at least {MIN_NECRAMECHS})")
+    types = collections.Counter(i.get("type") for i in items if i.get("list") == "vehicles")
+    if types["archwing"] < MIN_ARCHWINGS:
+        problems.append(f"only {types['archwing']} archwings (expected at least {MIN_ARCHWINGS})")
+    if types["necramech"] < MIN_NECRAMECHS:
+        problems.append(f"only {types['necramech']} necramechs (expected at least {MIN_NECRAMECHS})")
     return problems
 
 

@@ -62,15 +62,42 @@ test("companions use the Warframe rules whatever their type string", () => {
   assert.equal(M.evaluateItem({ uniqueName: "/w", name: "W", type: "sentinel" }, 450000).masteryXp, 3000);
 });
 
-test("archwings and necramechs use the Warframe rules and list order", () => {
-  for (const [type, list] of [["archwing", "archwings"], ["necramech", "necramechs"]]) {
-    const e = M.evaluateItem({ uniqueName: "/v", name: "V", type, list }, 900000);
+test("archwings and necramechs use the Warframe rules", () => {
+  for (const type of ["archwing", "necramech"]) {
+    const e = M.evaluateItem({ uniqueName: "/v", name: "V", type, list: "vehicles" }, 900000);
     assert.equal(e.masteryXp, 6000);
     assert.ok(e.mastered);
   }
-  const mk = (list, type) => ({ uniqueName: "/" + list, name: list, type, list });
-  const rows = M.summarize([mk("necramechs", "necramech"), mk("archwings", "archwing"), mk("companions", "sentinel"), mk("weapons", "melee"), mk("warframes", "warframe")], {}, [], 0).rows;
-  assert.deepEqual(M.groupRows(rows).map((g) => g.label), ["Warframes", "Weapons", "Companions", "Archwings", "Necramechs"]);
+});
+
+test("lists come out in order with friendly labels", () => {
+  const mk = (list, type) => ({ uniqueName: "/" + list + type, name: list + type, type, list });
+  const rows = M.summarize([mk("vehicles", "necramech"), mk("companions", "sentinel"), mk("weapons", "melee"), mk("warframes", "warframe")], {}, [], 0).rows;
+  assert.deepEqual(M.groupRows(rows).map((g) => g.label), ["Warframes", "Weapons", "Companions", "Vehicles"]);
+});
+
+test("groupRows splits each list into ordered type sub-groups", () => {
+  const mk = (list, type, n) => ({ uniqueName: "/" + type + n, name: type + n, type, list });
+  const items = [
+    mk("weapons", "melee", 1), mk("weapons", "sentinel-weapon", 1), mk("weapons", "primary", 1), mk("weapons", "primary", 2), mk("weapons", "secondary", 1), mk("weapons", "zaw", 1),
+    mk("companions", "beast", 1), mk("companions", "sentinel", 1),
+    mk("vehicles", "necramech", 1), mk("vehicles", "archwing", 1), mk("vehicles", "archwing", 2),
+    mk("warframes", "warframe", 1),
+  ];
+  const groups = M.groupRows(M.summarize(items, {}, [], 0).rows);
+  const byId = Object.fromEntries(groups.map((g) => [g.id, g]));
+  assert.deepEqual(byId.weapons.types.map((t) => t.label), ["Primary", "Secondary", "Melee", "Companion weapons", "Zaw"]);
+  assert.deepEqual(byId.weapons.types.map((t) => t.rows.length), [2, 1, 1, 1, 1]);
+  assert.deepEqual(byId.companions.types.map((t) => t.label), ["Sentinels", "Beasts"]);
+  assert.deepEqual(byId.vehicles.types.map((t) => t.label), ["Archwings", "Necramechs"]);
+  assert.equal(byId.warframes.types.length, 1);
+  // every row appears exactly once in its list's sub-groups
+  for (const g of groups) assert.equal(g.types.reduce((n, t) => n + t.rows.length, 0), g.rows.length);
+});
+
+test("typeLabel falls back to a readable name", () => {
+  assert.equal(M.typeLabel("sentinel-weapon"), "Companion weapons");
+  assert.equal(M.typeLabel("brand-new-thing"), "Brand new thing");
 });
 
 test("manual tick marks an item mastered without profile data", () => {

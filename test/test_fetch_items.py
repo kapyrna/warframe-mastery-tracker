@@ -66,7 +66,7 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(stats["weapons: kept"], 2)
         self.assertEqual(stats["weapons: dropped, no masteryReq"], 1)
 
-    def test_archwings_and_necramechs_get_their_own_lists(self):
+    def test_archwings_and_necramechs_share_the_vehicles_list(self):
         warframes = [
             {"uniqueName": "/F/Excal", "name": "Excalibur", "productCategory": "Suits", "masteryReq": 0},
             {"uniqueName": "/A/Odonata", "name": "Odonata", "productCategory": "SpaceSuits", "masteryReq": 5},
@@ -77,10 +77,11 @@ class BuildTests(unittest.TestCase):
         got = {i["uniqueName"]: (i["list"], i["type"], i["masteryReq"]) for i in items}
         self.assertEqual(got, {
             "/F/Excal": ("warframes", "warframe", 0),
-            "/A/Odonata": ("archwings", "archwing", 5),
-            "/M/Voidrig": ("necramechs", "necramech", 8),
+            "/A/Odonata": ("vehicles", "archwing", 5),
+            "/M/Voidrig": ("vehicles", "necramech", 8),
         })
-        self.assertEqual(stats["archwings: kept as archwing"], 1)
+        self.assertEqual(stats["vehicles: kept as archwing"], 1)
+        self.assertEqual(stats["vehicles: kept as necramech"], 1)
         self.assertEqual(stats["warframes: dropped, category 'SpecialItems'"], 1)
 
     def test_duplicates_collapse_by_unique_name(self):
@@ -109,10 +110,11 @@ class BuildTests(unittest.TestCase):
         self.assertTrue(F.check_sane([]))
         enough = ([{"list": "warframes"}] * F.MIN_WARFRAMES + [{"list": "weapons"}] * F.MIN_WEAPONS
                   + [{"list": "companions"}] * F.MIN_COMPANIONS
-                  + [{"list": "archwings"}] * F.MIN_ARCHWINGS + [{"list": "necramechs"}] * F.MIN_NECRAMECHS)
+                  + [{"list": "vehicles", "type": "archwing"}] * F.MIN_ARCHWINGS
+                  + [{"list": "vehicles", "type": "necramech"}] * F.MIN_NECRAMECHS)
         self.assertEqual(F.check_sane(enough), [])
         self.assertTrue(any("necramechs" in p for p in F.check_sane(enough[:-1])))
-        self.assertTrue(any("archwings" in p for p in F.check_sane([i for i in enough if i["list"] != "archwings"])))
+        self.assertTrue(any("archwings" in p for p in F.check_sane([i for i in enough if i.get("type") != "archwing"])))
 
 
 class FailureReportingTests(unittest.TestCase):
