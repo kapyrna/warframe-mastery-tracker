@@ -164,8 +164,8 @@ summary { cursor: pointer; font-weight: 600; font-size: 1.05rem; }
 .msg.ok { color: var(--good); }
 
 .filters { display: flex; flex-wrap: wrap; gap: 8px; }
-/* Search takes the spare room; each dropdown is as wide as its longest option. */
-.filters > input { flex: 1 1 100px; min-width: 0; }
+/* Search has a row to itself; each dropdown is as wide as its longest option. */
+.filters > input { flex: 1 1 100%; min-width: 0; }
 .filters > select { flex: 0 0 auto; width: auto; max-width: 100%; }
 
 .table-wrap { overflow-x: auto; }
@@ -232,7 +232,6 @@ td select { padding: 4px 8px; }
 }
 
 @media (max-width: 640px) {
-  .filters > input { flex-basis: 100%; }
   .filters > select { flex: 1 1 100%; }
   .stat .value { font-size: 1.25rem; }
 }
