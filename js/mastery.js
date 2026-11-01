@@ -119,10 +119,94 @@
     };
   }
 
-  // Lower-bound guess at non-item XP: what the reported rank implies minus item XP.
-  function estimateOtherXp(reportedRank, itemXp) {
-    if (!Number.isFinite(reportedRank)) return 0;
-    return Math.max(0, xpForRank(reportedRank) - itemXp);
+  // ---- other sources of mastery XP (things that are not items) ----
+  // Intrinsics give 1,500 mastery XP per rank. The max rank per skill is 10. These
+  // figures come from community sources and are kept here so they are easy to fix.
+  const INTRINSIC_XP_PER_RANK = 1500;
+  const INTRINSIC_MAX_RANK = 10;
+  const MAX_ENTERED_XP = 10000000;
+
+  const OTHER_SOURCES = [
+    { id: "star-chart", label: "Star Chart", kind: "xp" },
+    { id: "steel-path", label: "Steel Path Star Chart", kind: "xp" },
+    {
+      id: "drifter-intrinsics",
+      label: "Drifter Intrinsics",
+      kind: "ranks",
+      xpPerRank: INTRINSIC_XP_PER_RANK,
+      maxRank: INTRINSIC_MAX_RANK,
+      skills: [
+        { id: "riding", label: "Riding" },
+        { id: "combat", label: "Combat" },
+        { id: "opportunity", label: "Opportunity" },
+        { id: "endurance", label: "Endurance" },
+      ],
+    },
+    {
+      id: "railjack-intrinsics",
+      label: "Railjack Intrinsics",
+      kind: "ranks",
+      xpPerRank: INTRINSIC_XP_PER_RANK,
+      maxRank: INTRINSIC_MAX_RANK,
+      skills: [
+        { id: "tactical", label: "Tactical" },
+        { id: "piloting", label: "Piloting" },
+        { id: "gunnery", label: "Gunnery" },
+        { id: "engineering", label: "Engineering" },
+        { id: "command", label: "Command" },
+      ],
+    },
+  ];
+
+  function wholeNumber(v, max) {
+    const n = Math.floor(Number(v));
+    return Number.isFinite(n) && n > 0 ? Math.min(n, max) : 0;
+  }
+
+  // Shape: { xp: { "star-chart": n, ... }, ranks: { "railjack-intrinsics/piloting": n, ... } }.
+  // Anything unknown or out of range is dropped or clamped, whatever came in.
+  function sanitizeOther(raw) {
+    const out = { xp: {}, ranks: {} };
+    const src = raw && typeof raw === "object" ? raw : {};
+    for (const s of OTHER_SOURCES) {
+      if (s.kind === "xp") {
+        const n = wholeNumber(src.xp && src.xp[s.id], MAX_ENTERED_XP);
+        if (n) out.xp[s.id] = n;
+      } else {
+        for (const sk of s.skills) {
+          const key = s.id + "/" + sk.id;
+          const n = wholeNumber(src.ranks && src.ranks[key], s.maxRank);
+          if (n) out.ranks[key] = n;
+        }
+      }
+    }
+    return out;
+  }
+
+  function summarizeOther(raw) {
+    const o = sanitizeOther(raw);
+    const sources = OTHER_SOURCES.map((s) => {
+      if (s.kind === "xp") {
+        const xp = o.xp[s.id] || 0;
+        return { id: s.id, label: s.label, kind: "xp", xp, maxXp: null };
+      }
+      const skills = s.skills.map((sk) => {
+        const key = s.id + "/" + sk.id;
+        const rank = o.ranks[key] || 0;
+        return { id: sk.id, key, label: sk.label, rank, maxRank: s.maxRank, xp: rank * s.xpPerRank };
+      });
+      return {
+        id: s.id,
+        label: s.label,
+        kind: "ranks",
+        skills,
+        rank: skills.reduce((n, k) => n + k.rank, 0),
+        maxRank: skills.length * s.maxRank,
+        xp: skills.reduce((n, k) => n + k.xp, 0),
+        maxXp: skills.length * s.maxRank * s.xpPerRank,
+      };
+    });
+    return { sources, total: sources.reduce((n, s) => n + s.xp, 0) };
   }
 
   // ---- grouping into the lists shown on the page ----
@@ -204,5 +288,5 @@
     return ids.map((id) => ({ id, label: listLabel(id), rows: byId.get(id), types: groupByType(id, byId.get(id)) }));
   }
 
-  return { xpForRank, rankFromXp, rankProgress, rulesFor, evaluateItem, parseProfile, summarize, estimateOtherXp, listOf, listLabel, typeLabel, groupByType, groupRows };
+  return { xpForRank, rankFromXp, rankProgress, rulesFor, evaluateItem, parseProfile, summarize, OTHER_SOURCES, sanitizeOther, summarizeOther, listOf, listLabel, typeLabel, groupByType, groupRows };
 });

@@ -78,9 +78,6 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .bar-fill { height: 100%; width: 0; background: var(--accent); transition: width 0.25s ease; }
 #rank-caption { margin: 6px 0 0; font-size: 0.9rem; }
 
-.other-xp { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); }
-.other-xp label { display: block; font-size: 0.9rem; margin-bottom: 6px; }
-
 .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
 
 button, .button {
@@ -153,6 +150,12 @@ td input[type="checkbox"] { width: 18px; height: 18px; }
 .list.sub > summary { padding: 9px 12px; font-size: 0.95rem; }
 .list.sub .list-name { font-weight: 500; }
 .list.sub .mini-bar { width: 64px; }
+#other-sources { margin-top: 12px; }
+#other-sources[hidden] { display: none; }
+.other-note { margin: 0 4px 6px; }
+.other-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 4px 14px 14px; }
+.xp-input { width: 180px; }
+td select { padding: 4px 8px; }
 .list .empty { padding: 0 14px 12px; margin: 0; }
 
 .site-footer { padding-bottom: 32px; color: var(--muted); font-size: 0.85rem; }

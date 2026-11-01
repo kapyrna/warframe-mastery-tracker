@@ -151,8 +151,45 @@ test("groupRows splits into ordered lists and falls back on type", () => {
   assert.deepEqual(M.groupRows([]), []);
 });
 
-test("estimateOtherXp never goes negative", () => {
-  assert.equal(M.estimateOtherXp(1, 999999), 0);
-  assert.equal(M.estimateOtherXp(2, 1000), 10000 - 1000);
-  assert.equal(M.estimateOtherXp(null, 1000), 0);
+test("other sources are the four requested, in order", () => {
+  assert.deepEqual(M.OTHER_SOURCES.map((s) => s.label), ["Star Chart", "Steel Path Star Chart", "Drifter Intrinsics", "Railjack Intrinsics"]);
+  const o = M.summarizeOther(null);
+  assert.equal(o.total, 0);
+  assert.deepEqual(o.sources.map((s) => s.kind), ["xp", "xp", "ranks", "ranks"]);
+});
+
+test("intrinsic ranks give 1,500 mastery XP each and add up", () => {
+  const o = M.summarizeOther({ ranks: { "railjack-intrinsics/piloting": 10, "railjack-intrinsics/gunnery": 3, "drifter-intrinsics/riding": 2 } });
+  const rj = o.sources.find((s) => s.id === "railjack-intrinsics");
+  const dr = o.sources.find((s) => s.id === "drifter-intrinsics");
+  assert.equal(rj.rank, 13);
+  assert.equal(rj.xp, 13 * 1500);
+  assert.equal(rj.maxRank, 50);
+  assert.equal(rj.maxXp, 50 * 1500);
+  assert.equal(dr.xp, 3000);
+  assert.equal(dr.maxRank, 40);
+  assert.equal(o.total, 13 * 1500 + 3000);
+});
+
+test("entered XP is added per source", () => {
+  const o = M.summarizeOther({ xp: { "star-chart": 12345, "steel-path": 678 } });
+  assert.equal(o.sources[0].xp, 12345);
+  assert.equal(o.sources[1].xp, 678);
+  assert.equal(o.total, 13023);
+});
+
+test("sanitizeOther clamps, floors and drops anything unknown", () => {
+  const o = M.sanitizeOther({
+    xp: { "star-chart": -5, "steel-path": "1e3", bogus: 99, "drifter-intrinsics": 5 },
+    ranks: { "railjack-intrinsics/piloting": 99, "railjack-intrinsics/gunnery": 2.9, "railjack-intrinsics/nope": 4, "drifter-intrinsics/riding": "abc" },
+  });
+  assert.deepEqual(o, { xp: { "steel-path": 1000 }, ranks: { "railjack-intrinsics/piloting": 10, "railjack-intrinsics/gunnery": 2 } });
+  assert.equal(M.sanitizeOther({ xp: { "star-chart": 1e15 } }).xp["star-chart"], 10000000);
+  for (const junk of [null, undefined, 5, "x", [], { xp: 7, ranks: "y" }]) assert.deepEqual(M.sanitizeOther(junk), { xp: {}, ranks: {} });
+});
+
+test("other-sources XP feeds the rank total", () => {
+  const items = [{ uniqueName: "/w", name: "W", type: "primary" }];
+  const other = M.summarizeOther({ xp: { "star-chart": 2500 } });
+  assert.equal(M.summarize(items, {}, [], other.total).current.rank, 1);
 });

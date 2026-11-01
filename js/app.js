@@ -12,7 +12,7 @@
 
   let items = [];
   const openLists = new Set();
-  let state = { version: 1, profile: null, manual: [], otherXp: null };
+  let state = { version: 1, profile: null, manual: [], other: M.sanitizeOther(null) };
 
   // ---- persistence (localStorage can be blocked or empty; never rely on it) ----
   function loadState() {
@@ -25,7 +25,7 @@
           version: 1,
           profile: s.profile || null,
           manual: Array.isArray(s.manual) ? s.manual : [],
-          otherXp: Number.isFinite(s.otherXp) ? s.otherXp : null,
+          other: M.sanitizeOther(s.other),
         };
       }
     } catch (e) { /* ignore */ }
@@ -45,11 +45,9 @@
   function compute() {
     const xpByItem = state.profile ? state.profile.xpByItem : {};
     const manual = new Set(state.manual);
-    const base = M.summarize(items, xpByItem, manual, 0);
-    const estimated = state.profile ? M.estimateOtherXp(state.profile.reportedRank, base.itemXp) : 0;
-    const otherXp = state.otherXp == null ? estimated : state.otherXp;
-    const summary = M.summarize(items, xpByItem, manual, otherXp);
-    return { summary, manual, estimated, usingEstimate: state.otherXp == null };
+    const other = M.summarizeOther(state.other);
+    const summary = M.summarize(items, xpByItem, manual, other.total);
+    return { summary, manual, other };
   }
 
   // ---- rendering ----
@@ -67,14 +65,21 @@
     $("rank-caption").textContent =
       fmt(s.current.remaining) + " XP to MR " + (s.current.rank + 1) + " (" + pct + "% of this rank)";
 
-    const input = $("other-xp");
-    if (document.activeElement !== input) input.value = c.usingEstimate ? "" : String(state.otherXp);
-    input.placeholder = c.usingEstimate ? fmt(c.estimated) + " (estimate)" : "auto";
-    $("other-xp-note").textContent = c.usingEstimate
-      ? state.profile && state.profile.reportedRank != null
-        ? "Estimated from your reported rank (a lower bound). Enter your real figure for exact projections."
-        : "Import a profile for an estimate, or enter your own figure."
-      : "Using your figure. Clear the box or press the button to go back to the estimate.";
+    $("stat-other").textContent = fmt(c.other.total);
+    $("rank-note").textContent = rankNote(c);
+  }
+
+  // Compare against the rank Warframe itself reports, so people can tell whether
+  // anything is still missing from their entries.
+  function rankNote(c) {
+    const reported = state.profile ? state.profile.reportedRank : null;
+    if (reported == null) return "";
+    const mine = c.summary.current.rank;
+    if (mine === reported) return "This matches the rank your profile reports (MR " + reported + ").";
+    if (mine < reported) {
+      return "Your profile reports MR " + reported + ", so some mastery XP is missing here. It may be in Other sources, or in items this tracker does not list yet (Zaws, Kitguns, K-Drives, Moas, Hounds).";
+    }
+    return "Your profile reports MR " + reported + ", which is lower than this total. Check your Other sources entries and ticked items.";
   }
 
   function visibleRows(rows) {
@@ -124,18 +129,89 @@
     return '<div class="table-wrap"><table>' + TABLE_HEAD + "<tbody>" + rows.map((r) => rowHtml(r, manual)).join("") + "</tbody></table></div>";
   }
 
-  function sectionHtml(key, label, allRows, visible, forced, inner, cls) {
-    const done = allRows.filter((r) => r.mastered).length;
-    const pct = allRows.length ? Math.round((done / allRows.length) * 100) : 0;
-    const open = forced || openLists.has(key);
+  function detailsHtml(key, label, countText, pct, open, forced, inner, cls, slug) {
     return (
       '<details class="list' + (cls ? " " + cls : "") + '" data-key="' + esc(key) + '" data-forced="' + (forced ? "1" : "0") + '"' + (open ? " open" : "") + ">" +
       "<summary>" +
       '<span class="list-name">' + esc(label) + "</span>" +
-      '<span class="list-count">' + done + " / " + allRows.length + " mastered</span>" +
-      '<span class="mini-bar" role="img" aria-label="' + pct + '% mastered"><span style="width:' + pct + '%"></span></span>' +
+      '<span class="list-count" id="cnt-' + esc(slug || key.replace(/\W+/g, "-")) + '">' + esc(countText) + "</span>" +
+      (pct == null
+        ? ""
+        : '<span class="mini-bar" role="img" aria-label="' + pct + '% complete"><span id="bar-' + esc(slug || key.replace(/\W+/g, "-")) + '" style="width:' + pct + '%"></span></span>') +
       "</summary>" + inner + "</details>"
     );
+  }
+
+  function sectionHtml(key, label, allRows, visible, forced, inner, cls) {
+    const done = allRows.filter((r) => r.mastered).length;
+    const pct = allRows.length ? Math.round((done / allRows.length) * 100) : 0;
+    return detailsHtml(key, label, done + " / " + allRows.length + " mastered", pct, forced || openLists.has(key), forced, inner, cls);
+  }
+
+  // ---- other sources (star chart, steel path, intrinsics) ----
+  const slugOf = (key) => key.replace(/\W+/g, "-");
+  const pctOf = (n, max) => (max ? Math.round((n / max) * 100) : 0);
+
+  function otherCount(src) {
+    return src.kind === "xp" ? fmt(src.xp) + " XP" : src.rank + " / " + src.maxRank + " ranks \u00b7 " + fmt(src.xp) + " XP";
+  }
+
+  function otherSourceHtml(src) {
+    const key = "other/" + src.id;
+    let inner;
+    if (src.kind === "xp") {
+      inner =
+        '<div class="other-row"><label for="xp-' + esc(src.id) + '">Mastery XP earned</label>' +
+        '<input type="number" class="xp-input" id="xp-' + esc(src.id) + '" data-other-xp="' + esc(src.id) + '" min="0" step="1" inputmode="numeric" placeholder="0"' +
+        (src.xp ? ' value="' + src.xp + '"' : "") + "></div>";
+    } else {
+      inner =
+        '<div class="table-wrap"><table><thead><tr><th scope="col">Skill</th><th scope="col">Rank</th><th scope="col" class="num">Mastery XP</th></tr></thead><tbody>' +
+        src.skills
+          .map((k) => {
+            const opts = [];
+            for (let r = 0; r <= k.maxRank; r++) opts.push('<option value="' + r + '"' + (r === k.rank ? " selected" : "") + ">" + r + "</option>");
+            return (
+              "<tr><td>" + esc(k.label) + "</td>" +
+              '<td><select data-other-rank="' + esc(k.key) + '" aria-label="' + esc(src.label + " " + k.label + " rank") + '">' + opts.join("") + "</select></td>" +
+              '<td class="num" id="xp-' + esc(slugOf(k.key)) + '">' + fmt(k.xp) + "</td></tr>"
+            );
+          })
+          .join("") +
+        "</tbody></table></div>";
+    }
+    const pct = src.kind === "ranks" ? pctOf(src.rank, src.maxRank) : null;
+    return detailsHtml(key, src.label, otherCount(src), pct, openLists.has(key), false, inner, "sub", slugOf(key));
+  }
+
+  function renderOther(o) {
+    $("other-sources").innerHTML = detailsHtml(
+      "other",
+      "Other sources",
+      fmt(o.total) + " XP",
+      null,
+      openLists.has("other"),
+      false,
+      '<div class="sublists"><p class="muted small other-note">Mastery XP that does not come from items. Enter what you have earned; it counts toward your rank above.</p>' +
+        o.sources.map(otherSourceHtml).join("") + "</div>",
+      "",
+      "other"
+    );
+  }
+
+  // Update numbers in place while someone is typing, so inputs keep their focus.
+  function updateOtherView() {
+    const o = M.summarizeOther(state.other);
+    $("cnt-other").textContent = fmt(o.total) + " XP";
+    for (const src of o.sources) {
+      const slug = slugOf("other/" + src.id);
+      $("cnt-" + slug).textContent = otherCount(src);
+      if (src.kind === "ranks") {
+        $("bar-" + slug).style.width = pctOf(src.rank, src.maxRank) + "%";
+        for (const k of src.skills) $("xp-" + slugOf(k.key)).textContent = fmt(k.xp);
+      }
+    }
+    renderSummary(compute());
   }
 
   // One expandable section per list. A list with more than one type (weapons,
@@ -171,12 +247,15 @@
       })
       .join("");
     $("count").textContent = items.length ? "Showing " + shown + " of " + items.length + " items" : "";
+    // Search and filters are about items, so Other sources steps aside while they are in use.
+    $("other-sources").hidden = searching || $("filter-type").value !== "" || $("filter-status").value !== "";
   }
 
   function renderAll() {
     const c = compute();
     renderSummary(c);
     renderLists(c);
+    renderOther(c.other);
   }
 
   function fillTypeFilter() {
@@ -204,7 +283,7 @@
         version: 1,
         profile: json.profile || null,
         manual: json.manual,
-        otherXp: Number.isFinite(json.otherXp) ? json.otherXp : null,
+        other: M.sanitizeOther(json.other),
       };
       saveState();
       renderAll();
@@ -256,25 +335,11 @@
 
     $("btn-clear").addEventListener("click", () => {
       if (!confirm("Remove your imported profile and ticked items from this browser?")) return;
-      state = { version: 1, profile: null, manual: [], otherXp: null };
+      state = { version: 1, profile: null, manual: [], other: M.sanitizeOther(null) };
       try { localStorage.removeItem(STORAGE_KEY); } catch (e) { /* ignore */ }
       $("paste").value = "";
       renderAll();
       setMsg($("import-msg"), "Saved data cleared.", "ok");
-    });
-
-    $("other-xp").addEventListener("input", (e) => {
-      const v = e.target.value.trim();
-      state.otherXp = v === "" ? null : Math.max(0, Math.floor(Number(v)) || 0);
-      saveState();
-      renderSummary(compute());
-    });
-
-    $("other-xp-auto").addEventListener("click", () => {
-      state.otherXp = null;
-      $("other-xp").value = "";
-      saveState();
-      renderSummary(compute());
     });
 
     ["search", "filter-type", "filter-status", "sort"].forEach((id) =>
@@ -282,16 +347,34 @@
     );
 
     // toggle does not bubble, so listen in the capture phase.
-    $("lists").addEventListener(
-      "toggle",
-      (e) => {
-        const d = e.target;
-        if (!(d instanceof HTMLDetailsElement) || d.dataset.forced === "1") return;
-        if (d.open) openLists.add(d.dataset.key);
-        else openLists.delete(d.dataset.key);
-      },
-      true
-    );
+    const onToggle = (e) => {
+      const d = e.target;
+      if (!(d instanceof HTMLDetailsElement) || d.dataset.forced === "1") return;
+      if (d.open) openLists.add(d.dataset.key);
+      else openLists.delete(d.dataset.key);
+    };
+    $("lists").addEventListener("toggle", onToggle, true);
+    $("other-sources").addEventListener("toggle", onToggle, true);
+
+    const onOtherEdit = (e) => {
+      const d = e.target && e.target.dataset;
+      if (!d) return;
+      const next = M.sanitizeOther(state.other);
+      if (d.otherXp) {
+        const v = String(e.target.value).trim();
+        if (v === "") delete next.xp[d.otherXp];
+        else next.xp[d.otherXp] = Number(v);
+      } else if (d.otherRank) {
+        next.ranks[d.otherRank] = Number(e.target.value);
+      } else {
+        return;
+      }
+      state.other = M.sanitizeOther(next);
+      saveState();
+      updateOtherView();
+    };
+    $("other-sources").addEventListener("input", onOtherEdit);
+    $("other-sources").addEventListener("change", onOtherEdit);
 
     $("lists").addEventListener("change", (e) => {
       const box = e.target;

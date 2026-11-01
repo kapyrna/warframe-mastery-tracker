@@ -20,6 +20,7 @@
         <div class="stat"><span class="label">Mastery rank</span><span class="value" id="stat-rank">0</span></div>
         <div class="stat"><span class="label">Items mastered</span><span class="value" id="stat-items">0 / 0</span></div>
         <div class="stat"><span class="label">Item XP</span><span class="value" id="stat-xp">0</span></div>
+        <div class="stat"><span class="label">Other sources XP</span><span class="value" id="stat-other">0</span></div>
         <div class="stat"><span class="label">If everything is maxed</span><span class="value" id="stat-potential">MR 0</span></div>
       </div>
       <div class="bar" role="progressbar" aria-label="Progress to next mastery rank" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="rank-bar">
@@ -27,14 +28,7 @@
       </div>
       <p class="muted" id="rank-caption"></p>
 
-      <div class="other-xp">
-        <label for="other-xp">Mastery XP from other sources (star chart, intrinsics, etc.)</label>
-        <div class="row">
-          <input type="number" id="other-xp" min="0" step="1" inputmode="numeric" placeholder="auto">
-          <button type="button" id="other-xp-auto" class="secondary">Use estimate</button>
-        </div>
-        <p class="muted small" id="other-xp-note">Your profile only reports item XP, so this is a guess until you enter your own figure.</p>
-      </div>
+      <p class="muted small" id="rank-note"></p>
     </section>
 
     <section class="card" aria-labelledby="import-h">
@@ -78,6 +72,7 @@
       </div>
       <p class="muted small" id="count"></p>
       <div id="lists"></div>
+      <div id="other-sources"></div>
     </section>
   </main>
 
