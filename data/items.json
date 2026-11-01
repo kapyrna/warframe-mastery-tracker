@@ -1,7 +1,12 @@
 {
-  "generatedAt": "2026-10-31T17:52:56Z",
+  "generatedAt": "2026-11-01T00:38:26Z",
   "source": "Warframe Public Export",
   "items": [
+    {"uniqueName":"/Lotus/Powersuits/Archwing/SupportJetPack/SupportJetPack","name":"Amesha","type":"archwing","list":"archwings","masteryReq":0},
+    {"uniqueName":"/Lotus/Powersuits/Archwing/DemolitionJetPack/DemolitionJetPack","name":"Elytron","type":"archwing","list":"archwings","masteryReq":0},
+    {"uniqueName":"/Lotus/Powersuits/Archwing/StealthJetPack/StealthJetPack","name":"Itzal","type":"archwing","list":"archwings","masteryReq":0},
+    {"uniqueName":"/Lotus/Powersuits/Archwing/StandardJetPack/StandardJetPack","name":"Odonata","type":"archwing","list":"archwings","masteryReq":0},
+    {"uniqueName":"/Lotus/Powersuits/Archwing/PrimeJetPack/PrimeJetPack","name":"Odonata Prime","type":"archwing","list":"archwings","masteryReq":0},
     {"uniqueName":"/Lotus/Types/Game/CatbrowPet/MirrorCatbrowPetPowerSuit","name":"Adarza Kavat","type":"beast","list":"companions"},
     {"uniqueName":"/Lotus/Types/Sentinels/SentinelPowersuits/CarrierPowerSuit","name":"Carrier","type":"sentinel","list":"companions"},
     {"uniqueName":"/Lotus/Types/Sentinels/SentinelPowersuits/PrimeCarrierPowerSuit","name":"Carrier Prime","type":"sentinel","list":"companions"},
@@ -34,6 +39,8 @@
     {"uniqueName":"/Lotus/Types/Friendly/Pets/CreaturePets/VizierPredatorKubrowPetPowerSuit","name":"Vizier Predasite","type":"beast","list":"companions"},
     {"uniqueName":"/Lotus/Types/Sentinels/SentinelPowersuits/WyrmPowerSuit","name":"Wyrm","type":"sentinel","list":"companions"},
     {"uniqueName":"/Lotus/Types/Sentinels/SentinelPowersuits/PrimeWyrmPowerSuit","name":"Wyrm Prime","type":"sentinel","list":"companions"},
+    {"uniqueName":"/Lotus/Powersuits/EntratiMech/ThanoTech","name":"Bonewidow","type":"necramech","list":"necramechs","masteryReq":0},
+    {"uniqueName":"/Lotus/Powersuits/EntratiMech/NechroTech","name":"Voidrig","type":"necramech","list":"necramechs","masteryReq":0},
     {"uniqueName":"/Lotus/Powersuits/Ninja/Ninja","name":"Ash","type":"warframe","list":"warframes","masteryReq":0},
     {"uniqueName":"/Lotus/Powersuits/Ninja/AshPrime","name":"Ash Prime","type":"warframe","list":"warframes","masteryReq":0},
     {"uniqueName":"/Lotus/Powersuits/Brawler/Brawler","name":"Atlas","type":"warframe","list":"warframes","masteryReq":0},
