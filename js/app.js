@@ -146,7 +146,7 @@
   function sectionHtml(key, label, allRows, visible, forced, inner, cls) {
     const done = allRows.filter((r) => r.mastered).length;
     const pct = allRows.length ? Math.round((done / allRows.length) * 100) : 0;
-    return detailsHtml(key, label, done + " / " + allRows.length + " mastered", pct, forced || openLists.has(key), forced, inner, cls);
+    return detailsHtml(key, label, done + " / " + allRows.length, pct, forced || openLists.has(key), forced, inner, cls);
   }
 
   // ---- other sources: Star Chart (Normal, Steel Path) and Intrinsics (Drifter, Railjack) ----
