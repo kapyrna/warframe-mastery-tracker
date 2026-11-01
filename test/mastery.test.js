@@ -226,3 +226,9 @@ test("parseProfile finds XPInfo nested inside the profile", () => {
   assert.deepEqual(p.xpByItem, { "/A": 7 });
   assert.throws(() => M.parseProfile({ Results: [{ DisplayName: "T", Other: 1 }] }), /Top-level fields: DisplayName, Other/);
 });
+
+test("parseProfile reads intrinsic ranks from PlayerSkills", () => {
+  const p = M.parseProfile({ XPInfo: [], PlayerSkills: { LPS_DRIFT_RIDING: 10, LPS_PILOTING: 7, LPS_COMMAND: 99, LPP_SPACE: 5, LPS_GUNNERY: 0 } });
+  assert.deepEqual(p.intrinsics, { "drifter-intrinsics/riding": 10, "railjack-intrinsics/piloting": 7, "railjack-intrinsics/command": 10, "railjack-intrinsics/gunnery": 0 });
+  assert.deepEqual(M.parseProfile({ XPInfo: [] }).intrinsics, {});
+});

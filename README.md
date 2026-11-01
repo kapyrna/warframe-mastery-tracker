@@ -41,7 +41,7 @@ Your profile data only covers items. Mastery XP also comes from things that aren
 - **Star Chart**, split into **Normal** and **Steel Path**: type in the mastery XP you've earned from each.
 - **Intrinsics**, split into **Drifter** (Riding, Combat, Opportunity, Endurance) and **Railjack** (Tactical, Piloting, Gunnery, Engineering, Command): pick your rank, from 0 to 10, for each skill. Each rank counts as 1,500 mastery XP.
 
-Whatever you enter counts toward your rank at the top, and the **Other sources XP** figure at the top shows the combined total.
+When you import a profile, your intrinsic ranks are filled in for you from it (you can still change them). Whatever you enter counts toward your rank at the top, and the **Other sources XP** figure at the top shows the combined total.
 
 If you've imported a profile, a note under the progress bar compares your total with the rank Warframe itself reports. If yours is lower, some XP is missing: either in Star Chart or Intrinsics, or in items the tracker doesn't list yet (Zaws, Kitguns, K-Drives, Moas and Hounds).
 

@@ -94,6 +94,29 @@
     return null;
   }
 
+  // PlayerSkills names in the profile, mapped to this tracker's intrinsic keys.
+  const SKILL_KEYS = {
+    LPS_DRIFT_RIDING: "drifter-intrinsics/riding",
+    LPS_DRIFT_COMBAT: "drifter-intrinsics/combat",
+    LPS_DRIFT_OPPORTUNITY: "drifter-intrinsics/opportunity",
+    LPS_DRIFT_ENDURANCE: "drifter-intrinsics/endurance",
+    LPS_TACTICAL: "railjack-intrinsics/tactical",
+    LPS_PILOTING: "railjack-intrinsics/piloting",
+    LPS_GUNNERY: "railjack-intrinsics/gunnery",
+    LPS_ENGINEERING: "railjack-intrinsics/engineering",
+    LPS_COMMAND: "railjack-intrinsics/command",
+  };
+
+  function readIntrinsics(skills) {
+    const out = {};
+    if (!skills || typeof skills !== "object") return out;
+    for (const name of Object.keys(SKILL_KEYS)) {
+      const n = skills[name];
+      if (Number.isFinite(n)) out[SKILL_KEYS[name]] = Math.max(0, Math.min(INTRINSIC_MAX_RANK, Math.floor(n)));
+    }
+    return out;
+  }
+
   function parseProfile(json) {
     const root = json && Array.isArray(json.Results) ? json.Results[0] : json;
     if (!root || typeof root !== "object") throw new Error("Not a profile JSON object.");
@@ -112,6 +135,7 @@
       displayName: typeof root.DisplayName === "string" ? root.DisplayName : null,
       reportedRank: Number.isFinite(root.PlayerLevel) ? root.PlayerLevel : null,
       xpByItem,
+      intrinsics: readIntrinsics(root.PlayerSkills),
     };
   }
 

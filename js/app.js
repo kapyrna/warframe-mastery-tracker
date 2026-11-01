@@ -297,10 +297,20 @@
     try {
       const profile = M.parseProfile(json);
       state.profile = profile;
+      // Intrinsic ranks are in the profile, so fill them in (they stay editable).
+      const filled = Object.keys(profile.intrinsics || {});
+      if (filled.length) {
+        const other = M.sanitizeOther(state.other);
+        for (const k of filled) {
+          if (profile.intrinsics[k]) other.ranks[k] = profile.intrinsics[k];
+          else delete other.ranks[k];
+        }
+        state.other = other;
+      }
       saveState();
       renderAll();
       const n = Object.keys(profile.xpByItem).length;
-      setMsg($("import-msg"), "Imported " + n + " items with XP" + (profile.displayName ? " for " + profile.displayName : "") + ".", "ok");
+      setMsg($("import-msg"), "Imported " + n + " items with XP" + (profile.displayName ? " for " + profile.displayName : "") + (filled.length ? " and your intrinsic ranks" : "") + ".", "ok");
     } catch (e) {
       setMsg($("import-msg"), e.message, "error");
     }
