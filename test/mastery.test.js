@@ -154,9 +154,9 @@ test("groupRows splits into ordered lists and falls back on type", () => {
 test("other sources nest as Star Chart (Normal, Steel Path) and Intrinsics (Drifter, Railjack)", () => {
   const o = M.summarizeOther(null);
   assert.equal(o.total, 0);
-  assert.deepEqual(o.groups.map((g) => g.label), ["Star Chart", "Intrinsics"]);
-  assert.deepEqual(o.groups.map((g) => g.sources.map((s) => s.label)), [["Normal", "Steel Path"], ["Drifter", "Railjack"]]);
-  assert.deepEqual(o.groups.map((g) => g.kind), ["xp", "ranks"]);
+  assert.deepEqual(o.groups.map((g) => g.label), ["Intrinsics", "Star Chart"]);
+  assert.deepEqual(o.groups.map((g) => g.sources.map((s) => s.label)), [["Drifter", "Railjack"], ["Normal", "Steel Path"]]);
+  assert.deepEqual(o.groups.map((g) => g.kind), ["ranks", "xp"]);
   assert.deepEqual(o.sources.map((s) => s.fullLabel), ["Star Chart", "Steel Path Star Chart", "Drifter Intrinsics", "Railjack Intrinsics"]);
   // every source belongs to exactly one group
   const grouped = o.groups.flatMap((g) => g.sources.map((s) => s.id)).sort();
@@ -168,7 +168,7 @@ test("group totals add up their sources", () => {
     xp: { "star-chart": 1000, "steel-path": 500 },
     ranks: { "railjack-intrinsics/piloting": 10, "drifter-intrinsics/riding": 4, "drifter-intrinsics/combat": 1 },
   });
-  const [chart, intr] = o.groups;
+  const [intr, chart] = o.groups;
   assert.equal(chart.xp, 1500);
   assert.equal(chart.rank, null);
   assert.equal(intr.rank, 15);

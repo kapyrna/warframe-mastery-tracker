@@ -34,12 +34,12 @@ You'll see a confirmation with the number of items found. If you see an error in
 - **Item XP**: the mastery XP you've earned from items.
 - **If everything is maxed**: the rank you'd reach by maxing every item on the list.
 
-### 4. Check Star Chart and Intrinsics
+### 4. Check Intrinsics and Star Chart
 
-Mastery XP also comes from things that aren't items. **Star Chart** and **Intrinsics** at the bottom of Progress cover them, and importing a profile fills them in for you:
+Mastery XP also comes from things that aren't items. **Intrinsics** and **Star Chart** at the bottom of Progress cover them, and importing a profile fills them in for you:
 
-- **Star Chart**, split into **Normal** and **Steel Path**: the number of **nodes** and **junctions** you've completed, read from your profile (Railjack, dojo and event nodes aren't counted). Junctions are worth 1,000 mastery XP each. Nodes vary, and the tracker counts about 63 each, which is only an estimate, so there is also an optional **Extra mastery XP** box to correct any difference.
 - **Intrinsics**, split into **Drifter** (Riding, Combat, Opportunity, Endurance) and **Railjack** (Tactical, Piloting, Gunnery, Engineering, Command): your rank, from 0 to 10, for each skill, read from your profile. Each rank counts as 1,500 mastery XP.
+- **Star Chart**, split into **Normal** and **Steel Path**: the number of **nodes** and **junctions** you've completed, read from your profile (Railjack, dojo and event nodes aren't counted). Junctions are worth 1,000 mastery XP each. Nodes vary, and the tracker counts about 63 each, which is only an estimate, so there is also an optional **Extra mastery XP** box to correct any difference.
 
 You can change any of these by hand, for example if you haven't imported a profile. Importing again overwrites the nodes, junctions and ranks with what your profile says. Whatever is entered counts toward your rank at the top, and the **Other sources XP** figure there shows the combined total.
 
@@ -53,7 +53,7 @@ The **Progress** section has one expandable list each for **Warframes**, **Weapo
 
 Inside each list you'll see every item with the mastery rank needed to use it, your current rank, and awarded mastery XP for it. Tick the box beside an item to mark it as mastered.
 
-Use the search box and filters above the lists to narrow things down by name, Prime or non-Prime (variants such as Umbra, Prisma, Vandal, Wraith and Kuva count as non-Prime), or status (mastered or not). Searching opens any list that has a match, and Star Chart and Intrinsics step aside while you search or filter. Sorting by **Most XP remaining** shows where the biggest gains are.
+Use the search box and filters above the lists to narrow things down by name, Prime or non-Prime (variants such as Umbra, Prisma, Vandal, Wraith and Kuva count as non-Prime), or status (mastered or not). Searching opens any list that has a match, and Intrinsics and Star Chart step aside while you search or filter. Sorting by **Most XP remaining** shows where the biggest gains are.
 
 The item lists are refreshed automatically every day from Warframe's game data, so new Warframes, weapons and companions show up without you doing anything.
 

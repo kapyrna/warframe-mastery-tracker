@@ -234,8 +234,8 @@
 
   // How the sources are nested on the page. Source ids (and so saved entries) are unchanged.
   const OTHER_GROUPS = [
-    { id: "star-chart", label: "Star Chart", sources: ["star-chart", "steel-path"] },
     { id: "intrinsics", label: "Intrinsics", sources: ["drifter-intrinsics", "railjack-intrinsics"] },
+    { id: "star-chart", label: "Star Chart", sources: ["star-chart", "steel-path"] },
   ];
 
   function wholeNumber(v, max) {
