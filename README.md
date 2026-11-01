@@ -34,14 +34,14 @@ You'll see a confirmation with the number of items found. If you see an error in
 - **Item XP**: the mastery XP you've earned from items.
 - **If everything is maxed**: the rank you'd reach by maxing every item on the list.
 
-### 4. Fill in Star Chart and Intrinsics
+### 4. Check Star Chart and Intrinsics
 
-Your profile data only covers items. Mastery XP also comes from things that aren't items, so **Star Chart** and **Intrinsics** at the bottom of Progress let you add it. The tracker doesn't read these from your profile, so you enter them yourself:
+Mastery XP also comes from things that aren't items. **Star Chart** and **Intrinsics** at the bottom of Progress cover them, and importing a profile fills them in for you:
 
-- **Star Chart**, split into **Normal** and **Steel Path**: enter how many **nodes** and **junctions** you've completed. Junctions are worth 1,000 mastery XP each. Nodes vary, and the tracker counts about 63 each, which is only an estimate, so there is also an optional **Extra mastery XP** box to correct any difference.
-- **Intrinsics**, split into **Drifter** (Riding, Combat, Opportunity, Endurance) and **Railjack** (Tactical, Piloting, Gunnery, Engineering, Command): pick your rank, from 0 to 10, for each skill. Each rank counts as 1,500 mastery XP.
+- **Star Chart**, split into **Normal** and **Steel Path**: the number of **nodes** and **junctions** you've completed, read from your profile (Railjack, dojo and event nodes aren't counted). Junctions are worth 1,000 mastery XP each. Nodes vary, and the tracker counts about 63 each, which is only an estimate, so there is also an optional **Extra mastery XP** box to correct any difference.
+- **Intrinsics**, split into **Drifter** (Riding, Combat, Opportunity, Endurance) and **Railjack** (Tactical, Piloting, Gunnery, Engineering, Command): your rank, from 0 to 10, for each skill, read from your profile. Each rank counts as 1,500 mastery XP.
 
-When you import a profile, your completed nodes and junctions (Normal and Steel Path) and your intrinsic ranks are filled in for you from it, and you can still change them. Railjack, dojo and event nodes are not counted. Whatever you enter counts toward your rank at the top, and the **Other sources XP** figure at the top shows the combined total.
+You can change any of these by hand, for example if you haven't imported a profile. Importing again overwrites the nodes, junctions and ranks with what your profile says. Whatever is entered counts toward your rank at the top, and the **Other sources XP** figure there shows the combined total.
 
 If you've imported a profile, a note under the progress bar compares your total with the rank Warframe itself reports. If yours is lower, some XP is missing: either in Star Chart or Intrinsics, or in items the tracker doesn't list yet (Zaws, Kitguns, K-Drives, Moas and Hounds).
 
