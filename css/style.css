@@ -156,14 +156,14 @@ td input[type="checkbox"] { width: 18px; height: 18px; }
 .list[open] > summary::before { content: "\25BE"; }
 .list-name { flex: 1; font-weight: 600; }
 .list-count { color: var(--muted); font-size: 0.9rem; font-variant-numeric: tabular-nums; }
-.mini-bar { width: 80px; height: 8px; background: var(--bar); border-radius: 4px; overflow: hidden; flex: none; }
+.mini-bar { flex: 0 1 80px; min-width: 32px; height: 8px; background: var(--bar); border-radius: 4px; overflow: hidden; }
 .mini-bar > span { display: block; height: 100%; background: var(--good); }
 .list .table-wrap { padding: 0 8px 8px; }
 .sublists { padding: 0 10px 10px; }
 .list.sub { margin: 8px 0 0; background: var(--bg); }
 .list.sub > summary { padding: 9px 12px; font-size: 0.95rem; }
 .list.sub .list-name { font-weight: 500; }
-.list.sub .mini-bar { width: 64px; }
+.list.sub .mini-bar { flex-basis: 64px; }
 #other-sources { margin-top: 12px; }
 #other-sources[hidden] { display: none; }
 .other-note { margin: 0 4px 6px; }
@@ -173,6 +173,25 @@ td select { padding: 4px 8px; }
 .list .empty { padding: 0 14px 12px; margin: 0; }
 
 .site-footer { padding-bottom: 32px; color: var(--muted); font-size: 0.85rem; }
+
+/* Source link on the left and the data timestamp on the right when they fit
+   side by side; stacked and centred on narrow screens. */
+.footer-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 4px 16px;
+  margin-top: 1em;
+}
+.footer-meta p { margin: 0; }
+#generated { text-align: right; }
+#generated:empty { display: none; }
+
+@media (max-width: 680px) {
+  .footer-meta { flex-direction: column; align-items: center; text-align: center; }
+  #generated { text-align: center; }
+}
 
 @media (max-width: 640px) {
   .filters { grid-template-columns: 1fr 1fr; }
