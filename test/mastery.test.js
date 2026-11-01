@@ -220,3 +220,9 @@ test("other-sources XP feeds the rank total", () => {
   const other = M.summarizeOther({ xp: { "star-chart": 2500 } });
   assert.equal(M.summarize(items, {}, [], other.total).current.rank, 1);
 });
+
+test("parseProfile finds XPInfo nested inside the profile", () => {
+  const p = M.parseProfile({ Results: [{ DisplayName: "T", PlayerLevel: 3, LoadOutInventory: { XPInfo: [{ ItemType: "/A", XP: 7 }] } }] });
+  assert.deepEqual(p.xpByItem, { "/A": 7 });
+  assert.throws(() => M.parseProfile({ Results: [{ DisplayName: "T", Other: 1 }] }), /Top-level fields: DisplayName, Other/);
+});

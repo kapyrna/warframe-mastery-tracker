@@ -79,12 +79,31 @@
     };
   }
 
+  // XPInfo may sit at the top of the profile or inside a nested object
+  // (for example LoadOutInventory), so look a few levels down.
+  function findXpInfo(node, depth) {
+    if (!node || typeof node !== "object" || depth > 4) return null;
+    if (Array.isArray(node.XPInfo)) return node.XPInfo;
+    for (const k of Object.keys(node)) {
+      const v = node[k];
+      if (v && typeof v === "object" && !Array.isArray(v)) {
+        const found = findXpInfo(v, depth + 1);
+        if (found) return found;
+      }
+    }
+    return null;
+  }
+
   function parseProfile(json) {
     const root = json && Array.isArray(json.Results) ? json.Results[0] : json;
     if (!root || typeof root !== "object") throw new Error("Not a profile JSON object.");
-    if (!Array.isArray(root.XPInfo)) throw new Error("No XPInfo list found in this JSON.");
+    const xpInfo = findXpInfo(root, 0);
+    if (!xpInfo) {
+      const keys = Object.keys(root).slice(0, 12).join(", ");
+      throw new Error("No XPInfo list found in this JSON. Top-level fields: " + (keys || "none") + ".");
+    }
     const xpByItem = {};
-    for (const e of root.XPInfo) {
+    for (const e of xpInfo) {
       if (e && typeof e.ItemType === "string" && Number.isFinite(e.XP)) {
         xpByItem[e.ItemType] = Math.max(xpByItem[e.ItemType] || 0, e.XP);
       }
