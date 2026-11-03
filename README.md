@@ -1,4 +1,4 @@
-# Warframe Mastery Tracker Prototype
+# Warframe Mastery Tracker
 
 Track your Warframe mastery rank progress: see which items you've mastered, how much mastery XP you have, and progress toward the next rank.
 
