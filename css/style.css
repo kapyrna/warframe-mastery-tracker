@@ -58,8 +58,8 @@ body {
   margin: 16px 0;
 }
 .card h2,
-#import-panel > summary { font-size: 1.15rem; font-weight: 700; }
-#import-panel > :last-child { margin-bottom: 0; }
+#import-panel > summary { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }
+.card > :last-child { margin-bottom: 0; }
 
 a { color: var(--accent); }
 a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
