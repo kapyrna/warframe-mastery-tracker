@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Warframe Mastery Tracker</title>
-  <meta name="description" content="Track Warframe mastery rank progress from your own profile data. Runs entirely in your browser.">
-  <link rel="stylesheet" href="css/style.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Warframe Mastery Tracker</title>
+	<meta name="description" content="Track Warframe mastery rank progress from your own profile data. Runs entirely in your browser.">
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   
@@ -13,8 +13,12 @@
  <header class="site-header">
     <h1>Warframe Mastery Tracker</h1>
     <div class="header-row">
-      <p class="sub">Your data stays in this browser. Nothing is uploaded. Learn how it works <a href="https://github.com/kapyrna/warframe-mastery-tracker" target="_blank" rel="noopener noreferrer">here</a>.</p>
-       <div class="theme-toggle" role="radiogroup" aria-label="Colour theme">
+      <p class="sub">
+        <span class="s">Your data stays in this browser.</span>
+        <span class="s">Nothing is uploaded.</span>
+        <span class="s">Learn how it works <a href="https://github.com/kapyrna/warframe-mastery-tracker" target="_blank" rel="noopener noreferrer">here</a>.</span>
+      </p>
+      <div class="theme-toggle" role="radiogroup" aria-label="Colour theme">
         <label class="theme-option" title="Light">
           <input type="radio" name="theme" value="light">
           <span class="glyph" aria-hidden="true">☉</span>
@@ -37,14 +41,20 @@
     </div>
  </header>
 
-  <main>
-    <section class="card" aria-label="summary-h">
-      <h2 id="summary-h">Overview</h2>
-    </section>
-    
-    <section class="card" aria-label="items-h">
-      <h2 id="items-h">Progress</h2>
-    </section>
+	<main>
+		<section class="card" aria-label="summary-h">
+			<h2 id="summary-h">Overview</h2>
+			<div class="profile">
+				<div class="stat"><span class="label">Mastery rank</span><span class="value" id="stat-rank">0</span></div>
+				<div class="stat"><span class="label">Items mastered</span><span class="value" id="stat-items">0 / 0</span></div>
+				<div class="stat"><span class="label">Item XP</span><span class="value" id="stat-xp-from-items">0</span></div>
+				<div class="stat"><span class="label">Other sources XP</span><span class="value" id="stat-xp-from-other">0</span></div>
+				<div class="stat"><span class="label">If everything is maxed</span><span class="value" id="stat-mr-potential">MR 0</span></div>
+		</section>
+		
+		<section class="card" aria-label="items-h">
+			<h2 id="items-h">Progress</h2>
+		</section>
     
     <section class="card" aria-label="importexport-h">
       <details id="import-panel">
@@ -54,9 +64,13 @@
   </main>
 
   <footer class="site-footer">
-      <p>Fan-made and unofficial. Warframe is a trademark of <a href="https://www.digitalextremes.com" target="_blank" rel="noopener noreferrer">Digital Extremes</a>.  Item data comes from <a href="https://wiki.warframe.com/w/Public_Export" target="_blank" rel="noopener noreferrer">Public Export</a> and may change without notice.</p>
-    <div class="footer-meta">
-      <p>The source code is open: <a href="https://github.com/kapyrna/warframe-mastery-tracker" target="_blank" rel="noopener noreferrer">view it on GitHub</a>.</p>
-      <p id="generated" class="muted small"></p>
-    </div>
+	  <p>
+		  <span class="s">Fan-made and unofficial.</span>
+		  <span class="s">Warframe is a trademark of <a href="https://www.digitalextremes.com" target="_blank" rel="noopener noreferrer">Digital Extremes</a>.</span>
+		  <span class="s">Item data comes from <a href="https://wiki.warframe.com/w/Public_Export" target="_blank" rel="noopener noreferrer">Public Export</a> and may change without notice.</span>
+	  </p>
+	  <div class="footer-meta">
+		  <p>The source code is open: <a href="https://github.com/kapyrna/warframe-mastery-tracker" target="_blank" rel="noopener noreferrer">view it on GitHub</a>.</p>
+		  <p id="generated" class="muted small"></p>
+	  </div>
   </footer>
