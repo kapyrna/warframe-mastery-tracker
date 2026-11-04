@@ -59,7 +59,12 @@ body {
   margin: 16px 0;
 }
 .card h2,
-#import-panel > summary { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }
+#import-panel > summary {
+	font-size: 1.15rem;
+	font-weight: 700;
+	line-height: 1.2;
+	text-box: trim-both cap alphabetic;
+}
 .card > :last-child { margin-bottom: 0; }
 
 a { color: var(--accent); }
