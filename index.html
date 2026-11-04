@@ -54,6 +54,35 @@
 		
 		<section class="card" aria-label="items-h">
 			<h2 id="summary">Progress</h2>
+			 <p id="data-msg" class="msg" role="status"></p>
+			<div class="filters">
+				<input type="search" id="search" placeholder="Search items" aria-label="Search items">
+				<select id="filter-variant" aria-label="Filter by Variant">
+					<option value="">All variants/option>
+					<option value="base">Base</option>
+					<option value="coda">Coda</option>
+					<option value="dex">Dex</option>
+					<option value="kuva">Kuva</option>
+					<option value="mk1">Mk1</option>
+					<option value="prime">Prime</option>
+					<option value="prisma">Prisma</option>
+					<option value="syndicate">Syndicate</option>
+					<option value="Tenet">Tenet</option>
+					<option value="umbra">Umbra</option>
+					<option value="vandal">Vandal</option>
+					<option value="wraith">Wraith</option>
+				</select>
+				<select id="filter-completion-state" aria-label="Filter by status">
+					<option value="">Mastered and un-Mastered</option>
+					<option value="todo">Not mastered</option>
+					<option value="done">Mastered</option>
+				</select>
+				<select id="sort" aria-label="Sort items">
+					<option value="sort-name">Sort by: Name</option>
+					<option value="sort-mr-req">Sort by: Mastery requirement</option>
+					<option value="sort-xp-remaining">Sort by: Most XP remaining</option>
+				</select>
+				<div id="lists"></div>
 		</section>
     
     <section class="card" aria-label="importexport-h">
