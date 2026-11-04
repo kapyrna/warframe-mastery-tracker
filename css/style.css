@@ -1,49 +1,20 @@
 :root {
 	color-scheme: light dark; /* make both light and dark theme available */
-		--bg: #eef4f8;
-		--surface: #ffffff;
-		--text: #14212e;
-		--muted: #567086;
-		--border: #cfdde8;
-		--accent: #1b7fa6;
-		--accent-text: #ffffff;
-		--good: #1f8a4c;
-		--danger: #c23b3b;
-		--bar: #dbe7ef;
-
-}	
-
-/* follow browser/system by default for light versus dark */
-@media (prefers-color-scheme: dark) {
-	:root:not([data-theme="light"]){
-		--bg: #0b1724;
-		--surface: #12263a;
-		--text: #d6e6f2;
-		--muted: #8ba3b8;
-		--border: #25415a;
-		--accent: #6fd3f0;
-		--accent-text: #08202e;
-		--good: #4cc38a;
-		--danger: #e5707a;
-		--bar: #1f3a52;
-	} /* this is mostly the legacy interface theme from PC */
+	--bg:			light-dark(#eef4f8, #0b1724);
+	--surface:		light-dark(#ffffff, #12263a);
+	--text:			light-dark(#14212e, #d6e6f2);
+	--muted:		light-dark(#567086, #8ba3b8);
+	--border:		light-dark(#cfdde8, #25415a);
+	--accent:		light-dark(#1b7fa6, #6fd3f0);
+	--accent-text:	light-dark(#ffffff, #08202e);
+	--good:			light-dark(#1f8a4c, #4cc38a);
+	--danger:		light-dark(#c23b3b, #e5707a);
+	--bar:			light-dark(#dbe7ef, #1f3a52);
 }
 
+/* for when manually selected with the toggle */
 :root[data-theme="light"] { color-scheme: light; }
-
-:root[data-theme="dark"] {
-	color-scheme: dark;
-		--bg: #0b1724;
-		--surface: #12263a;
-		--text: #d6e6f2;
-		--muted: #8ba3b8;
-		--border: #25415a;
-		--accent: #6fd3f0;
-		--accent-text: #08202e;
-		--good: #4cc38a;
-		--danger: #e5707a;
-		--bar: #1f3a52;
-}
+:root[data-theme="dark"]  { color-scheme: dark; }
 
 * { box-sizing: border-box; }
 
