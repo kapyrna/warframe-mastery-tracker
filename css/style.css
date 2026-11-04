@@ -66,7 +66,7 @@ body {
 .sub { flex: 1 1 0; min-width: 0; margin: 0; text-align: left; color: var(--muted); }
 
 /* three-position theme selector */
-.theme-toggle { display: inline-grid; grid-template-columns: repeat(3, 40px); flex: none; margin-left: auto; }
+.theme-toggle { display: inline-grid; grid-template-columns: repeat(3, 20px); flex: none; margin-left: auto; }
 .theme-option { position: relative; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
 .theme-option input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
 .theme-option .glyph { display: flex; align-items: center; height: 1.5rem; font-size: 1.05rem; line-height: 1; color: var(--muted); }
