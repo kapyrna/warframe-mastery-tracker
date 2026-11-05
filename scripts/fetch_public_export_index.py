@@ -4,7 +4,7 @@ INDEX_URL = "https://content.warframe.com/PublicExport/index_en.txt.lzma"
 OUT = pathlib.Path("data")
 
 req = urllib.request.Request(INDEX_URL, headers={
-	"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36",
+	"User-Agent": "warframe-mastery-tracker (+https://github.com/kapyrna/warframe-mastery-tracker)",
     "Accept": "*/*",
 })
 
