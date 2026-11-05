@@ -1,6 +1,6 @@
-import lzma, pathlib, urllib.request
+import lzma, pathlib, urllib.request, sys
 
-INDEX_URL = "https://origin.warframe.com/PublicExport/index_en.txt.lzma"
+INDEX_URL = "https://content.warframe.com/PublicExport/index_en.txt.lzma"
 OUT = pathlib.Path("data")
 
 req = urllib.request.Request(INDEX_URL, headers={
