@@ -1,4 +1,4 @@
-import lzma, pathlib, urllib.request, sys
+import json, lzma, pathlib, sys, urllib.request, urllib.error
 from datetime import datetime, timezone
 
 INDEX_URL = "https://content.warframe.com/PublicExport/index_en.txt.lzma"
