@@ -11,7 +11,7 @@ req = urllib.request.Request(INDEX_URL, headers={
 
 try:
     with urllib.request.urlopen(req, timeout=60) as r:
-        raw = lzma.decompress(r.read()).decode("utf-8")
+        raw = lzma.decompress(r.read())
 except urllib.error.HTTPError as e:
     print("HTTP", e.code, e.reason)
     print(dict(e.headers))
