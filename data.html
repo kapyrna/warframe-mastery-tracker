@@ -21,5 +21,15 @@
 <main>
     <section class="card" aria-label="summary-h">
         <h2 id="summary">Public Export Index</h2>
-    </section>
+		<p class="muted small" id="status"></p>
+		<script>
+			fetch("data/status.json")
+				.then(r => r.json())
+				.then(s => {
+					const f = t => new Date(t).toLocaleString();
+					document.getElementById("status").textContent =`Data last changed: ${f(s.last_changed)} · Last checked: ${f(s.last_checked)}`;
+				})
+				.catch(() => {});
+		</script>
+	</section>
 </main>
