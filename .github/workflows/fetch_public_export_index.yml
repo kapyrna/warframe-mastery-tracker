@@ -1,8 +1,8 @@
 name: Fetch Public Export
 on:
   schedule:
-    - cron: "0 9 * * *"   # daily, 09:00 UTC
-  workflow_dispatch:       # lets you run it manually
+    - cron: "30 0 * * 0"
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -11,8 +11,8 @@ jobs:
   fetch:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
       - run: python scripts/fetch_public_export_index.py
