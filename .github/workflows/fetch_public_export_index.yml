@@ -16,6 +16,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: python scripts/fetch_public_export_index.py
+      - run: python scripts/fetch_public_export_manifests.py
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
