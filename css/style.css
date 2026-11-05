@@ -77,6 +77,18 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   clip: rect(0 0 0 0); white-space: nowrap;
 }
 
+.index-text {
+  margin: 0;
+  padding: 10px 12px;
+  max-height: 24rem;
+  overflow: auto;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font: 0.8rem/1.4 ui-monospace, Menlo, Consolas, monospace;
+  white-space: pre;
+}
+
 .hint {
   display: flex;
   flex-wrap: wrap;
