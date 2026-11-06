@@ -9,7 +9,7 @@ IMAGES = pathlib.Path("images")
 STATE = IMAGES / "index.json"
 
 FILTER = True          # only images for items listed in the manifests below
-FILTER_MANIFESTS = ["ExportWarframes_en.json", "ExportWeapons_en.json", "ExportSentinels_en.json", "ExportFlavour_en.json"]
+FILTER_MANIFESTS = ["ExportFlavour_en.json"]
 WORKERS = 6
 MAX_NEW = 0            # 0 = no limit; set e.g. 200 for a first test run
 
