@@ -81,7 +81,7 @@ for e in entries:
         continue
     if missing.get(rel) == h:
         continue
-	todo[rel] = (h, BASE + "/" + quote(rel, safe="/") + "!" + h)
+    todo[rel] = (h, BASE + "/" + quote(rel, safe="/") + "!" + h)
 
 todo = dict(list(todo.items())[: MAX_NEW or None])
 print("to download:", len(todo))
