@@ -25,14 +25,17 @@ now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 old = index_path.read_bytes() if index_path.exists() else None
 status = json.loads(status_path.read_text()) if status_path.exists() else {}
+files = status.get("files", {})
 
-if raw != old:
+changed = raw != old
+if changed:
     index_path.write_bytes(raw)
-    status["last_changed"] = now
-    print("index changed")
-else:
-    print("index unchanged")
 
-status["last_checked"] = now
-status.setdefault("last_changed", now)
-status_path.write_text(json.dumps(status, indent=2) + "\n")
+entry = files.get("index_en.txt", {"last_changed": now})
+entry["last_checked"] = now
+if changed:
+    entry["last_changed"] = now
+files["index_en.txt"] = entry
+
+status_path.write_text(json.dumps({"files": files}, indent=2) + "\n")
+print("index_en.txt", "updated" if changed else "unchanged")
