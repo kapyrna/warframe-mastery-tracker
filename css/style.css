@@ -258,7 +258,7 @@ button:disabled { opacity: .5; cursor: not-allowed; }
 /* foir the grid of mastery rank icons */
 .rank-grid {
   display: grid;
-  grid-template-columns: repeat(14, 1fr);
+  grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(3, auto);
   grid-auto-flow: column;
   gap: 1px;
@@ -269,7 +269,7 @@ button:disabled { opacity: .5; cursor: not-allowed; }
 /* rank 0 on the left, legendary on the right, both centered on the middle row */
 .rank-row {
   display: grid;
-  grid-template-columns: 1fr 14fr 1fr;
+  grid-template-columns: 1fr 12fr 1fr;
   align-items: center;
   margin-top: 1px;
 }
