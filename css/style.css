@@ -265,3 +265,16 @@ button:disabled { opacity: .5; cursor: not-allowed; }
   margin-top: 1px;
 }
 .rank-grid img { width: 100%; max-width: 64px; height: auto; justify-self: center; }
+
+/* rank 0 on the left, legendary on the right, both centered on the middle row */
+.rank-row {
+  display: grid;
+  grid-template-columns: 1fr 10fr 1fr;
+  align-items: center;
+  margin-top: 1px;
+}
+.rank-row .rank-grid { margin-top: 0; }
+.rank-end { width: 100%; max-width: 64px; height: auto; justify-self: center; }
+
+/* the rank 0 icon is white on transparent, so give it a dark tile like the other rank icons */
+.rank-zero { width: 77%; max-width: 49px; background: #25282c; border-radius: 6px; aspect-ratio: 392 / 463; object-fit: contain; padding: 2px; }
