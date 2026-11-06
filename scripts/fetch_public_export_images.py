@@ -33,6 +33,10 @@ def get(url):
             req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
             with urllib.request.urlopen(req, timeout=60) as r:
                 return r.read()
+        except urllib.error.HTTPError as e:
+            if e.code == 404:
+                raise
+            last = e
         except Exception as e:
             last = e
     raise last
@@ -57,8 +61,9 @@ if FILTER:
 
 # 3. work out what to download
 state = json.loads(STATE.read_text()) if STATE.exists() else {}
-files = state.get("files", {})   # relative path -> hash
-items = state.get("items", {})   # uniqueName -> relative path
+files = state.get("files", {})        # relative path -> hash
+items = state.get("items", {})       # uniqueName -> relative path
+missing = state.get("missing", {})     # relative path -> hash that returned 404
 
 todo = {}                        # relative path -> (hash, url)
 for e in entries:
@@ -74,7 +79,9 @@ for e in entries:
     items[e["uniqueName"]] = rel
     if files.get(rel) == h and (IMAGES / rel).exists():
         continue
-    todo[rel] = (h, BASE + "/" + quote(rel, safe="/") + "!" + h)
+    if missing.get(rel) == h:
+        continue
+	todo[rel] = (h, BASE + "/" + quote(rel, safe="/") + "!" + h)
 
 todo = dict(list(todo.items())[: MAX_NEW or None])
 print("to download:", len(todo))
@@ -97,12 +104,19 @@ with ThreadPoolExecutor(max_workers=WORKERS) as ex:
         try:
             _, h = fut.result()
             files[rel] = h
-        except Exception as e:
+        except urllib.error.HTTPError as e:
+            if e.code == 404:
+                print("MISSING (404)", rel)
+                missing[rel] = todo[rel][0]
+            else:
+                print("FAILED", rel, e)
+                failed.append(rel)
+		except Exception as e:
             print("FAILED", rel, e)
             failed.append(rel)
 
 IMAGES.mkdir(exist_ok=True)
-STATE.write_text(json.dumps({"files": files, "items": items}, indent=1) + "\n")
+STATE.write_text(json.dumps({"files": files, "items": items, "missing": missing}, indent=1) + "\n")
 print("done; failed:", len(failed))
 if failed:
     sys.exit(1)
