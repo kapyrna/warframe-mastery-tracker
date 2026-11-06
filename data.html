@@ -44,20 +44,42 @@
 const f = t => t ? new Date(t).toLocaleString() : "—";
 
 fetch("data/index_en.txt")
-  .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
   .then(t => { document.getElementById("index-text").textContent = t; })
   .catch(() => { document.getElementById("index-text").textContent = "Couldn't load the index."; });
 
 fetch("data/status.json")
   .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
   .then(s => {
-    const idx = (s.files || {})["index_en.txt"];
+    const files = s.files || {};
+
+    const idx = files["index_en.txt"];
     if (idx && idx.last_checked) {
       document.getElementById("index-status").textContent =
         `Last changed: ${f(idx.last_changed)} · Last checked: ${f(idx.last_checked)}`;
     }
+
+    const body = document.getElementById("files-body");
+    for (const name of Object.keys(files).filter(n => n !== "index_en.txt").sort()) {
+      const v = files[name];
+      const tr = document.createElement("tr");
+
+      const nameCell = document.createElement("td");
+      const a = document.createElement("a");
+      a.href = "data/" + name;
+      a.textContent = name;
+      nameCell.append(a);
+
+      const changed = document.createElement("td");
+      changed.textContent = f(v.last_changed);
+      const checked = document.createElement("td");
+      checked.textContent = f(v.last_checked);
+
+      tr.append(nameCell, changed, checked);
+      body.append(tr);
+    }
   })
-  .catch(() => {});
+  .catch(err => console.error("status load failed:", err));
 </script>
 </body>
 </html>
