@@ -111,12 +111,12 @@ with ThreadPoolExecutor(max_workers=WORKERS) as ex:
             else:
                 print("FAILED", rel, e)
                 failed.append(rel)
-		except Exception as e:
+        except Exception as e:
             print("FAILED", rel, e)
             failed.append(rel)
 
 IMAGES.mkdir(exist_ok=True)
 STATE.write_text(json.dumps({"files": files, "items": items, "missing": missing}, indent=1) + "\n")
-print("done; failed:", len(failed))
+print("done; failed:", len(failed), "missing:", len(missing))
 if failed:
     sys.exit(1)
