@@ -1,20 +1,34 @@
 <div class="theme-toggle" role="radiogroup" aria-label="Colour theme">
   <label class="theme-option" title="Light">
     <input type="radio" name="theme" value="light">
-    <span class="glyph" aria-hidden="true">☉</span>
-    <span class="slot" aria-hidden="true"><span class="knob"></span></span>
+    <span class="glyph" aria-hidden="true">
+      <span class="glyph-char">☉</span> <!--- fallback --->
+      <!-- attempt to load then display sun image -->
+      <img class="glyph-img" src="images/interface/IconSunTeam.png" alt="" width="32" height="32" hidden onload="this.hidden=false;this.previousElementSibling.hidden=true">
+    </span>
+    <span class="slot" aria-hidden="true">
+      <span class="knob"></span>
+    </span>
     <span class="sol-lua">Sol</span>
   </label>
   <label class="theme-option" title="Match system">
     <input type="radio" name="theme" value="system" checked>
     <span class="glyph" id="theme-system-glyph" aria-hidden="true">🖥</span>
-    <span class="slot" aria-hidden="true"><span class="knob"></span></span>
+    <span class="slot" aria-hidden="true">
+      <span class="knob"></span>
+    </span>
     <span class="sol-lua">Terra</span>
   </label>
   <label class="theme-option" title="Dark">
     <input type="radio" name="theme" value="dark">
-    <span class="glyph" aria-hidden="true">☽</span>
-    <span class="slot" aria-hidden="true"><span class="knob"></span></span>
+    <span class="glyph" aria-hidden="true">
+      <span class="glyph-char">☾</span> <!--- fallback --->
+      <!-- attempt to load then display moon image -->
+      <img class="glyph-img" src="images/interface/IconMoonTeam.png" alt="" width="24" height="24" hidden onload="this.hidden=false;this.previousElementSibling.hidden=true">
+    </span>
+    <span class="slot" aria-hidden="true">
+      <span class="knob"></span>
+    </span>
     <span class="sol-lua">Lua</span>
   </label>
 </div>
