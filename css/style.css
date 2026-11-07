@@ -48,6 +48,8 @@ body {
 .theme-option:last-child .slot::before { right: 50%; border-radius: 0 2px 2px 0; }
 .theme-option .knob { position: relative; width: 10px; height: 10px; border-radius: 50%; background: var(--surface); border: 2px solid var(--muted); transition: width 0.15s, height 0.15s, background 0.15s, border-color 0.15s; }
 .theme-option input:checked ~ .glyph { color: var(--text); }
+.theme-option .glyph-img { opacity: .6; }
+.theme-option input:checked ~ .glyph .glyph-img { opacity: 1; }
 .theme-option input:checked ~ .slot .knob { width: 16px; height: 16px; background: var(--accent); border-color: var(--accent); }
 .theme-option input:focus-visible ~ .slot .knob { outline: 2px solid var(--accent); outline-offset: 3px; }
 
