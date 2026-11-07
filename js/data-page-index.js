@@ -10,7 +10,7 @@
 	fetch("data/index_en.txt")
 		.then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
 		.then(t => { textElement.textContent = t; })
-		.catch(() => { textEl.textContent = "Couldn't load the index."; });
+		.catch(() => { textElement.textContent = "Couldn't load the index."; });
 	
 	fetch("data/status.json")
 		.then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
