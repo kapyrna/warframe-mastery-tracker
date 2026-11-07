@@ -5,7 +5,7 @@
 	const statusElement = document.getElementById("index-status"); // for the timestampss
 	if (!textElement) return; // no card to display
 	
-	const formatTimestamp = t => ? new Date(t).toLocaleString(undefined, { hourCycle: "h23" }) : "-";
+	const formatTimestamp = t => t ? new Date(t).toLocaleString(undefined, { hourCycle: "h23" }) : "-";
 	
 	fetch("data/index_en.txt")
 		.then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
@@ -17,7 +17,7 @@
 		.then(s => {
 			const idx = (s.files || {})["index_en.txt"];
 			if (statusElement && idx && idx.last_checked) {
-				statusElement.textContent = `Last changed: ${fmt(idx.last_changed)} · Last checked: ${fmt(idx.last_checked)}`;
+				statusElement.textContent = `Last changed: ${formatTimestamp(idx.last_changed)} · Last checked: ${formatTimestamp(idx.last_checked)}`;
 			}
 		})
 		.catch(() => {});
