@@ -28,7 +28,12 @@
 				a.href = "data/" + name;
 				a.textContent = name;
 				nameCell.append(a);
-
+				if (v.hash) {
+					const hashLine = document.createElement("div");
+					hashLine.className = "muted small";
+					hashLine.textContent = v.hash;
+					nameCell.append(hashLine);
+				}
 				tr.append(nameCell, cell(formatTimestamp(v.last_changed)), cell(formatTimestamp(v.last_checked)));
 				body.append(tr);
 			}
