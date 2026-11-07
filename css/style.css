@@ -41,7 +41,7 @@ body {
 .theme-toggle { display: inline-grid; grid-template-columns: repeat(3, 40px); flex: none; margin-left: auto; }
 .theme-option { position: relative; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
 .theme-option input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
-.theme-option .glyph { display: flex; align-items: center; height: 1.5rem; font-size: 1.05rem; line-height: 1; color: var(--muted); }
+.theme-option .glyph { display: flex; align-items: center; height: 2rem; font-size: 1.05rem; line-height: 1; color: var(--muted); }
 .theme-option .slot { position: relative; align-self: stretch; height: 22px; display: flex; align-items: center; justify-content: center; }
 .theme-option .slot::before { content: ""; position: absolute; top: 50%; left: 0; right: 0; height: 4px; margin-top: -2px; background: var(--bar); }
 .theme-option:first-child .slot::before { left: 50%; border-radius: 2px 0 0 2px; }
