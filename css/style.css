@@ -41,7 +41,7 @@ body {
 .theme-toggle {
 	--icon-size: 32; /* change this value to resize the theme picker icons */
 	display: inline-grid;
-	grid-template-columns: repeat(3, calc(var(--icon-size) * 1px + 8px)));
+	grid-template-columns: repeat(3, calc(var(--icon-size) * 1px + 8px));
 	flex: none;
 	margin-left: auto;
 }
@@ -50,7 +50,7 @@ body {
 .theme-option .glyph {
 	display: flex;
 	align-items: center;
-	height: calc(var(--icon-size) * 1px)
+	height: calc(var(--icon-size) * 1px);
 	font-size: 1.05rem;
 	line-height: 1;
 	color: var(--muted);
