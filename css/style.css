@@ -38,17 +38,34 @@ body {
 .sentence { display: inline-block; }
 
 /* three-position theme selector */
-.theme-toggle { display: inline-grid; grid-template-columns: repeat(3, 40px); flex: none; margin-left: auto; }
+.theme-toggle {
+	--icon-size: 32; /* change this value to resize the theme picker icons */
+	display: inline-grid;
+	grid-template-columns: repeat(3, calc(var(--icon-size) * 1px + 8px)));
+	flex: none;
+	margin-left: auto;
+}
 .theme-option { position: relative; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
 .theme-option input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
-.theme-option .glyph { display: flex; align-items: center; height: 2rem; font-size: 1.05rem; line-height: 1; color: var(--muted); }
+.theme-option .glyph {
+	display: flex;
+	align-items: center;
+	height: calc(var(--icon-size) * 1px)
+	font-size: 1.05rem;
+	line-height: 1;
+	color: var(--muted);
+}
 .theme-option .slot { position: relative; align-self: stretch; height: 22px; display: flex; align-items: center; justify-content: center; }
 .theme-option .slot::before { content: ""; position: absolute; top: 50%; left: 0; right: 0; height: 4px; margin-top: -2px; background: var(--bar); }
 .theme-option:first-child .slot::before { left: 50%; border-radius: 2px 0 0 2px; }
 .theme-option:last-child .slot::before { right: 50%; border-radius: 0 2px 2px 0; }
 .theme-option .knob { position: relative; width: 10px; height: 10px; border-radius: 50%; background: var(--surface); border: 2px solid var(--muted); transition: width 0.15s, height 0.15s, background 0.15s, border-color 0.15s; }
 .theme-option input:checked ~ .glyph { color: var(--text); }
-.theme-option .glyph-img { opacity: .6; }
+.theme-option .glyph-img {
+	opacity: .6;
+	width: calc(var(--icon-size) * 1px);
+	height: calc(var(--icon-size) * 1px);
+}
 #theme-system-glyph .glyph-img {
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .5)) drop-shadow(0 0 1px #000);
 }
