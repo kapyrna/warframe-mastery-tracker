@@ -5,7 +5,7 @@
 	const body = document.getElementById("files-body");
 	if (!body) return; // no card to display
 
-	const formatTimestamp = t => ? new Date(t).toLocaleString(undefined, { hourCycle: "h23" }) : "-";
+	const formatTimestamp = t => t ? new Date(t).toLocaleString(undefined, { hourCycle: "h23" }) : "-";
 
 	function cell(text) {
 		const td = document.createElement("td");
@@ -29,7 +29,7 @@
 				a.textContent = name;
 				nameCell.append(a);
 
-				tr.append(nameCell, cell(fmt(v.last_changed)), cell(fmt(v.last_checked)))
+				tr.append(nameCell, cell(formatTimestamp(v.last_changed)), cell(formatTimestamp(v.last_checked)));
 				body.append(tr);
 			}
 		})
