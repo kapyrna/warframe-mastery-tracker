@@ -24,19 +24,20 @@
  </header>
 
 <main>
-		<section class="card" aria-label="summary-h">
-			<h2 id="summary">Overview</h2>
-			<div class="profile">
-				<div class="stat"><span class="label">Mastery rank</span><span class="value" id="stat-rank">MR 0</span></div>
-				<div class="stat"><span class="label">Items mastered</span><span class="value" id="stat-items">0 / 0</span></div>
-				<div class="stat"><span class="label">Total XP</span><span class="value" id="stat-xp-total">0</span></div>
-				<div class="stat"><span class="label">If everything is maxed</span><span class="value" id="stat-mr-potential">MR 0</span></div>
-			</div>
-		</section>
-		
-		<section class="card" aria-label="items-h">
-			<h2 id="summary">Progress</h2>
-			 <p id="data-msg" class="msg" role="status"></p>
+	<section class="card" aria-label="summary-h">
+		<h2 id="summary">Overview</h2>
+		<div class="profile">
+			<div class="stat"><span class="label">Mastery rank</span><span class="value" id="stat-rank">MR 0</span></div>
+			<div class="stat"><span class="label">Items mastered</span><span class="value" id="stat-items">0 / 0</span></div>
+			<div class="stat"><span class="label">Total XP</span><span class="value" id="stat-xp-total">0</span></div>
+			<div class="stat"><span class="label">If everything is maxed</span><span class="value" id="stat-mr-potential">MR 0</span></div>
+		</div>
+	</section>
+	
+	<section class="card" aria-label="items-h">
+		<details id="progress-panel">
+			<summary id="items-h">Progress | Here there be spoilers</h2></summary>
+			<p id="data-msg" class="msg" role="status"></p>
 			<div class="filters">
 				<input type="search" id="search" placeholder="Search items" aria-label="Search items">
 				<select id="filter-variant" aria-label="Filter by Variant">
@@ -64,15 +65,18 @@
 					<option value="sort-mr-req">Sort by: Mastery requirement</option>
 					<option value="sort-xp-remaining">Sort by: Most XP remaining</option>
 				</select>
-				<div id="lists"></div>
-		</section>
+				</div>
+			<div id="lists"></div>
+		</details>
+	</section>
     
     <section class="card" aria-label="importexport-h">
-      <details id="import-panel">
-        <summary id="importexport-h">Import and Export</summary>
-        <p class="muted small">Work-in-progess</p>
-    </section>
-  </main>
+		<details id="import-panel">
+			<summary id="importexport-h">Import and Export</summary>
+			<p class="muted small">Work-in-progess</p>
+		</details>
+	</section>
+</main>
 
   <footer class="site-footer">
 	  <p>
