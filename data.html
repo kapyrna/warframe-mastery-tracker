@@ -13,77 +13,39 @@
 	<script src="js/theme.js"></script> <!-- do apply theme preference from the main page -->
 </head>
 <body>
-<header class="site-header">
-    <h1>Warframe Public Export (cache)</h1>
-    <div class="header-row">
-        <p class="sub">
-            <span class="sentence">This is a snapshot of the Public Export data used in the tracker.</span>
-        </p>
-    </div>
-</header>
-
-<main>
-    <section class="card" aria-labelledby="index-h">
-        <h2 id="index-h">Public Export Index</h2>
-		<p class="muted small" id="index-status">Timestamp unavailable</p>
-		<pre id="index-text" class="index-text">Loading…</pre>
-	</section>
+	<header class="site-header">
+	    <h1>Warframe Public Export (cache)</h1>
+	    <div class="header-row">
+	        <p class="sub">
+	            <span class="sentence">This is a snapshot of the Public Export data used in the tracker.</span>
+	        </p>
+	    </div>
+	</header>
 	
-	<section class="card" aria-labelledby="files-h">
-		<h2 id="files-h">Export Files</h2>
-		<div class="table-wrap">
-			<table>
-				<thead>
-					<tr>
-						<th>File</th>
-						<th>Last changed</th>
-						<th>Last checked</th></tr>
-				</thead>
-				<tbody id="files-body"></tbody>
-			</table>
-		</div>
-	</section>
-</main>
-	<script>
-const f = t => t ? new Date(t).toLocaleString() : "—";
-
-fetch("data/index_en.txt")
-  .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
-  .then(t => { document.getElementById("index-text").textContent = t; })
-  .catch(() => { document.getElementById("index-text").textContent = "Couldn't load the index."; });
-
-fetch("data/status.json")
-  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-  .then(s => {
-    const files = s.files || {};
-
-    const idx = files["index_en.txt"];
-    if (idx && idx.last_checked) {
-      document.getElementById("index-status").textContent =
-        `Last changed: ${f(idx.last_changed)} · Last checked: ${f(idx.last_checked)}`;
-    }
-
-    const body = document.getElementById("files-body");
-    for (const name of Object.keys(files).filter(n => n !== "index_en.txt").sort()) {
-      const v = files[name];
-      const tr = document.createElement("tr");
-
-      const nameCell = document.createElement("td");
-      const a = document.createElement("a");
-      a.href = "data/" + name;
-      a.textContent = name;
-      nameCell.append(a);
-
-      const changed = document.createElement("td");
-      changed.textContent = f(v.last_changed);
-      const checked = document.createElement("td");
-      checked.textContent = f(v.last_checked);
-
-      tr.append(nameCell, changed, checked);
-      body.append(tr);
-    }
-  })
-  .catch(err => console.error("status load failed:", err));
-</script>
+	<main>
+	    <section class="card" aria-labelledby="index-h">
+	        <h2 id="index-h">Public Export Index</h2>
+			<p class="muted small" id="index-status">Timestamp unavailable</p>
+			<pre id="index-text" class="index-text">Loading…</pre>
+		</section>
+		
+		<section class="card" aria-labelledby="files-h">
+			<h2 id="files-h">Export Files</h2>
+			<div class="table-wrap">
+				<table>
+					<thead>
+						<tr>
+							<th>File</th>
+							<th>Last changed</th>
+							<th>Last checked</th></tr>
+					</thead>
+					<tbody id="files-body"></tbody>
+				</table>
+			</div>
+		</section>
+	</main>
+	
+	<script src="js/data-index.js?v=1"></script>
+	<script src="js/data-files.js?v=1"></script>
 </body>
 </html>
