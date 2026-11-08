@@ -33,8 +33,15 @@
 		for (const savedKey of savedKeys) {
 			const savedValue = localStorage.getItem(savedKey) || "";
 			const tableRow = document.createElement("tr");
+
+			const keyCell = document.createElement("div");
+			valueLine.className = "muted small saved-value";
+			valueLine.textContent = savedValue;
+			keyCell.append(valueLine);
+
 			const valueSizeCell = createCell(savedValue.length + " characters");
 			valueSizeCell.className = "numeric-cell";
+			
 			tableRow.append(createCell(savedKey), valueSizeCell);
 			tableBody.append(tableRow);
 		}
