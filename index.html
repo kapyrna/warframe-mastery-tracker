@@ -66,7 +66,7 @@
 					<option value="sort-mr-req">Sort by: Mastery requirement</option>
 					<option value="sort-xp-remaining">Sort by: Most XP remaining</option>
 				</select>
-				</div>
+			</div>
 			<div id="lists"></div>
 			<p class="sub">Item data <a href="data.html" target="_blank" rel="noopener noreferrer">is cached</a> from <a href="https://wiki.warframe.com/w/Public_Export" target="_blank" rel="noopener noreferrer">Public Export</a>.</p>
 		</details>
@@ -76,6 +76,16 @@
 		<details id="import-panel">
 			<summary id="importexport-h">Import and Export</summary>
 			<p class="muted small">Work-in-progess</p>
+			
+			<div class="row">
+				<input type="text" id="player-id" placeholder="Account ID" maxlength="24" autocomplete="off" spellcheck="false" aria-label="Account ID">
+				<button type="button" id="button-fetch" disabled>Open profile data</button>
+			</div>
+			
+			<div class="row">
+				<button type="button" id="button-export" class="secondary">Download my progress</button>
+				<button type="button" id="button-clear" class="danger">Clear saved data</button>
+			</div>
 		</details>
 	</section>
 </main>
