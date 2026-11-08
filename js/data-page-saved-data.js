@@ -33,7 +33,10 @@
 		for (const savedKey of savedKeys) {
 			const savedValue = localStorage.getItem(savedKey) || "";
 			const tableRow = document.createElement("tr");
-
+			
+			const keyCell = document.createElement("td");
+			keyCell.append(savedKey);
+			
 			const keyCell = document.createElement("div");
 			valueLine.className = "muted small saved-value";
 			valueLine.textContent = savedValue;
