@@ -33,7 +33,9 @@
 		for (const savedKey of savedKeys) {
 			const savedValue = localStorage.getItem(savedKey) || "";
 			const tableRow = document.createElement("tr");
-			tableRow.append(createCell(savedKey), createCell(savedValue.length + " characters"));
+			const valueSizeCell = createCell(savedValue.length + " characters");
+			valueSizeCell.className = "numeric-cell";
+			tableRow.append(createCell(savedKey), valueSizeCell);
 			tableBody.append(tableRow);
 		}
 	}
