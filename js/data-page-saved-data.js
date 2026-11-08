@@ -37,7 +37,7 @@
 			const keyCell = document.createElement("td");
 			keyCell.append(savedKey);
 			
-			const keyCell = document.createElement("div");
+			const valueLine = document.createElement("div");
 			valueLine.className = "muted small saved-value";
 			valueLine.textContent = savedValue;
 			keyCell.append(valueLine);
@@ -45,7 +45,7 @@
 			const valueSizeCell = createCell(savedValue.length + " characters");
 			valueSizeCell.className = "numeric-cell";
 			
-			tableRow.append(createCell(savedKey), valueSizeCell);
+			tableRow.append(keyCell, valueSizeCell);
 			tableBody.append(tableRow);
 		}
 	}
