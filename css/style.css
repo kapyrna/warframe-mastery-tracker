@@ -187,6 +187,7 @@ th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--bor
 td:nth-child(2) { white-space: normal; }
 th { font-size: 0.8rem; color: var(--muted); font-weight: 600; }
 .num { text-align: right; }
+.numeric-cell { text-align: right; }
 tr.done td { color: var(--muted); }
 tr.done td:nth-child(2) { text-decoration: line-through; text-decoration-color: var(--good); }
 td input[type="checkbox"] { width: 18px; height: 18px; }
