@@ -46,11 +46,30 @@
 				</div>
 			</div>
 		</section>
+
+		<section class="card">
+			<details id="saved-data-panel" open>
+				<summary id="saved-data-heading">Saved data in this browser</summary>
+				<p class="muted small" id="saved-data-status">Loading…</p>
+				<div class="table-wrap">
+					<table>
+						<thead>
+							<tr>
+								<th>Key</th>
+								<th>Value size</th>
+							</tr>
+						</thead>
+						<tbody id="saved-data-body"></tbody>
+					</table>
+				</div>
+			</details>
+		</section>
 	</main>
 	{% include footerblock.html %} <!-- codeblock is in /_includes -->
 
 	<!-- scripts to populate the data infex and list of manifests -->
 	<script src="js/data-page-index.js"></script>
 	<script src="js/data-page-files.js"></script>
+	<script src="js/data-page-saved-data.js"></script>
 </body>
 </html>
