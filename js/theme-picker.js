@@ -34,7 +34,7 @@
 			radio.checked = radio.value === choice; // show the saved choice on the relevant toggle option
 			radio.addEventListener("change", function () {
 				if (!radio.checked) return; // skip if was already selected
-				choice = normalize(radio.value); // read which one was slected
+				choice = radio.value; // read which one was slected
 				writeStored(choice); // write to saved prefs in localStorage
 				apply(choice); // paint again to apply new themea
 			});
