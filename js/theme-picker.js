@@ -1,28 +1,28 @@
-// This is what does the work underneath the radio buttons to pick the theme at the top of the page
+// This is what does the work underneath the radio buttons to pick the theme
 (function () {
 	"use strict";
 	
-	const STORAGE_KEY = "wf-mr-tracker-theme-v1"; // make a key, leave room for future improvements and backwards compatibility
-	const CHOICES = ["light", "system", "dark"]; // the current options
+	const STORAGE_KEY = "warframe-mastery-tracker-themechoice"; // make a key
+	const THEMECHOICES = ["light", "dark"]; // the current options
 	const root = document.documentElement; // point back to the HTML element
 	
-	function normalize(choice) {
-		return CHOICES.includes(choice) ? choice : "system"; } // handle NULL
+	function browserdefaulttheme() {
+		if ( window.matchMedia('(prefers-color-scheme: dark)').matches)
+			return "dark";
+		else return "light"; }
 	
 	function readStored() { // attempt to read saved pref
-		try { return normalize(localStorage.getItem(STORAGE_KEY)); } // fall back to system if OS or browser is unheplful
-		catch (e) { return "system";}
+		try { return localStorage.getItem(STORAGE_KEY); }
+		catch (exception) { return browserdefaulttheme();}
 	}
 	
-	function writeStored() { // attempt to write saved pref
+	function writeStored(choice) { // attempt to write saved pref
 		try { localStorage.setItem(STORAGE_KEY, choice); }
-		catch (e) { /* complain to Ordis then move on with your life */ }
+		catch (exception) { /* complain to Ordis then move on with your life */ }
 	}
 	
 	function apply(choice) { // do the thing to the page
-		if (choice === "light" || choice === "dark") // if selecting a manual option
-			root.setAttribute("data-theme", choice);
-		else root.removeAttribute("data-theme");
+		root.setAttribute("data-theme", choice);
 	}
 	
 	let choice = readStored(); //check for pre-existing choice and fallback to system
