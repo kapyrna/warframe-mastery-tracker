@@ -35,7 +35,7 @@
 	
 	<section class="card" aria-label="items-h">
 		<details id="progress-panel">
-			<summary id="items-h">Progress | Here there be spoilers</h2></summary>
+			<summary id="items-h">Progress | Here there be spoilers</summary>
 			<p id="data-msg" class="msg" role="status"></p>
 			<div class="filters">
 				<input type="search" id="search" placeholder="Search items" aria-label="Search items">
@@ -74,10 +74,7 @@
     
     <section class="card" aria-label="settings-h">
 		<details id="settings-panel">
-			<summary id="settings-h">
-				Account and site settings
-				{% include theme-toggle.html %} <!-- codeblock is in /_includes -->
-			</summary>
+			<summary id="settings-heading">Account and site settings</summary>
 			
 			<div class="row">
 				<input type="text" id="player-id" placeholder="Account ID" maxlength="24" autocomplete="off" spellcheck="false" aria-label="Account ID">
@@ -88,6 +85,7 @@
 				<button type="button" id="button-import" class="secondary">Import progress from file</button>
 				<button type="button" id="button-export" class="secondary">Download progress to file</button>
 				<button type="button" id="button-clear" class="danger">Clear browser's saved data</button>
+				{% include theme-toggle.html %} <!-- codeblock is in /_includes -->
 			</div>
 		</details>
 	</section>
