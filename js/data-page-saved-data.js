@@ -51,7 +51,7 @@
 			
 			const valueLine = document.createElement("div");
 			valueLine.className = "muted small saved-value";
-			valueLine.textContent = savedValue;
+			valueLine.textContent = savedKey.slice(keyPrefix.length);
 			keyCell.append(valueLine);
 			
 			const deleteCell = document.createElement("td");
