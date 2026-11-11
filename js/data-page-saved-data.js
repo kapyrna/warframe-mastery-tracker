@@ -2,6 +2,8 @@
 (function () {
 	"use strict";
 
+	const repositoryName = document.documentElement.dataset.repositoryName || "warframe-mastery-tracker";
+	const keyPrefix = repositoryName + ":";
 	const tableBody = document.getElementById("saved-data-body");
 	const statusElement = document.getElementById("saved-data-status");
 	if (!tableBody) return; // no card to display
@@ -16,9 +18,12 @@
 		tableBody.replaceChildren();
 
 		let savedKeys = [];
+		let otherKeys = 0;
 		try {
 			for (let index = 0; index < localStorage.length; index++) {
-				savedKeys.push(localStorage.key(index));
+				if ( localStorage.key(index).startsWith(keyPrefix) ) {
+					savedKeys.push(localStorage.key(index));}
+				else otherKeys++
 			}
 		} catch (error) {
 			statusElement.textContent = "Browser storage is unavailable.";
@@ -26,9 +31,16 @@
 		}
 		savedKeys.sort();
 
-		statusElement.textContent = savedKeys.length === 0
-			? "Nothing is saved in this browser."
-			: savedKeys.length + (savedKeys.length === 1 ? " key saved for this tracker." : " keys saved for this tracker.");
+		if (savedKeys.length === 0) {
+			statusElement.textContent = "Nothing is saved for this browser.";
+		} else if (savedKeys.length === 1) {
+			statusElement.textContent = "1 key saved for this tracker";
+		} else {
+			statusElement.textContent = savedKeys.length + " keys saved for this tracker";
+		}
+		if ( otherKeys > 0 ) {
+			statusElement.textContent = statusElement.textContent + " and " + otherKeys + " from outside this tracker."; }
+		else statusElement.textContent = statusElement.textContent + ".";
 
 		for (const savedKey of savedKeys) {
 			const savedValue = localStorage.getItem(savedKey) || "";
