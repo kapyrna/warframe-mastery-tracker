@@ -28,7 +28,7 @@
 
 		statusElement.textContent = savedKeys.length === 0
 			? "Nothing is saved in this browser."
-			: savedKeys.length + (savedKeys.length === 1 ? " key saved." : " keys saved.");
+			: savedKeys.length + (savedKeys.length === 1 ? " key saved for this tracker." : " keys saved for this tracker.");
 
 		for (const savedKey of savedKeys) {
 			const savedValue = localStorage.getItem(savedKey) || "";
