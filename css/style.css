@@ -88,22 +88,6 @@ body {
 .card > details[open] > summary { margin-bottom: 12px; }
 .card > :last-child { margin-bottom: 0; }
 
-#settings-panel > summary {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: space-between;
-	column-gap: 12px;
-	row-gap: 8px;
-}
-#settings-panel > summary::-webkit-details-marker { display: none; }
-#settings-panel > summary::before {
-	content: "\25B8";
-	color: var(--muted);
-	margin-right: 6px;
-}
-#settings-panel[open] > summary::before { content: "\25BE"; }
-
 a { color: var(--accent); }
 a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
