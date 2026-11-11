@@ -39,7 +39,7 @@
 			statusElement.textContent = savedKeys.length + " keys saved for this tracker";
 		}
 		if ( otherKeys > 0 ) {
-			statusElement.textContent = statusElement.textContent + " and " + otherKeys + " from outside this tracker."; }
+			statusElement.textContent = statusElement.textContent + " and " + otherKeys + " from other projects."; }
 		else statusElement.textContent = statusElement.textContent + ".";
 
 		for (const savedKey of savedKeys) {
