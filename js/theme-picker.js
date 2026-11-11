@@ -2,7 +2,8 @@
 (function () {
 	"use strict";
 	
-	const STORAGE_KEY = "warframe-mastery-tracker-themechoice"; // make a key
+	const repositoryName = document.documentElement.dataset.repositoryName || "warframe-mastery-tracker"; // from data-repository-name on the html element
+	const STORAGE_KEY = repositoryName + "theme-choice"; // make a key
 	const THEMECHOICES = ["light", "dark"]; // the current options
 	const root = document.documentElement; // point back to the HTML element
 	
