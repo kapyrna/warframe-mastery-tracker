@@ -45,7 +45,23 @@
 			const valueSizeCell = createCell(savedValue.length + " characters");
 			valueSizeCell.className = "numeric-cell";
 			
-			tableRow.append(keyCell, valueSizeCell);
+			const deleteCell = document.createElement("td");
+			deleteCell.className = "numeric-cell";
+			const deleteButton = document.createElement("button");
+			deleteButton.type = "button";
+			deleteButton.className = "danger";
+			deleteButton.textContent = "Delete";
+			deleteButton.setAttribute("aria-label", "Delete saved key " + savedKey);
+			deleteButton.addEventListener("click", function () {
+				const confirmed = window.confirm("Delete the saved key \"" + savedKey + "\"? This can't be undone.");
+				if (!confirmed) return;
+				try { localStorage.removeItem(savedKey); }
+				catch (error) { /* storage blocked */ }
+				renderSavedKeys(); // the storage event only fires in other tabs, so refresh here
+			});
+			deleteCell.append(deleteButton);
+			
+			tableRow.append(keyCell, valueSizeCell, deleteCell);
 			tableBody.append(tableRow);
 		}
 	}
