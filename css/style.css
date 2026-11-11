@@ -37,9 +37,9 @@ body {
 .sub { flex: 1 1 0; min-width: 0; margin: 0; text-align: left; color: var(--muted); }
 .sentence { display: inline-block; }
 
-/* three-position theme selector */
+/* two-position theme selector */
 .theme-toggle {
-	--icon-size: 24; /* change this value to resize the theme picker icons */
+	--icon-size: 32; /* change this value to resize the theme picker icons */
 	display: inline-grid;
 	grid-template-columns: repeat(3, calc(var(--icon-size) * 1px));
 	flex: none;
