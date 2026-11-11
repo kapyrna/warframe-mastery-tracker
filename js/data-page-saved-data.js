@@ -41,9 +41,6 @@
 			valueLine.className = "muted small saved-value";
 			valueLine.textContent = savedValue;
 			keyCell.append(valueLine);
-
-			const valueSizeCell = createCell(savedValue.length + " characters");
-			valueSizeCell.className = "numeric-cell";
 			
 			const deleteCell = document.createElement("td");
 			deleteCell.className = "numeric-cell";
@@ -61,7 +58,7 @@
 			});
 			deleteCell.append(deleteButton);
 			
-			tableRow.append(keyCell, valueSizeCell, deleteCell);
+			tableRow.append(keyCell, deleteCell);
 			tableBody.append(tableRow);
 		}
 	}
