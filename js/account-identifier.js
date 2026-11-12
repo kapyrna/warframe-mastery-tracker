@@ -45,5 +45,22 @@
 		const accountIdentifier = inputElement.value.trim();
 		if (!isValid(accountIdentifier)) return;
 		writeStoredAccountIdentifier(accountIdentifier);
+	
+		const profileStorageKey = repositoryName + ":profiledata";
+		const profileUrl = "https://api.warframe.com/cdn/getProfileViewingData.php?playerId=" + accountIdentifier;
+		
+		fetch(profileUrl)
+			.then(function (response) {
+				if (!response.ok) throw new Error("Response status " + response.status);
+				return response.json();
+			})
+			.then(function (profileData) {
+				try {
+					localStorage.setItem(profileStorageKey, JSON.stringify(profileData));
+				} catch (error) {}
+    		})
+			.catch(function (error) {
+      			console.error("Failed to fetch profile data:", error);
+			});
 	});
 })();
