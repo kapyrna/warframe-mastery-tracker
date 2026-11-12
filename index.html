@@ -76,8 +76,9 @@
 					
 					<div class="row"> <!--- instructions that hopefully fits in two lines max -->
 						<p>
-							<span class="sentence">Enter your player ID, then select the Fetch button and copy-/paste the JSON it fetches to import your Tenno.</span>
+							<span class="sentence">Enter your player ID, then Fetch and copy-/paste the JSON to import your Tenno.</span>
 							<span class="sentence">Note this does not auto-refresh with in-game progress.</span>
+							<span class="sentence">JSON copy/paste does not work well on mobile.</span>
 						</p>
 					</div>
 
@@ -86,7 +87,10 @@
 						<button type="button" id="button-fetch" disabled>Fetch</button>
 					</div>
 					
-					<!--- textbox and button to save player JSON to localStorage -->
+					<div class="row"> <!--- textbox and button to save player JSON to localStorage -->
+						<textarea id="profile-json-input" rows="4" placeholder="Paste profile JSON here…"></textarea>
+						<button type="button" id="button-save-profile" disabled>Save</button>
+					</div>
 					
 					<div class="row">
 						<button type="button" id="button-import" class="secondary">Import file</button>
