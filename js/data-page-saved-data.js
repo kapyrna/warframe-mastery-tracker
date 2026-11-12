@@ -6,6 +6,7 @@
 	const keyPrefix = repositoryName + ":";
 	const tableBody = document.getElementById("saved-data-body");
 	const statusElement = document.getElementById("saved-data-status");
+	const keyHeader = document.getElementById("saved-data-key-header");
 	if (!tableBody) return; // no card to display
 
 	function createCell(text) {
@@ -29,8 +30,9 @@
 			statusElement.textContent = "Browser storage is unavailable.";
 			return;
 		}
+		keyHeader.textContent += " prefixed by " + keyPrefix;
 		savedKeys.sort();
-
+		
 		if (savedKeys.length === 0) {
 			statusElement.textContent = "Nothing is saved for this browser.";
 		} else if (savedKeys.length === 1) {
