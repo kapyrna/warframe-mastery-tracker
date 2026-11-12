@@ -17,7 +17,7 @@
 		.then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
 		.then(s => {
 			const files = s.files || {};
-			const names = Object.keys(files).filter(n => n !== "index_en.txt").sort();
+			const names = Object.keys(files).sort();
 
 			for (const name of names) {
 				const v = files[name];
