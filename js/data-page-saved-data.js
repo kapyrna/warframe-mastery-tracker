@@ -47,7 +47,7 @@
 			const tableRow = document.createElement("tr");
 			
 			const keyCell = document.createElement("td");
-			keyCell.append(savedKey);
+			keyCell.append(savedKey.slice(keyPrefix.length)); // strip off the prefix
 			
 			const valueLine = document.createElement("div");
 			valueLine.className = "muted small saved-value";
