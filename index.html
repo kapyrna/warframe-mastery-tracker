@@ -11,82 +11,84 @@
 	{% include favicons.html %} <!-- codeblock is in /_includes -->
 	<script src="js/theme-picker.js?v=1"></script> <!-- the worker for the theme toggle  -->
 </head>
-<body>
- <header class="site-header">
-    <h1>Warframe Mastery Tracker</h1>
-    <div class="header-row">
-      <p class="sub" text-align: center>Your data stays in cookies, nothing is uploaded.</p>
-    </div>
- </header>
 
-<main>
-	<section class="card" aria-label="summary-h">
-		<h2 id="summary">Overview</h2>
-		<div class="profile">
-			<div class="stat"><span class="label">Mastery rank</span><span class="value" id="stat-rank">MR 0</span></div>
-			<div class="stat"><span class="label">Items mastered</span><span class="value" id="stat-items">0 / 0</span></div>
-			<div class="stat"><span class="label">Total XP</span><span class="value" id="stat-xp-total">0</span></div>
-			<div class="stat"><span class="label">If everything is maxed</span><span class="value" id="stat-mr-potential">MR 0</span></div>
-		</div>
-	</section>
+	<body>
+		<header class="site-header">
+			<h1>Warframe Mastery Tracker</h1>
+			<div class="header-row">
+				<p class="sub" text-align: center>Your data stays in cookies, nothing is uploaded.</p>
+		    </div>
+		</header>
 	
-	<section class="card" aria-label="items-h">
-		<details id="progress-panel">
-			<summary id="items-h">Progress | Here there be spoilers</summary>
-			<p id="data-msg" class="msg" role="status"></p>
-			<div class="filters">
-				<input type="search" id="search" placeholder="Search items" aria-label="Search items">
-				<select id="filter-variant" aria-label="Filter by Variant">
-					<option value="">All variants</option>
-					<option value="base">Base</option>
-					<option value="coda">Coda</option>
-					<option value="dex">Dex</option>
-					<option value="kuva">Kuva</option>
-					<option value="mk1">Mk1</option>
-					<option value="prime">Prime</option>
-					<option value="prisma">Prisma</option>
-					<option value="syndicate">Syndicate</option>
-					<option value="Tenet">Tenet</option>
-					<option value="umbra">Umbra</option>
-					<option value="vandal">Vandal</option>
-					<option value="wraith">Wraith</option>
-				</select>
-				<select id="filter-completion-state" aria-label="Filter by status">
-					<option value="">Mastered and un-Mastered</option>
-					<option value="todo">Not mastered</option>
-					<option value="done">Mastered</option>
-				</select>
-				<select id="sort" aria-label="Sort items">
-					<option value="sort-name">Sort by: Name</option>
-					<option value="sort-mr-req">Sort by: Mastery requirement</option>
-					<option value="sort-xp-remaining">Sort by: Most XP remaining</option>
-				</select>
-			</div>
-			<div id="lists">
-				<p class="placeholder-message" id="list-placeholder">Building list...</p>
-			</div>
-			<p class="sub">Item data <a href="data.html" target="_blank" rel="noopener noreferrer">is cached</a> from <a href="https://wiki.warframe.com/w/Public_Export" target="_blank" rel="noopener noreferrer">Public Export</a>.</p>
-		</details>
-	</section>
-    
-    <section class="card" aria-label="settings-h">
-		<details id="settings-panel">
-			<summary id="settings-heading">Account and site settings</summary>
+		<main>
+			<section class="card" aria-label="summary-h">
+				<h2 id="summary">Overview</h2>
+				<div class="profile">
+					<div class="stat"><span class="label">Mastery rank</span><span class="value" id="stat-rank">MR 0</span></div>
+					<div class="stat"><span class="label">Items mastered</span><span class="value" id="stat-items">0 / 0</span></div>
+					<div class="stat"><span class="label">Total XP</span><span class="value" id="stat-xp-total">0</span></div>
+					<div class="stat"><span class="label">If everything is maxed</span><span class="value" id="stat-mr-potential">MR 0</span></div>
+				</div>
+			</section>
 			
-			<div class="row">
-				<input type="text" id="player-id" placeholder="Account ID" maxlength="24" autocomplete="off" spellcheck="false" aria-label="Account ID">
-				<button type="button" id="button-fetch" disabled>Import</button>
-			</div>
-			
-			<div class="row">
-				<button type="button" id="button-import" class="secondary">Import file</button>
-				<button type="button" id="button-export" class="secondary">Download file</button>
-				<button type="button" id="button-clear" class="danger">Clear browser's saved data</button>
-				{% include theme-toggle.html %} <!-- codeblock is in /_includes -->
-			</div>
-		</details>
-	</section>
-</main>
-  {% include footerblock.html %} <!-- codeblock is in /_includes -->
-</body>
+			<section class="card" aria-label="items-h">
+				<details id="progress-panel">
+					<summary id="items-h">Progress | Here there be spoilers</summary>
+					<p id="data-msg" class="msg" role="status"></p>
+					<div class="filters">
+						<input type="search" id="search" placeholder="Search items" aria-label="Search items">
+						<select id="filter-variant" aria-label="Filter by Variant">
+							<option value="">All variants</option>
+							<option value="base">Base</option>
+							<option value="coda">Coda</option>
+							<option value="dex">Dex</option>
+							<option value="kuva">Kuva</option>
+							<option value="mk1">Mk1</option>
+							<option value="prime">Prime</option>
+							<option value="prisma">Prisma</option>
+							<option value="syndicate">Syndicate</option>
+							<option value="Tenet">Tenet</option>
+							<option value="umbra">Umbra</option>
+							<option value="vandal">Vandal</option>
+							<option value="wraith">Wraith</option>
+						</select>
+						<select id="filter-completion-state" aria-label="Filter by status">
+							<option value="">Mastered and un-Mastered</option>
+							<option value="todo">Not mastered</option>
+							<option value="done">Mastered</option>
+						</select>
+						<select id="sort" aria-label="Sort items">
+							<option value="sort-name">Sort by: Name</option>
+							<option value="sort-mr-req">Sort by: Mastery requirement</option>
+							<option value="sort-xp-remaining">Sort by: Most XP remaining</option>
+						</select>
+					</div>
+					<div id="lists">
+						<p class="placeholder-message" id="list-placeholder">Building list...</p>
+					</div>
+					<p class="sub">Item data <a href="data.html" target="_blank" rel="noopener noreferrer">is cached</a> from <a href="https://wiki.warframe.com/w/Public_Export" target="_blank" rel="noopener noreferrer">Public Export</a>.</p>
+				</details>
+			</section>
+	    
+	    	<section class="card" aria-label="settings-h">
+				<details id="settings-panel">
+					<summary id="settings-heading">Account and site settings</summary>
+					
+					<div class="row">
+						<input type="text" id="player-id" placeholder="Account ID" maxlength="24" autocomplete="off" spellcheck="false" aria-label="Account ID">
+						<button type="button" id="button-fetch" disabled>Import</button>
+					</div>
+					
+					<div class="row">
+						<button type="button" id="button-import" class="secondary">Import file</button>
+						<button type="button" id="button-export" class="secondary">Download file</button>
+						<button type="button" id="button-clear" class="danger">Clear browser's saved data</button>
+						{% include theme-toggle.html %} <!-- codeblock is in /_includes -->
+					</div>
+				</details>
+			</section>
+		</main>
+	{% include footerblock.html %} <!-- codeblock is in /_includes -->
+	<script src="js/account-identifier.js"></script>
+	</body>
 </html>
