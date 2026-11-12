@@ -51,11 +51,10 @@
 			
 			const valueLine = document.createElement("div");
 			valueLine.className = "muted small saved-value";
-			valueLine.textContent = savedKey.slice(keyPrefix.length);
+			valueLine.textContent = savedValue;
 			keyCell.append(valueLine);
 			
 			const deleteCell = document.createElement("td");
-			deleteCell.className = "numeric-cell";
 			const deleteButton = document.createElement("button");
 			deleteButton.type = "button";
 			deleteButton.className = "danger";
