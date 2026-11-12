@@ -74,10 +74,16 @@
 				<details id="settings-panel">
 					<summary id="settings-heading">Account and site settings</summary>
 					
-					<div class="row">
-						<input type="text" id="player-id" placeholder="Account ID" maxlength="24" autocomplete="off" spellcheck="false" aria-label="Account ID">
-						<button type="button" id="button-fetch" disabled>Import</button>
+					<div class="row"> <!--- instructions that hopefully fits in two lines max -->
+						<p>Enter your player ID, then select the Fetch button and copy-/paste the JSON it fetches to import your Tenno.  Note this does not auto-refresh with in-game progress.</p>
 					</div>
+
+					<div class="row"> <!--- textbox and button to save player JSON to localStorage -->
+						<input type="text" id="player-id" placeholder="Account ID" maxlength="24" autocomplete="off" spellcheck="false" aria-label="Account ID">
+						<button type="button" id="button-fetch" disabled>Fetch</button>
+					</div>
+					
+					<!--- textbox and button to save player JSON to localStorage -->
 					
 					<div class="row">
 						<button type="button" id="button-import" class="secondary">Import file</button>
