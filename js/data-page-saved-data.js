@@ -51,12 +51,12 @@
 			const keyCell = document.createElement("td");
 			const keyDetails = document.createElement("details");
 			const keySummary = document.createElement("summary");
-			keyCell.append(savedKey.slice(keyPrefix.length)); // strip off the prefix
+			keySummary.textContent = savedKey.slice(keyPrefix.length); // strip off the prefix
 			const valueLine = document.createElement("div");
 			valueLine.className = "muted small saved-value";
 			valueLine.textContent = savedValue;
 			keyDetails.append(keySummary, valueLine);
-			keyCell.append(valueLine);
+			keyCell.append(keyDetails);
 			
 			const deleteCell = document.createElement("td");
 			const deleteButton = document.createElement("button");
