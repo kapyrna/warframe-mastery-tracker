@@ -11,22 +11,24 @@
 	function createCategoryCard(headingText) {
 	    const section = document.createElement("section");
 	    section.className = "card";
-	    const heading = document.createElement("h3");
-	    heading.textContent = headingText;
-	    section.append(heading);
-	    return section;
+	    const details = document.createElement("details");
+		const summary = document.createElement("summary");
+	    summary.textContent = headingText;
+		details.append(summary);
+	    section.append(details);
+	    return { section, details };
 	}
 	
 	// plan so that after each list load, total up quantities and xp potential
 
 	// build layout
-	const warframesCard = createCategoryCard("Warframes");
-    const weaponsCard = createCategoryCard("Weapons");
-    const companionsCard = createCategoryCard("Companions");
-    const vehiclesCard = createCategoryCard("Vehicles");
-    const intrinsicsCard = createCategoryCard("Intrinsics");
-    const starChartCard = createCategoryCard("Star Chart");
-
+	const { section: warframesSection, details: warframesCard } = createCategoryCard("Warframes");
+	const { section: weaponsSection, details: weaponsCard } = createCategoryCard("Weapons");
+	const { section: companionsSection, details: companionsCard } = createCategoryCard("Companions");
+	const { section: vehiclesSection, details: vehiclesCard } = createCategoryCard("Vehicles");
+	const { section: intrinsicsSection, details: intrinsicsCard } = createCategoryCard("Intrinsics");
+	const { section: starChartSection, details: starChartCard } = createCategoryCard("Star Chart");
+	
 	listsContainer.replaceChildren(
 		warframesCard,
 		weaponsCard,
