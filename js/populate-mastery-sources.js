@@ -13,7 +13,9 @@
 	    section.className = "card";
 	    const details = document.createElement("details");
 		const summary = document.createElement("summary");
-	    summary.textContent = headingText;
+		const heading = document.createElement("h3");
+		heading.textContent = headingText;
+	    summary.append(heading);
 		details.append(summary);
 	    section.append(details);
 	    return { section, details };
@@ -22,20 +24,20 @@
 	// plan so that after each list load, total up quantities and xp potential
 
 	// build layout
-	const { section: warframesSection, details: warframesCard } = createCategoryCard("Warframes");
-	const { section: weaponsSection, details: weaponsCard } = createCategoryCard("Weapons");
-	const { section: companionsSection, details: companionsCard } = createCategoryCard("Companions");
-	const { section: vehiclesSection, details: vehiclesCard } = createCategoryCard("Vehicles");
-	const { section: intrinsicsSection, details: intrinsicsCard } = createCategoryCard("Intrinsics");
-	const { section: starChartSection, details: starChartCard } = createCategoryCard("Star Chart");
+	const { section: warframesSection, details: warframesDetails } = createCategoryCard("Warframes");
+	const { section: weaponsSection, details: weaponsDetails } = createCategoryCard("Weapons");
+	const { section: companionsSection, details: companionsDetails } = createCategoryCard("Companions");
+	const { section: vehiclesSection, details: vehiclesDetails } = createCategoryCard("Vehicles");
+	const { section: intrinsicsSection, details: intrinsicsDetails } = createCategoryCard("Intrinsics");
+	const { section: starChartSection, details: starchartDetails } = createCategoryCard("Star Chart");
 	
 	listsContainer.replaceChildren(
-		warframesCard,
-		weaponsCard,
-		companionsCard,
-		vehiclesCard,
-		intrinsicsCard,
-		starChartCard);
+		warframesDetails,
+		weaponsDetails,
+		companionsDetails,
+		vehiclesDetails,
+		intrinsicsDetails,
+		starchartDetails);
 	
 	// bring in list of warframes
 	
