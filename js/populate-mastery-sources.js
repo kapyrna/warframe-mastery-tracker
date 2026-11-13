@@ -13,9 +13,7 @@
 	    section.className = "card";
 	    const details = document.createElement("details");
 		const summary = document.createElement("summary");
-		const heading = document.createElement("h3");
-		heading.textContent = headingText;
-	    summary.append(heading);
+		summart.textContent = headingText;
 		details.append(summary);
 	    section.append(details);
 	    return { section, details };
