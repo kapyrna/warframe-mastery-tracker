@@ -49,4 +49,23 @@
 		const profileUrl = "https://api.warframe.com/cdn/getProfileViewingData.php?playerId=" + accountIdentifier;
 		window.open(profileUrl, "_blank");
 	});
+
+	profileJsonInput.addEventListener("input", function () {
+		try {
+			JSON.parse(profileJsonInput.value.trim());
+			saveProfileButton.disabled = false;
+		} catch (error) {
+			saveProfileButton.disabled = true;
+		}
+	});
+
+	saveProfileButton.addEventListener("click", function () {
+		try {
+			const profileData = JSON.parse(profileJsonInput.value.trim());
+			const profileStorageKey = repositoryName + ":tennodata";
+			localStorage.setItem(profileStorageKey, JSON.stringify(profileData));
+			profileJsonInput.value = "";
+			saveProfileButton.disabled = true;
+		} catch (error) {}
+	});
 })();
