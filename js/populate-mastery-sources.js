@@ -32,12 +32,12 @@
 	const { section: starChartSection, details: starchartDetails } = createCategoryCard("Star Chart");
 	
 	listsContainer.replaceChildren(
-		warframesDetails,
-		weaponsDetails,
-		companionsDetails,
-		vehiclesDetails,
-		intrinsicsDetails,
-		starchartDetails);
+		warframesSection,
+		weaponsSection,
+		companionsSection,
+		vehiclesSection,
+		intrinsicsSection,
+		starchartSection);
 	
 	// bring in list of warframes
 	
