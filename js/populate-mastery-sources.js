@@ -29,7 +29,7 @@
 	const { section: companionsSection, details: companionsDetails } = createCategoryCard("Companions");
 	const { section: vehiclesSection, details: vehiclesDetails } = createCategoryCard("Vehicles");
 	const { section: intrinsicsSection, details: intrinsicsDetails } = createCategoryCard("Intrinsics");
-	const { section: starChartSection, details: starchartDetails } = createCategoryCard("Star Chart");
+	const { section: starchartSection, details: starchartDetails } = createCategoryCard("Star Chart");
 	
 	listsContainer.replaceChildren(
 		warframesSection,
