@@ -168,12 +168,6 @@ button:focus-visible, .button:focus-within, input:focus-visible, select:focus-vi
   outline-offset: 2px;
 }
 
-#items-h {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 #items-h span:nth-child(2) {
   color: var(--muted);
 }
