@@ -9,6 +9,8 @@
 	// reference the relevant HTML elements
 	const inputElement = document.getElementById("player-id");
 	const buttonElement = document.getElementById("button-fetch");
+	const profileJsonInput = document.getElementById("profile-json-input");
+	const saveProfileButton = document.getElementById("button-save-profile");
 
 	if (!inputElement || !buttonElement) return; //exit if the page didn't fully load
 
@@ -50,22 +52,19 @@
 		window.open(profileUrl, "_blank");
 	});
 
-	profileJsonInput.addEventListener("input", function () {
-		try {
-			JSON.parse(profileJsonInput.value.trim());
-			saveProfileButton.disabled = false;
-		} catch (error) {
-			saveProfileButton.disabled = true;
-		}
-	});
-
-	saveProfileButton.addEventListener("click", function () {
-		try {
-			const profileData = JSON.parse(profileJsonInput.value.trim());
-			const profileStorageKey = repositoryName + ":tennodata";
-			localStorage.setItem(profileStorageKey, JSON.stringify(profileData));
+	if (profileJsonInput && saveProfileButton) {
+		profileJsonInput.addEventListener("input", function () {
+			saveProfileButton.disabled = profileJsonInput.value.trim() === "";
+		});
+	
+		saveProfileButton.addEventListener("click", function () {
+			const profileStorageKey = repositoryName + ":tennoData";
+			try {
+				localStorage.setItem(profileStorageKey, profileJsonInput.value.trim());
+			} catch (error) {}
 			profileJsonInput.value = "";
 			saveProfileButton.disabled = true;
-		} catch (error) {}
+		});
+	}
 	});
 })();
