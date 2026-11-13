@@ -66,5 +66,4 @@
 			saveProfileButton.disabled = true;
 		});
 	}
-	});
 })();
