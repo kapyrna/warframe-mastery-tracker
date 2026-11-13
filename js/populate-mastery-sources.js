@@ -26,6 +26,14 @@
     const vehiclesCard = createCategoryCard("Vehicles");
     const intrinsicsCard = createCategoryCard("Intrinsics");
     const starChartCard = createCategoryCard("Star Chart");
+
+	listsContainer.replaceChildren(
+		warframesCard,
+		weaponsCard,
+		companionsCard,
+		vehiclesCard,
+		intrinsicsCard,
+		starChartCard);
 	
 	// bring in list of warframes
 	
