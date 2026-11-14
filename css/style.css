@@ -288,7 +288,7 @@ td select { padding: 4px 8px; }
 
 .item-row { /* mastery source item row template */
 	display: grid;
-	grid-template-columns: auto 1fr 40px 40px 80px 80px;
+	grid-template-columns: 20px minmax(0, 1fr) 36px 50px 50px;
 	align-items: center;
 	column-gap: 12px;
 	padding-top: 4px;
