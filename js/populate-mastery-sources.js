@@ -39,19 +39,15 @@
 		headerName.className = "item-name";
 		headerName.textContent = "Item";
 		
-		const headerCurrentLevel = document.createElement("span");
-		headerCurrentLevel.className = "item-current-level numeric-cell";
-		headerCurrentLevel.textContent = "Level";
+		const headerLevel = document.createElement("span");
+		headerLevel.className = "item-current-level numeric-cell";
+		headerLevel.textContent = "Level";
 		
-		const headerCurrentXp = document.createElement("span");
-		headerCurrentXp.className = "item-current-xp numeric-cell";
-		headerCurrentXp.textContent = "XP";
+		const headerXp = document.createElement("span");
+		headerXp.className = "item-current-xp numeric-cell";
+		headerXp.textContent = "XP";
 		
-		const headerMaxXp = document.createElement("span");
-		headerMaxXp.className = "item-max-xp numeric-cell";
-		headerMaxXp.textContent = "Max XP";
-		
-		headerRow.append(headerCheckbox, headerName, headerCurrentLevel, headerCurrentXp, headerMaxXp);
+		headerRow.append(headerCheckbox, headerName, headerLevel, headerXp);
 		details.append(summary, headerRow);
 
 		function updateCount(completed, available) {
@@ -66,16 +62,19 @@
 		const row = document.createElement("div");
 		row.className = "item-row";
 	
+		// checkbox
 		const checkbox = document.createElement("input");
 		checkbox.type = "checkbox";
 		checkbox.className = "item-checkbox";
 		checkbox.checked = currentLevel >= maxLevel;
 		checkbox.setAttribute("aria-label", itemName);
-	
+
+		// name
 		const nameElement = document.createElement("span");
 		nameElement.className = "item-name";
 		nameElement.textContent = itemName;
-	
+
+		// currentl level, only numeric user input
 		const currentLevelInput = document.createElement("input");
 		currentLevelInput.type = "number";
 		currentLevelInput.className = "item-current-level numeric-cell";
@@ -83,23 +82,32 @@
 		currentLevelInput.min = 0;
 		currentLevelInput.max = maxLevel;
 
+		// because we know this per item
 		const maxLevelSuffix = document.createElement("span");
 		maxLevelSuffix.className = "item-max-level-suffix";
 		maxLevelSuffix.textContent = "/" + maxLevel;
 
+		// make the cell with entry box plus suffix
 		const levelWrapper = document.createElement("span");
 		levelWrapper.className = "item-level-wrapper";
 		levelWrapper.append(currentLevelInput, maxLevelSuffix);
-		
+
+		// earned xp value math
 		const currentXpElement = document.createElement("span");
 		currentXpElement.className = "item-current-xp numeric-cell";
 		currentXpElement.textContent = currentLevel * xpPerLevel;
 
-		const maxXpElement = document.createElement("span");
-		maxXpElement.className = "item-max-xp numeric-cell";
-		maxXpElement.textContent = maxLevel * xpPerLevel;
+		// possible xp value math
+		const maxXpSuffix = document.createElement("span");
+		maxXpSuffix.className = "item-max-xp-suffix";
+		maxXpSuffix.textContent = "/" + maxLevel * xpPerLevel;
+
+		// xp values into cell
+		cons xpWrapper = document.createElement("span");
+		xpWrapper.className = "item-xp-wrapper";
+		xpWrapper.append(currentXpElkement, maxXpSuffix);
 		
-		row.append(checkbox, nameElement, levelWrapper, currentXpElement, maxXpElement);
+		row.append(checkbox, nameElement, levelWrapper, xpWrapper);
 		return row;
 	}
 	// plan so that after each list load, total up quantities and xp potential
