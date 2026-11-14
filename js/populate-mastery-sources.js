@@ -34,19 +34,30 @@
 		nameElement.className = "item-name";
 		nameElement.textContent = itemName;
 	
-		const currentLevelElement = document.createElement("span");
-		currentLevelElement.className = "item-current-level numeric-cell";
-		currentLevelElement.textContent = currentLevel;
-	
-		const xpPerLevelElement = document.createElement("span");
-		xpPerLevelElement.className = "item-xp-per-level numeric-cell";
-		xpPerLevelElement.textContent = xpPerLevel;
+		const currentLevelInput = document.createElement("input");
+		currentLevelInput.type = "number";
+		currentLevelInput.className = "item-current-level numeric-cell";
+		currentLevelInput.value = currentLevel;
+		currentLevelInput.min = 0;
+		currentLevelInput.max = maxLevel;
 	
 		const maxLevelElement = document.createElement("span");
 		maxLevelElement.className = "item-max-level numeric-cell";
 		maxLevelElement.textContent = maxLevel;
-	
-		row.append(checkbox, nameElement, currentLevelElement, xpPerLevelElement, maxLevelElement);
+
+		const xpPerLevelElement = document.createElement("span");
+		xpPerLevelElement.className = "item-xp-per-level numeric-cell";
+		xpPerLevelElement.textContent = xpPerLevel;
+
+		const currentXpElement = document.createElement("span");
+		currentXpElement.className = "item-current-xp numeric-cell";
+		currentXpElement.textContent = currentLevel * xpPerLevel;
+
+		const maxXpElement = document.createElement("span");
+		maxXpElement.className = "item-max-xp numeric-cell";
+		maxXpElement.textContent = maxLevel * xpPerLevel;
+		
+		row.append(checkbox, nameElement, currentLevelElement, maxLevelElement, currentXpElement, maxXpElement);
 		return row;
 	}
 	// plan so that after each list load, total up quantities and xp potential
