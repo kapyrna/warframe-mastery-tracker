@@ -103,10 +103,11 @@
 		maxXpSuffix.textContent = "/" + maxLevel * xpPerLevel;
 
 		// xp values into cell
-		cons xpWrapper = document.createElement("span");
+		const xpWrapper = document.createElement("span");
 		xpWrapper.className = "item-xp-wrapper";
 		xpWrapper.append(currentXpElkement, maxXpSuffix);
-		
+
+		// build row
 		row.append(checkbox, nameElement, levelWrapper, xpWrapper);
 		return row;
 	}
