@@ -26,7 +26,6 @@
 		countSpan.textContent = "0 / 0";
 		
 		summary.append(headingSpan, separatorSpan, countSpan);
-		details.append(summary);
 	    section.append(details);
 
 		const headerRow = document.createElement("div");
@@ -105,7 +104,7 @@
 		// xp values into cell
 		const xpWrapper = document.createElement("span");
 		xpWrapper.className = "item-xp-wrapper";
-		xpWrapper.append(currentXpElkement, maxXpSuffix);
+		xpWrapper.append(currentXpElement, maxXpSuffix);
 
 		// build row
 		row.append(checkbox, nameElement, levelWrapper, xpWrapper);
