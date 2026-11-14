@@ -19,7 +19,7 @@
 		headingSpan.textContent = headingText;
 
 		const separatorSpan = document.createElement("span");
-		separatorSpan.textContent = "|";
+		separatorSpan.textContent = " | ";
 
 		const countSpan = document.createElement("span");
 		countSpan.className = "category-count";
