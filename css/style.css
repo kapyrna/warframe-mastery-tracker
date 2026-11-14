@@ -305,6 +305,11 @@ td select { padding: 4px 8px; }
 	margin-bottom: 2px;
 }
 
+.item-current-level {
+	width: 100%;
+	box-sizing: border-box;
+}
+
 /* for star chart */
 .chart-table th.tick, .chart-table td.tick { width: 1%; white-space: nowrap; text-align: center; }
 .chart-table th, .chart-table td { padding-left: .35rem; padding-right: .35rem; }
