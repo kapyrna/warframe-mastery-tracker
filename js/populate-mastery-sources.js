@@ -135,7 +135,11 @@
 			const maxLevel = 30; // per Wiki
 			let completedCount = 0;
 			const totalCount = warframeItems.length;
-
+			
+			warframeItems.sort(function (firstItem, secondItem) {
+				return firstItem.name.localeCompare(secondItem.name);
+			});
+			
 			for (const warframeItem of warframeItems) {
 				const currentLevel = 0;
 				const itemRow = createItemRow(warframeItem.name, currentLevel, xpPerLevel, maxLevel);
