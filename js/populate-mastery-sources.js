@@ -51,7 +51,7 @@
 		headerMaxXp.className = "item-max-xp numeric-cell";
 		headerMaxXp.textContent = "Max XP";
 		
-		headerRow.append(headerCheckbox, headerName, headerCurrentLevel, headerMaxLevel, headerCurrentXp, headerMaxXp);
+		headerRow.append(headerCheckbox, headerName, headerCurrentLevel, headerCurrentXp, headerMaxXp);
 		details.append(summary, headerRow);
 
 		function updateCount(completed, available) {
@@ -87,6 +87,8 @@
 		maxLevelSuffix.className = "item-max-level-suffix";
 		maxLevelSuffix.textContent = "/" + maxLevel;
 
+		const levelWrapper = document.createElement("span");
+		levelWrapper.className = "item-level-wrapper";
 		levelWrapper.append(currentLevelInput, maxLevelSuffix);
 		
 		const currentXpElement = document.createElement("span");
