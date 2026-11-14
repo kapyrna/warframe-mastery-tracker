@@ -61,10 +61,6 @@
 		maxLevelElement.className = "item-max-level numeric-cell";
 		maxLevelElement.textContent = maxLevel;
 
-		const xpPerLevelElement = document.createElement("span");
-		xpPerLevelElement.className = "item-xp-per-level numeric-cell";
-		xpPerLevelElement.textContent = xpPerLevel;
-
 		const currentXpElement = document.createElement("span");
 		currentXpElement.className = "item-current-xp numeric-cell";
 		currentXpElement.textContent = currentLevel * xpPerLevel;
@@ -73,7 +69,7 @@
 		maxXpElement.className = "item-max-xp numeric-cell";
 		maxXpElement.textContent = maxLevel * xpPerLevel;
 		
-		row.append(checkbox, nameElement, currentLevelElement, maxLevelElement, currentXpElement, maxXpElement);
+		row.append(checkbox, nameElement, currentLevelInput, maxLevelElement, currentXpElement, maxXpElement);
 		return row;
 	}
 	// plan so that after each list load, total up quantities and xp potential
@@ -93,8 +89,38 @@
 		vehiclesSection,
 		intrinsicsSection,
 		starchartSection);
+
+	const tennoData = readTennoData();
+	const xpLookup = tennoData ? buildXpLookup(tennoData) : {};
 	
 	// bring in list of warframes
+	fetch("data/ExportWarframes_en.json")
+		.then(function (response) {
+			if (!response.ok) throw new Error("Failed to load ExportWarframes_en.json");
+			return response.json();
+		})
+		.then(function (exportData) {
+			const warframeItems = (exportData.ExportWarframes || []).filter(function (item) {
+				return item.productCategory === "Suits"; // ignore archwings and necramechs in this file
+			});
+
+			const xpPerLevel = 200; // per Wiki
+			const maxLevel = 30; // per Wiki
+			let completedCount = 0;
+			const totalCount = warframeItems.length;
+
+			for (const warframeItem of warframeItems) {
+				const earnedXp = xpLookup[warframeItem.uniqueName] || 0;
+				const currentLevel = Math.min(Math.floor(earnedXp / xpPerLevel), maxLevel);
+				if (currentLevel >= maxLevel) completedCount++;
+				const itemRow = createItemRow(warframeItem.name, currentLevel, xpPerLevel, maxLevel);
+				warframesDetails.append(itemRow);
+				updateWarframesCount(completedCount, totalCount);
+			}
+		})
+		.catch(function (error) {
+			warframesDetails.append("Failed to load warframe data.");
+		});
 	
 	// bring in list of weapons
 		// make sure modulars make it in here somehow
