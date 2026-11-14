@@ -43,10 +43,6 @@
 		headerCurrentLevel.className = "item-current-level numeric-cell";
 		headerCurrentLevel.textContent = "Level";
 		
-		const headerMaxLevel = document.createElement("span");
-		headerMaxLevel.className = "item-max-level numeric-cell";
-		headerMaxLevel.textContent = "Max";
-		
 		const headerCurrentXp = document.createElement("span");
 		headerCurrentXp.className = "item-current-xp numeric-cell";
 		headerCurrentXp.textContent = "XP";
@@ -86,11 +82,13 @@
 		currentLevelInput.value = currentLevel;
 		currentLevelInput.min = 0;
 		currentLevelInput.max = maxLevel;
-	
-		const maxLevelElement = document.createElement("span");
-		maxLevelElement.className = "item-max-level numeric-cell";
-		maxLevelElement.textContent = maxLevel;
 
+		const maxLevelSuffix = document.createElement("span");
+		maxLevelSuffix.className = "item-max-level-suffix";
+		maxLevelSuffix.textContent = "/" + maxLevel;
+
+		levelWrapper.append(currentLevelInput, maxLevelSuffix);
+		
 		const currentXpElement = document.createElement("span");
 		currentXpElement.className = "item-current-xp numeric-cell";
 		currentXpElement.textContent = currentLevel * xpPerLevel;
@@ -99,7 +97,7 @@
 		maxXpElement.className = "item-max-xp numeric-cell";
 		maxXpElement.textContent = maxLevel * xpPerLevel;
 		
-		row.append(checkbox, nameElement, currentLevelInput, maxLevelElement, currentXpElement, maxXpElement);
+		row.append(checkbox, nameElement, levelWrapper, currentXpElement, maxXpElement);
 		return row;
 	}
 	// plan so that after each list load, total up quantities and xp potential
