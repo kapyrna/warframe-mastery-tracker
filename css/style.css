@@ -281,6 +281,15 @@ td select { padding: 4px 8px; }
   .list-count { flex: 0 0 calc(100% - var(--mark) - var(--pad)); margin-left: calc(var(--mark) + var(--pad)); white-space: normal; font-size: 0.76rem; text-align: left; }
 }
 
+.item-row { /* mastery source item row template */
+	display: grid;
+	grid-template-columns: auto 1fr repeat(3, 60px);
+	align-items: center;
+	column-gap: 12px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
 /* for star chart */
 .chart-table th.tick, .chart-table td.tick { width: 1%; white-space: nowrap; text-align: center; }
 .chart-table th, .chart-table td { padding-left: .35rem; padding-right: .35rem; }
@@ -292,7 +301,7 @@ td select { padding: 4px 8px; }
 button:disabled { opacity: .5; cursor: not-allowed; }
 .hint-line { display: block; font-weight: 400; }
 
-/* foir the grid of mastery rank icons */
+/* for the grid of mastery rank icons */
 .rank-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
