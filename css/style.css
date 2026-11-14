@@ -186,7 +186,6 @@ input[type="number"], input[type="search"], input[type="text"], select, textarea
 	border-radius: 8px;
 	padding: 8px 10px;
 }
-input[type="number"] { width: 180px; }
 #player-id { flex: 1 1 240px; min-width: 0; }
 textarea { width: 100%; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.85rem; }
 
