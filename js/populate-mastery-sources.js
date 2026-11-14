@@ -29,6 +29,35 @@
 		details.append(summary);
 	    section.append(details);
 
+		const headerRow = document.createElement("div");
+		headerRow.className = "item-row item-row-header";
+		
+		const headerCheckbox = document.createElement("span");
+		headerCheckbox.className = "item-checkbox";
+		
+		const headerName = document.createElement("span");
+		headerName.className = "item-name";
+		headerName.textContent = "Item";
+		
+		const headerCurrentLevel = document.createElement("span");
+		headerCurrentLevel.className = "item-current-level numeric-cell";
+		headerCurrentLevel.textContent = "Level";
+		
+		const headerMaxLevel = document.createElement("span");
+		headerMaxLevel.className = "item-max-level numeric-cell";
+		headerMaxLevel.textContent = "Max";
+		
+		const headerCurrentXp = document.createElement("span");
+		headerCurrentXp.className = "item-current-xp numeric-cell";
+		headerCurrentXp.textContent = "XP";
+		
+		const headerMaxXp = document.createElement("span");
+		headerMaxXp.className = "item-max-xp numeric-cell";
+		headerMaxXp.textContent = "Max XP";
+		
+		headerRow.append(headerCheckbox, headerName, headerCurrentLevel, headerMaxLevel, headerCurrentXp, headerMaxXp);
+		details.append(summary, headerRow);
+
 		function updateCount(completed, available) {
 			countSpan.textContent = completed + " / " + available;
 		}
