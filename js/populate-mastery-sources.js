@@ -11,12 +11,28 @@
 	function createCategoryCard(headingText) {
 	    const section = document.createElement("section");
 	    section.className = "card";
-	    const details = document.createElement("details");
+		const details = document.createElement("details");
 		const summary = document.createElement("summary");
-		summary.textContent = headingText;
+
+		const headingSpan = document.createElement("span");
+		headingSpan.textContent = headingText;
+
+		const separatorSpan = document.createElement("span");
+		separatorSpan.textContent = "|";
+
+		const countSpan = document.createElement("span");
+		countSpan.className = "category-count";
+		countSpan.textContent = "0 / 0";
+		
+		summary.append(headingSpan, separatorSpan, countSpan);
 		details.append(summary);
 	    section.append(details);
-	    return { section, details };
+
+		function updateCount(completed, available) {
+			countSpan.textContent = completed + " / " + available;
+		}
+		
+	    return { section, details , updateCount};
 	}
 
 	// template for each item's row
