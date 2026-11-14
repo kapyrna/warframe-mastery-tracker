@@ -1,5 +1,5 @@
 // build the manifests into cards on the main page
-(function () {
+(async function () {
 	"use strict";
 
 	const repositoryName = document.documentElement.dataset.repositoryName || "warframe-mastery-tracker";
@@ -135,7 +135,7 @@
 		if (!fileLoadResponse.ok) {
 			throw new Error("Failed to load " + filenameWarframes);}
 
-		const exportData = await response.json();
+		const exportData = await fileLoadResponse.json();
 		const warframeItems = (exportData.ExportWarframes || []).filter(function (item) {
 				return item.productCategory === "Suits";});// ignore archwings and necramechs in this file
 		
