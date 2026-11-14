@@ -89,9 +89,6 @@
 		vehiclesSection,
 		intrinsicsSection,
 		starchartSection);
-
-	const tennoData = readTennoData();
-	const xpLookup = tennoData ? buildXpLookup(tennoData) : {};
 	
 	// bring in list of warframes
 	fetch("data/ExportWarframes_en.json")
@@ -110,9 +107,7 @@
 			const totalCount = warframeItems.length;
 
 			for (const warframeItem of warframeItems) {
-				const earnedXp = xpLookup[warframeItem.uniqueName] || 0;
-				const currentLevel = Math.min(Math.floor(earnedXp / xpPerLevel), maxLevel);
-				if (currentLevel >= maxLevel) completedCount++;
+				const currentLevel = 0;
 				const itemRow = createItemRow(warframeItem.name, currentLevel, xpPerLevel, maxLevel);
 				warframesDetails.append(itemRow);
 				updateWarframesCount(completedCount, totalCount);
