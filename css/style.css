@@ -308,6 +308,17 @@ td select { padding: 4px 8px; }
 .item-current-level {
 	width: 100%;
 	box-sizing: border-box;
+	text-align: right;
+}
+
+.item-current-level::-webkit-inner-spin-button,
+.item-current-level::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+.item-current-level[type="number"] {
+	-moz-appearance: textfield;
 }
 
 /* for star chart */
