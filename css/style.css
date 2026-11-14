@@ -95,30 +95,14 @@ body {
 }
 
 .mastery-panel > summary {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	column-gap: 12px;
 	font-size: 1.15rem;
 	font-weight: 700;
 	line-height: 1.2;
-	list-style: none;
 	cursor: pointer;
 }
 
-.mastery-panel > summary::-webkit-details-marker {
-	display: none;
-}
-
-.mastery-panel > summary::before {
-	content: "\25B8";
-	color: var(--muted);
-	flex-shrink: 0;
-	margin-right: 4px;
-}
-
-.mastery-panel[open] > summary::before {
-	content: "\25BE";
+.mastery-panel[open] > summary {
+	margin-bottom: 12px;
 }
 
 a { color: var(--accent); }
