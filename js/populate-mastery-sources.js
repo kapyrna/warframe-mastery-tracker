@@ -18,7 +18,37 @@
 	    section.append(details);
 	    return { section, details };
 	}
+
+	// template for each item's row
+	function createItemRow(itemName, currentLevel, xpPerLevel, maxLevel) {
+		const row = document.createElement("div");
+		row.className = "item-row";
 	
+		const checkbox = document.createElement("input");
+		checkbox.type = "checkbox";
+		checkbox.className = "item-checkbox";
+		checkbox.checked = currentLevel >= maxLevel;
+		checkbox.setAttribute("aria-label", itemName);
+	
+		const nameElement = document.createElement("span");
+		nameElement.className = "item-name";
+		nameElement.textContent = itemName;
+	
+		const currentLevelElement = document.createElement("span");
+		currentLevelElement.className = "item-current-level numeric-cell";
+		currentLevelElement.textContent = currentLevel;
+	
+		const xpPerLevelElement = document.createElement("span");
+		xpPerLevelElement.className = "item-xp-per-level numeric-cell";
+		xpPerLevelElement.textContent = xpPerLevel;
+	
+		const maxLevelElement = document.createElement("span");
+		maxLevelElement.className = "item-max-level numeric-cell";
+		maxLevelElement.textContent = maxLevel;
+	
+		row.append(checkbox, nameElement, currentLevelElement, xpPerLevelElement, maxLevelElement);
+		return row;
+	}
 	// plan so that after each list load, total up quantities and xp potential
 
 	// build layout
