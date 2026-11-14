@@ -12,6 +12,7 @@
 	    const section = document.createElement("section");
 	    section.className = "card";
 		const details = document.createElement("details");
+		details.className = "mastery-panel";
 		const summary = document.createElement("summary");
 
 		const headingSpan = document.createElement("span");
