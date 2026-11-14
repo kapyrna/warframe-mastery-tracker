@@ -79,12 +79,12 @@
 	// plan so that after each list load, total up quantities and xp potential
 
 	// build layout
-	const { section: warframesSection, details: warframesDetails } = createCategoryCard("Warframes");
-	const { section: weaponsSection, details: weaponsDetails } = createCategoryCard("Weapons");
-	const { section: companionsSection, details: companionsDetails } = createCategoryCard("Companions");
-	const { section: vehiclesSection, details: vehiclesDetails } = createCategoryCard("Vehicles");
-	const { section: intrinsicsSection, details: intrinsicsDetails } = createCategoryCard("Intrinsics");
-	const { section: starchartSection, details: starchartDetails } = createCategoryCard("Star Chart");
+	const { section: warframesSection, details: warframesDetails, updateCount: updateWarframesCount } = createCategoryCard("Warframes")
+	const { section: weaponsSection, details: weaponsDetails, updateCount: updateWeaponsCount } = createCategoryCard("Weapons");
+	const { section: companionsSection, details: companionsDetails, updateCount: updateCompanionsCount } = createCategoryCard("Companions");
+	const { section: vehiclesSection, details: vehiclesDetails, updateCount: updateVehiclesCount } = createCategoryCard("Vehicles");
+	const { section: intrinsicsSection, details: intrinsicsDetails, updateCount: updateIntrinsicsCount } = createCategoryCard("Intrinsics");
+	const { section: starchartSection, details: starchartDetails, updateCount: updateStarchartCount } = createCategoryCard("Star Chart");
 	
 	listsContainer.replaceChildren(
 		warframesSection,
