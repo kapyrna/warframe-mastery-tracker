@@ -142,7 +142,7 @@
 
 			const xpPerLevel = 200; // per Wiki
 			const maxLevel = 30; // per Wiki
-			let completedCount = 0;
+			let completedCount = 0; // baseline to be incremented when loading player data
 			const totalCount = warframeItems.length;
 			
 			warframeItems.sort(function (firstItem, secondItem) {
