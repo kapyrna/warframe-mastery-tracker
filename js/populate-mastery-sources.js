@@ -8,7 +8,7 @@
 
 	if (!listsContainer) return;
 
-	function createIemListHeader( {
+	function createIemListHeader() {
 		const headerRow = document.createElement("div");
 		headerRow.className = "item-row item-row-header";
 		
