@@ -181,35 +181,35 @@
 		});
 	
 	// build subcategories of weapons
-	const { section: primarySection, details: primaryDetails, updateCount: updatePrimaryCount } = createCategoryCard("Primary", false);
-	const { section: secondarySection, details: secondaryDetails, updateCount: updateSecondaryCount } = createCategoryCard("Secondary", false);
-	const { section: meleeSection, details: meleeDetails, updateCount: updateMeleeCount } = createCategoryCard("Melee", false);
-	const { section: archgunSection, details: archgunDetails, updateCount: updateArchgunCount } = createCategoryCard("Archgun", false);
-	const { section: archmeleeSection, details: archmeleeDetails, updateCount: updateArchmeleeCount } = createCategoryCard("Archmelee", false);
-	const { section: modularsSection, details: modularsDetails, updateCount: updateModularsCount } = createCategoryCard("Modulars", false);
-	const { section: ampsSection, details: ampsDetails, updateCount: updateAmpsCount } = createCategoryCard("Amps", false);
-	const { section: sentinelWeaponsSection, details: sentinelWeaponsDetails, updateCount: updateSentinelWeaponsCount } = createCategoryCard("Sentinel Weapons", false);
+	const { section: primarySection, details: primaryDetails, updateCount: updatePrimaryCount } = createCategoryCard("Primary", false, updateWeaponsCount);
+	const { section: secondarySection, details: secondaryDetails, updateCount: updateSecondaryCount } = createCategoryCard("Secondary", false, updateWeaponsCount);
+	const { section: meleeSection, details: meleeDetails, updateCount: updateMeleeCount } = createCategoryCard("Melee", false, updateWeaponsCount);
+	const { section: archgunSection, details: archgunDetails, updateCount: updateArchgunCount } = createCategoryCard("Archgun", false, updateWeaponsCount);
+	const { section: archmeleeSection, details: archmeleeDetails, updateCount: updateArchmeleeCount } = createCategoryCard("Archmelee", false, updateWeaponsCount);
+	const { section: modularsSection, details: modularsDetails, updateCount: updateModularsCount } = createCategoryCard("Modulars", false, updateWeaponsCount);
+	const { section: ampsSection, details: ampsDetails, updateCount: updateAmpsCount } = createCategoryCard("Amps", false, updateWeaponsCount);
+	const { section: sentinelWeaponsSection, details: sentinelWeaponsDetails, updateCount: updateSentinelWeaponsCount } = createCategoryCard("Sentinel Weapons", false, updateWeaponsCount);
 	weaponsDetails.append(primarySection, secondarySection, meleeSection, archgunSection, archmeleeSection, modularsSection, ampsSection, sentinelWeaponsSection);
 
 	// build each subcategory
 	
 	// companions subcategory cards
-	const { section: roboticsSection, details: roboticsDetails, updateCount: updateRoboticsCount } = createCategoryCard("Robotics", false);
-	const { section: beastsSection, details: beastsDetails, updateCount: updateBeastsCount } = createCategoryCard("Beasts", false);
+	const { section: roboticsSection, details: roboticsDetails, updateCount: updateRoboticsCount } = createCategoryCard("Robotics", false, updateCompanionsCount);
+	const { section: beastsSection, details: beastsDetails, updateCount: updateBeastsCount } = createCategoryCard("Beasts", false, updateCompanionsCount);
 	companionsDetails.append(roboticsSection, beastsSection);
 	
 	// vehicles subcategory cards
-	const { section: archwingSection, details: archwingDetails, updateCount: updateArchwingCount } = createCategoryCard("Archwings", false);
-	const { section: necramechSection, details: necramechDetails, updateCount: updateNecramechCount } = createCategoryCard("Necramechs", false);
-	const { section: kDriveSection, details: kDriveDetails, updateCount: updateKDriveCount } = createCategoryCard("K-Drives", false);
-	const { section: plexusSection, details: plexusDetails, updateCount: updatePlexusCount } = createCategoryCard("Plexus", false);
+	const { section: archwingSection, details: archwingDetails, updateCount: updateArchwingCount } = createCategoryCard("Archwings", false, updateVehiclesCount);
+	const { section: necramechSection, details: necramechDetails, updateCount: updateNecramechCount } = createCategoryCard("Necramechs", false, updateVehiclesCount);
+	const { section: kDriveSection, details: kDriveDetails, updateCount: updateKDriveCount } = createCategoryCard("K-Drives", false, updateVehiclesCount);
+	const { section: plexusSection, details: plexusDetails, updateCount: updatePlexusCount } = createCategoryCard("Plexus", false, updateVehiclesCount); // railjack plexus isn't a vehicle apparently
 	vehiclesDetails.append(archwingSection, necramechSection, kDriveSection, plexusSection);
 
-	createItemList(archwingDetails, updateArchwingCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "SpaceSuits", updateVehiclesCount)
+	createItemList(archwingDetails, updateArchwingCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "SpaceSuits")
 		.catch(function (error) {
 			archwingDetails.append("Failed to load Archwing data.");
 		});
-	createItemList(necramechDetails, updateNecramechCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "MechSuits", updateVehiclesCount)
+	createItemList(necramechDetails, updateNecramechCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "MechSuits")
 		.catch(function (error) {
 			necramechDetails.append("Failed to load Necramech data.");
 		});
@@ -217,8 +217,8 @@
 	// railjack plexus
 	
 	// intrinsics subcategory cards
-	const { section: railjackSection, details: railjackDetails, updateCount: updateRailjackCount } = createCategoryCard("Railjack", false);
-	const { section: drifterSection, details: drifterDetails, updateCount: updatDrifterCount } = createCategoryCard("Drifter", false);
+	const { section: railjackSection, details: railjackDetails, updateCount: updateRailjackCount } = createCategoryCard("Railjack", false, updateIntrinsicsCount);
+	const { section: drifterSection, details: drifterDetails, updateCount: updatDrifterCount } = createCategoryCard("Drifter", false, updateIntrinsicsCount);
 	intrinsicsDetails.append(railjackSection, drifterSection);
 	
 	// star chart
