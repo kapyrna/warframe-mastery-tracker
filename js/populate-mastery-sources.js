@@ -165,7 +165,7 @@
 		starchartSection);
 	
 	// bring in list of warframes
-	createItemList(warframeDetails, "data/ExportWarframes_en.json", 30, 200, exportData.ExportWarframes, null)
+	createItemList(warframesDetails, "data/ExportWarframes_en.json", 30, 200, exportData.ExportWarframes, null)
 		.catch(function (error) {
 			warframesDetails.append("Failed to load warframe data.");
 		});
