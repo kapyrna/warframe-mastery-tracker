@@ -5,7 +5,6 @@
 	const repositoryName = document.documentElement.dataset.repositoryName || "warframe-mastery-tracker";
   	const listsContainer = document.getElementById("lists");
   	const placeholderElement = document.getElementById("list-placeholder");
-	const statItemsCompleted = document.getElementById("stat-items-completed");
 	const statItemsPossible = document.getElementById("stat-items-possible");
 	
 	if (!listsContainer) return;
@@ -33,14 +32,11 @@
 		details.append(headerRow);
 	}
 
-	function updateContainerItemCounts(completedDelta, possibleDelta) {
-		overallCompletedCount += completedDelta;
-		overallPossibleCount += possibleDelta;
-		if (statItemsCompleted) statItemsCompleted.textContent = overallCompletedCount;
-		if (statItemsPossible) statItemsPossible.textContent = overallPossibleCount;
+	function updateContainerItemCounts(possibleCountContainer, possibleDelta) {
+		possibleCountContainer += possibleDelta;
 	}
 	
-	async function createItemList(details, updateCount, filenameCurrentCard, maxLevel, xpPerLevel, exportKey, productCategories){
+	async function createItemList(details, updateCount, filenameCurrentCard, maxLevel, xpPerLevel, exportKey, productCategories, possibleCountContainer){
 		try {
 		const fileLoadResponse = await fetch(filenameCurrentCard);
 		if (!fileLoadResponse.ok) {
@@ -64,7 +60,8 @@
 		}
 
 		updateCount(completedCount, totalCount);
-		
+		updateContainerItemCounts(possibleCountContainer, totalCount);
+			
 		} catch (error) {
 			details.append("Failed to load " + exportKey + " from " + filenameCurrentCard);
 			}
@@ -96,9 +93,7 @@
 			countSpan.textContent = completed + "/" + available;
 		}
 
-		if (hasSubcategories) {
-			// skip the item table header
-		}
+		if (hasSubcategories) { /* skip the item table header */ }
 		else createItemListHeader(details);
 		
 	    return {section, details , updateCount};
@@ -177,7 +172,7 @@
 		starchartSection);
 	
 	// bring in list of warframes
-	createItemList(warframesDetails, updateWarframesCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "Suits")
+	createItemList(warframesDetails, updateWarframesCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "Suits", statItemsPossible)
 		.catch(function (error) {
 			warframesDetails.append("Failed to load Warframe data.");
 		});
@@ -207,11 +202,11 @@
 	const { section: plexusSection, details: plexusDetails, updateCount: updatePlexusCount } = createCategoryCard("Plexus", false);
 	vehiclesDetails.append(archwingSection, necramechSection, kDriveSection, plexusSection);
 
-	createItemList(archwingDetails, updateArchwingCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "SpaceSuits")
+	createItemList(archwingDetails, updateArchwingCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "SpaceSuits", updateVehiclesCount)
 		.catch(function (error) {
 			archwingDetails.append("Failed to load Archwing data.");
 		});
-	createItemList(necramechDetails, updateNecramechCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "MechSuits")
+	createItemList(necramechDetails, updateNecramechCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "MechSuits", updateVehiclesCount)
 		.catch(function (error) {
 			necramechDetails.append("Failed to load Necramech data.");
 		});
