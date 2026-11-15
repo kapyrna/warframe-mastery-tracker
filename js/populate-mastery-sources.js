@@ -8,26 +8,7 @@
 
 	if (!listsContainer) return;
 
-	function createCategoryCard(headingText) {
-	    const section = document.createElement("section");
-	    section.className = "card";
-		const details = document.createElement("details");
-		details.className = "mastery-panel";
-		const summary = document.createElement("summary");
-
-		const headingSpan = document.createElement("span");
-		headingSpan.textContent = headingText;
-
-		const separatorSpan = document.createElement("span");
-		separatorSpan.textContent = " | ";
-
-		const countSpan = document.createElement("span");
-		countSpan.className = "category-count";
-		countSpan.textContent = "0 / 0";
-		
-		summary.append(headingSpan, separatorSpan, countSpan);
-	    section.append(details);
-
+	function createIemListHeader( {
 		const headerRow = document.createElement("div");
 		headerRow.className = "item-row item-row-header";
 		
@@ -48,9 +29,30 @@
 		
 		headerRow.append(headerCheckbox, headerName, headerLevel, headerXp);
 		details.append(summary, headerRow);
+	}
+	
+	function createCategoryCard(headingText, hasSubCategories) {
+	    const section = document.createElement("section");
+	    section.className = "card";
+		const details = document.createElement("details");
+		details.className = "mastery-panel";
+		const summary = document.createElement("summary");
 
+		const headingSpan = document.createElement("span");
+		headingSpan.textContent = headingText;
+
+		const separatorSpan = document.createElement("span");
+		separatorSpan.textContent = " | ";
+
+		const countSpan = document.createElement("span");
+		countSpan.className = "category-count";
+		countSpan.textContent = "0/0";
+		
+		summary.append(headingSpan, separatorSpan, countSpan);
+	    section.append(details);
+		
 		function updateCount(completed, available) {
-			countSpan.textContent = completed + " / " + available;
+			countSpan.textContent = completed + "/" + available;
 		}
 		
 	    return { section, details , updateCount};
