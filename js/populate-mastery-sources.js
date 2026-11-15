@@ -120,7 +120,7 @@
 	}
 	// plan so that after each list load, total up quantities and xp potential
 
-	// build layout
+	// build layout, pass second variable of true if category has subcategories 
 	const { section: warframesSection, details: warframesDetails, updateCount: updateWarframesCount } = createCategoryCard("Warframes", false)
 	const { section: weaponsSection, details: weaponsDetails, updateCount: updateWeaponsCount } = createCategoryCard("Weapons", false);
 	const { section: companionsSection, details: companionsDetails, updateCount: updateCompanionsCount } = createCategoryCard("Companions", false);
