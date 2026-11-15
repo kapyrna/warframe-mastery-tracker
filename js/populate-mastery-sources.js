@@ -8,7 +8,7 @@
 
 	if (!listsContainer) return;
 
-	function createItemListHeader() {
+	function createItemListHeader(details) {
 		const headerRow = document.createElement("div");
 		headerRow.className = "item-row item-row-header";
 		
@@ -58,7 +58,7 @@
 		if (hasSubcategories) {
 			// skip the item table header
 		}
-		else createItemListHeader();
+		else createItemListHeader(details);
 		
 		details.append(summary);
 	    return { section, details , updateCount};
