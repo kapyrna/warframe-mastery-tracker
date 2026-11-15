@@ -195,12 +195,19 @@
 	const { section: archwingSection, details: archwingDetails, updateCount: updateArchwingCount } = createCategoryCard("Archwings", false);
 	const { section: necramechSection, details: necramechDetails, updateCount: updateNecramechCount } = createCategoryCard("Necramechs", false);
 	const { section: kDriveSection, details: kDriveDetails, updateCount: updateKDriveCount } = createCategoryCard("K-Drives", false);
-	vehiclesDetails.append(archwingSection, necramechSection, kDriveSection);
+	const { section: plexusSection, details: plexusDetails, updateCount: updatePlexusCount } = createCategoryCard("Plexus", false);
+	vehiclesDetails.append(archwingSection, necramechSection, kDriveSection, plexusSection);
 
-	createItemList(archwingDetails, updateArchwingsCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "Archwing")
+	createItemList(archwingDetails, updateArchwingCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "Archwing")
 		.catch(function (error) {
 			archwingDetails.append("Failed to load Archwing data.");
 		});
+	createItemList(necramechDetails, updateNecramechCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "EntratiMech")
+		.catch(function (error) {
+			necramechDetails.append("Failed to load Necramech data.");
+		});
+	// kdrives
+	// railjack plexus
 	
 	// intrinsics subcategory cards
 	const { section: railjackSection, details: railjackDetails, updateCount: updateRailjackCount } = createCategoryCard("Railjack", false);
