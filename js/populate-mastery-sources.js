@@ -31,7 +31,7 @@
 		details.append(headerRow);
 	}
 
-	async function createItemList(details, filenameCurrentCard, maxLevel, xpPerLevel, exportKey, productCategories){
+	async function createItemList(details, updateCount, filenameCurrentCard, maxLevel, xpPerLevel, exportKey, productCategories){
 		try {
 		const fileLoadResponse = await fetch(filenameCurrentCard);
 		if (!fileLoadResponse.ok) {
@@ -53,10 +53,13 @@
 			const itemRow = createItemRow(cardItem.name, currentLevel, xpPerLevel, maxLevel);
 			details.append(itemRow);
 		}
-	} catch (error) {
-		details.append("Failed to load " + manifestLocation + " from " + filenameCurrentCard);
+
+		updateCount(completedCount, totalCount);
+		
+		} catch (error) {
+			details.append("Failed to load " + exportKey + " from " + filenameCurrentCard);
+			}
 		}
-	}
 	
 	function createCategoryCard(headingText, hasSubcategories) {
 	    const section = document.createElement("section");
@@ -165,9 +168,9 @@
 		starchartSection);
 	
 	// bring in list of warframes
-	createItemList(warframesDetails, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "Suits")
+	createItemList(warframesDetails, updateWarframesCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "Suits")
 		.catch(function (error) {
-			warframesDetails.append("Failed to load warframe data.");
+			warframesDetails.append("Failed to load Warframe data.");
 		});
 	
 	// bring in list of weapons
