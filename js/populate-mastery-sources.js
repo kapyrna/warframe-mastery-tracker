@@ -168,18 +168,19 @@
 		}
 	
 	// bring in list of weapons
-		// primary
-		// secondary
-		// melee
-		// archgun
-		// archmelee
-		// modulars
-		// amps
-		// sentinel weapons
+	const { section: primarySection, details: primaryDetails, updateCount: updatePrimaryCount } = createCategoryCard("Primary", false);
+	const { section: secondarySection, details: secondaryDetails, updateCount: updateSecondaryCount } = createCategoryCard("Secondary", false);
+	const { section: meleeSection, details: meleeDetails, updateCount: updateMeleeCount } = createCategoryCard("Melee", false);
+	const { section: archgunSection, details: archgunDetails, updateCount: updateArchgunCount } = createCategoryCard("Archgun", false);
+	const { section: archmeleeSection, details: archmeleeDetails, updateCount: updateArchmeleeCount } = createCategoryCard("Archmelee", false);
+	const { section: modularsSection, details: modularsDetails, updateCount: updateModularsCount } = createCategoryCard("Modulars", false);
+	const { section: ampsSection, details: ampsDetails, updateCount: updateAmpsCount } = createCategoryCard("Amps", false);
+	const { section: sentinelWeaponsSection, details: sentinelWeaponsDetails, updateCount: updateSentinelWeaponsCount } = createCategoryCard("Sentinel Weapons", false);
+	weaponsDetails.append(primarySection, secondarySection, meleeSection, archgunSection, archmeleeSection, modularsSection, ampsSection, sentinelWeaponsSection);
 	
 	// companions subcategory cards
 	const { section: roboticsSection, details: roboticsDetails, updateCount: updateRoboticsCount } = createCategoryCard("Robotics", false);
-	const { section: beastsSection, details: beastsDetails, updateCount: updatBeastsCount } = createCategoryCard("Beasts", false);
+	const { section: beastsSection, details: beastsDetails, updateCount: updateBeastsCount } = createCategoryCard("Beasts", false);
 	companionsDetails.append(roboticsSection, beastsSection);
 	
 	// vehicles subcategory cards
