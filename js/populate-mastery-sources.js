@@ -92,7 +92,7 @@
 		}
 		else createItemListHeader(details);
 		
-	    return { section, details , updateCount};
+	    return {section, details , updateCount};
 	}
 
 	// template for each item's row
