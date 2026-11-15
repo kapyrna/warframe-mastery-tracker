@@ -5,7 +5,9 @@
 	const repositoryName = document.documentElement.dataset.repositoryName || "warframe-mastery-tracker";
   	const listsContainer = document.getElementById("lists");
   	const placeholderElement = document.getElementById("list-placeholder");
-
+	const statItemsCompleted = document.getElementById("stat-items-completed");
+	const statItemsPossible = document.getElementById("stat-items-possible");
+	
 	if (!listsContainer) return;
 
 	function createItemListHeader(details) {
@@ -31,6 +33,13 @@
 		details.append(headerRow);
 	}
 
+	function updateContainerItemCounts(completedDelta, possibleDelta) {
+		overallCompletedCount += completedDelta;
+		overallPossibleCount += possibleDelta;
+		if (statItemsCompleted) statItemsCompleted.textContent = overallCompletedCount;
+		if (statItemsPossible) statItemsPossible.textContent = overallPossibleCount;
+	}
+	
 	async function createItemList(details, updateCount, filenameCurrentCard, maxLevel, xpPerLevel, exportKey, productCategories){
 		try {
 		const fileLoadResponse = await fetch(filenameCurrentCard);
