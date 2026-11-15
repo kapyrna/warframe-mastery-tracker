@@ -52,8 +52,11 @@
 
 		const exportData = await fileLoadResponse.json();
 		const cardItems = (exportData[exportKey] || []).filter(function (item) {
-				return item.productCategory === itemType;}); // filter to specified and exclude others like warframes versus archwing/necramech
-		
+			if (item.productCategory !== itemType) return false; // filter to specified and exclude others like warframes versus archwing/necramech
+			if (uniqueNamePrefix !== undefined && !item.uniqueName.startsWith(uniqueNamePrefix)) return false; // filter only to spefied prefix
+			return true;
+		});
+				
 		let completedCount = 0; // baseline to be incremented when loading player data
 		const totalCount = cardItems.length;
 			
@@ -227,7 +230,10 @@
 		.catch(function (error) { roboticsDetails.append("Failed to load Robotics data."); });
 	createItemList(beastsDetails, updateBeastsCount, "data/ExportSentinels_en.json", 30, 200, "ExportSentinels", "KubrowPets")
 		.catch(function (error) { beastsDetails.append("Failed to load Beasts data."); });
-	// moas and hounds aren't in public export?
+	createItemList(roboticsDetails, updateRoboticsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Types/Friendly/Pets/MoaPets/") // somewhy these are secondary weapons
+		.catch(function (error) { roboticsDetails.append("Failed to load MOA data."); });
+	createItemList(roboticsDetails, updateRoboticsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Types/Friendly/Pets/ZanukaPets/") // somewhy these are secondary weapons
+		.catch(function (error) { roboticsDetails.append("Failed to load Hound data."); });
 	
 	// vehicles subcategory cards
 	const { section: archwingSection, details: archwingDetails, updateCount: updateArchwingCount } = createCategoryCard("Archwings", false, updateVehiclesCount);
