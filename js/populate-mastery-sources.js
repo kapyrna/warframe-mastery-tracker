@@ -204,8 +204,8 @@
 	const { section: archmeleeSection, details: archmeleeDetails, updateCount: updateArchmeleeCount } = createCategoryCard("Archmelee", false, updateWeaponsCount);
 	const { section: modularsSection, details: modularsDetails, updateCount: updateModularsCount } = createCategoryCard("Modulars", false, updateWeaponsCount);
 	const { section: ampsSection, details: ampsDetails, updateCount: updateAmpsCount } = createCategoryCard("Amps", false, updateWeaponsCount);
-	const { section: sentinelWeaponsSection, details: sentinelWeaponsDetails, updateCount: updateSentinelWeaponsCount } = createCategoryCard("Sentinel Weapons", false, updateWeaponsCount);
-	weaponsDetails.append(primarySection, secondarySection, meleeSection, archgunSection, archmeleeSection, modularsSection, ampsSection, sentinelWeaponsSection);
+	const { section: companionWeaponsSection, details: companionWeaponsDetails, updateCount: updateCompanionWeaponsCount } = createCategoryCard("Companion Weapons", false, updateWeaponsCount);
+	weaponsDetails.append(primarySection, secondarySection, meleeSection, archgunSection, archmeleeSection, modularsSection, ampsSection, companionWeaponsSection);
 	// build each subcategory
 	createItemList(primaryDetails, updatePrimaryCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "LongGuns")
 		.catch(function (error) { primaryDetails.append("Failed to load Primary data."); });
@@ -220,8 +220,8 @@
 	// figure out modulars later
 	createItemList(ampsDetails, updateAmpsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "OperatorAmps")
 		.catch(function (error) { ampsDetails.append("Failed to load Amps data."); });
-	createItemList(sentinelWeaponsDetails, updateSentinelWeaponsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "SentinelWeapons")
-		.catch(function (error) { sentinelWeaponsDetails.append("Failed to load Sentinel Weapons data."); });
+	createItemList(companionWeaponsDetails, updateCompanionWeaponsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "SentinelWeapons")
+		.catch(function (error) { companionWeaponsDetails.append("Failed to load Sentinel Weapons data."); });
 	
 	// companions subcategory cards
 	const { section: sentinelsSection, details: sentinelsDetails, updateCount: updateSentinelsCount } = createCategoryCard("Sentinels", false, updateCompanionsCount);
