@@ -28,7 +28,7 @@
 		headerXp.textContent = "XP";
 		
 		headerRow.append(headerCheckbox, headerName, headerLevel, headerXp);
-		details.append(summary, headerRow);
+		details.append(headerRow);
 	}
 	
 	function createCategoryCard(headingText, hasSubCategories) {
@@ -55,6 +55,7 @@
 			countSpan.textContent = completed + "/" + available;
 		}
 		
+		details.append(summary);
 	    return { section, details , updateCount};
 	}
 
