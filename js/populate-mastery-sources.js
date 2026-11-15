@@ -173,7 +173,7 @@
 			warframesDetails.append("Failed to load Warframe data.");
 		});
 	
-	// bring in list of weapons
+	// build subcategories of weapons
 	const { section: primarySection, details: primaryDetails, updateCount: updatePrimaryCount } = createCategoryCard("Primary", false);
 	const { section: secondarySection, details: secondaryDetails, updateCount: updateSecondaryCount } = createCategoryCard("Secondary", false);
 	const { section: meleeSection, details: meleeDetails, updateCount: updateMeleeCount } = createCategoryCard("Melee", false);
@@ -183,6 +183,8 @@
 	const { section: ampsSection, details: ampsDetails, updateCount: updateAmpsCount } = createCategoryCard("Amps", false);
 	const { section: sentinelWeaponsSection, details: sentinelWeaponsDetails, updateCount: updateSentinelWeaponsCount } = createCategoryCard("Sentinel Weapons", false);
 	weaponsDetails.append(primarySection, secondarySection, meleeSection, archgunSection, archmeleeSection, modularsSection, ampsSection, sentinelWeaponsSection);
+
+	// build each subcategory
 	
 	// companions subcategory cards
 	const { section: roboticsSection, details: roboticsDetails, updateCount: updateRoboticsCount } = createCategoryCard("Robotics", false);
@@ -194,6 +196,11 @@
 	const { section: necramechSection, details: necramechDetails, updateCount: updateNecramechCount } = createCategoryCard("Necramechs", false);
 	const { section: kDriveSection, details: kDriveDetails, updateCount: updateKDriveCount } = createCategoryCard("K-Drives", false);
 	vehiclesDetails.append(archwingSection, necramechSection, kDriveSection);
+
+	createItemList(archwingDetails, updateArchwingsCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "Archwing")
+		.catch(function (error) {
+			archwingDetails.append("Failed to load Archwing data.");
+		});
 	
 	// intrinsics subcategory cards
 	const { section: railjackSection, details: railjackDetails, updateCount: updateRailjackCount } = createCategoryCard("Railjack", false);
