@@ -21,7 +21,7 @@
 		
 		const headerLevel = document.createElement("span");
 		headerLevel.className = "item-current-level numeric-cell";
-		headerLevel.textContent = "Level";
+		headerLevel.textContent = "Rank";
 		
 		const headerXp = document.createElement("span");
 		headerXp.className = "item-current-xp numeric-cell";
@@ -31,7 +31,7 @@
 		details.append(headerRow);
 	}
 	
-	function createCategoryCard(headingText, hasSubCategories) {
+	function createCategoryCard(headingText, hasSubcategories) {
 	    const section = document.createElement("section");
 	    section.className = "card";
 		const details = document.createElement("details");
@@ -54,6 +54,11 @@
 		function updateCount(completed, available) {
 			countSpan.textContent = completed + "/" + available;
 		}
+
+		if (hasSubcategories) {
+			// skip the item table header
+		}
+		else createItemListHeader();
 		
 		details.append(summary);
 	    return { section, details , updateCount};
