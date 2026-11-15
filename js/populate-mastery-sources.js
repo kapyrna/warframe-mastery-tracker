@@ -198,7 +198,7 @@
 	
 	// build subcategories of weapons
 	const { section: primarySection, details: primaryDetails, updateCount: updatePrimaryCount } = createCategoryCard("Primary", false, updateWeaponsCount);
-	const { section: secondarySection, details: secondaryDetails, updateCount: updateSecondaryCount } = createCategoryCard("Secondary", false, updateWeaponsCount, null, "/Lotus/Types/Friendly/Pets/");
+	const { section: secondarySection, details: secondaryDetails, updateCount: updateSecondaryCount } = createCategoryCard("Secondary", false, updateWeaponsCount, null, "/Lotus/Types/Friendly/");
 	const { section: meleeSection, details: meleeDetails, updateCount: updateMeleeCount } = createCategoryCard("Melee", false, updateWeaponsCount);
 	const { section: archgunSection, details: archgunDetails, updateCount: updateArchgunCount } = createCategoryCard("Archgun", false, updateWeaponsCount);
 	const { section: archmeleeSection, details: archmeleeDetails, updateCount: updateArchmeleeCount } = createCategoryCard("Archmelee", false, updateWeaponsCount);
