@@ -198,11 +198,11 @@
 	const { section: plexusSection, details: plexusDetails, updateCount: updatePlexusCount } = createCategoryCard("Plexus", false);
 	vehiclesDetails.append(archwingSection, necramechSection, kDriveSection, plexusSection);
 
-	createItemList(archwingDetails, updateArchwingCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "Archwing")
+	createItemList(archwingDetails, updateArchwingCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "SpaceSuits")
 		.catch(function (error) {
 			archwingDetails.append("Failed to load Archwing data.");
 		});
-	createItemList(necramechDetails, updateNecramechCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "EntratiMech")
+	createItemList(necramechDetails, updateNecramechCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "MechSuits")
 		.catch(function (error) {
 			necramechDetails.append("Failed to load Necramech data.");
 		});
