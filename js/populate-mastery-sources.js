@@ -226,8 +226,8 @@
 	const { section: sentinelsSection, details: sentinelsDetails, updateCount: updateSentinelsCount } = createCategoryCard("Sentinels", false, updateCompanionsCount);
 	const { section: beastsSection, details: beastsDetails, updateCount: updateBeastsCount } = createCategoryCard("Beasts", false, updateCompanionsCount);
 	const { section: moasSection, details: moasDetails, updateCount: updateMoasCount } = createCategoryCard("MOAs", false, updateCompanionsCount);
-	const { section: houndsSection, details: houndsDetails, updateCount: updateHoundsCount } = createCategoryCard("MOAs", false, updateCompanionsCount);
-	companionsDetails.append(roboticsSection, beastsSection);
+	const { section: houndsSection, details: houndsDetails, updateCount: updateHoundsCount } = createCategoryCard("Hounds", false, updateCompanionsCount);
+	companionsDetails.append(sentinelsSection, beastsSection, moasSection, houndsSection);
 	createItemList(sentinelsDetails, updateSentinelsCount, "data/ExportSentinels_en.json", 30, 200, "ExportSentinels", "Sentinels")
 		.catch(function (error) { sentinelsDetails.append("Failed to load Sentinels data."); });
 	createItemList(beastsDetails, updateBeastsCount, "data/ExportSentinels_en.json", 30, 200, "ExportSentinels", "KubrowPets")
@@ -257,7 +257,7 @@
 	
 	// intrinsics subcategory cards
 	const { section: railjackSection, details: railjackDetails, updateCount: updateRailjackCount } = createCategoryCard("Railjack", false, updateIntrinsicsCount);
-	const { section: drifterSection, details: drifterDetails, updateCount: updatDrifterCount } = createCategoryCard("Drifter", false, updateIntrinsicsCount);
+	const { section: drifterSection, details: drifterDetails, updateCount: updateDrifterCount } = createCategoryCard("Drifter", false, updateIntrinsicsCount);
 	intrinsicsDetails.append(railjackSection, drifterSection);
 	
 	// star chart
