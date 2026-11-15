@@ -180,7 +180,7 @@
 	// bring in companions
 		// sentinels
 		// beasts
-		// moa and hounds
+		// robotics
 	
 	// vehicles subcategory cards
 	const { section: archwingSection, details: archwingDetails, updateCount: updateArchwingCount } = createCategoryCard("Archwings", false);
@@ -188,9 +188,10 @@
 	const { section: kDriveSection, details: kDriveDetails, updateCount: updateKDriveCount } = createCategoryCard("K-Drives", false);
 	vehiclesDetails.append(archwingSection, necramechSection, kDriveSection);
 	
-	// intrinsics
-		// railjack
-		// drifter
+	// intrinsics subcategory cards
+	const { section: railjackSection, details: railjackDetails, updateCount: updateRailjackCount } = createCategoryCard("Railjack", false);
+	const { section: drifterSection, details: drifterDetails, updateCount: updatDrifterCount } = createCategoryCard("Drifter", false);
+	intrinsicsDetails.append(railjackSection, drifterSection);
 	
 	// star chart
 		// separate by system
