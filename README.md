@@ -8,7 +8,7 @@ Nothing to install and no account needed. It works in any modern browser, on des
 
 ## How to use it
 
-### 1. Find your account ID (not implemented yet, but planned to import your Tenno for any platform into this tracker)
+### 1. Find your account ID
 
 If you're tracking manually and not importing from an active profile, skip to step 3.
 
@@ -17,7 +17,7 @@ If you're tracking manually and not importing from an active profile, skip to st
 
 PC players can also find it in the `EE.log` file: search for `Logged in`, and the ID is in the brackets on that line.
 
-### 2. Import your account (not implemented yet)
+### 2. Import your account
 
 Open the importer section and paste in your account ID.  This should automagically pull the game data for your profile and update the tracker's page to reflect your progress.  Note that this is not you logging-in, as always only enter passwords where they belong on sites you trust.  Your cached game data stays in this browser session in JavaScript `localStorage` and never sent out to other servers.
 
