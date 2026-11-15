@@ -223,17 +223,19 @@
 		.catch(function (error) { sentinelWeaponsDetails.append("Failed to load Sentinel Weapons data."); });
 	
 	// companions subcategory cards
-	const { section: roboticsSection, details: roboticsDetails, updateCount: updateRoboticsCount } = createCategoryCard("Robotics", false, updateCompanionsCount);
+	const { section: sentinelsSection, details: sentinelsDetails, updateCount: updateSentinelsCount } = createCategoryCard("Sentinels", false, updateCompanionsCount);
 	const { section: beastsSection, details: beastsDetails, updateCount: updateBeastsCount } = createCategoryCard("Beasts", false, updateCompanionsCount);
+	const { section: moasSection, details: moasDetails, updateCount: updateMoasCount } = createCategoryCard("MOAs", false, updateCompanionsCount);
+	const { section: houndsSection, details: houndsDetails, updateCount: updateHoundsCount } = createCategoryCard("MOAs", false, updateCompanionsCount);
 	companionsDetails.append(roboticsSection, beastsSection);
-	createItemList(roboticsDetails, updateRoboticsCount, "data/ExportSentinels_en.json", 30, 200, "ExportSentinels", "Sentinels")
-		.catch(function (error) { roboticsDetails.append("Failed to load Robotics data."); });
+	createItemList(sentinelsDetails, updateSentinelsCount, "data/ExportSentinels_en.json", 30, 200, "ExportSentinels", "Sentinels")
+		.catch(function (error) { sentinelsDetails.append("Failed to load Sentinels data."); });
 	createItemList(beastsDetails, updateBeastsCount, "data/ExportSentinels_en.json", 30, 200, "ExportSentinels", "KubrowPets")
 		.catch(function (error) { beastsDetails.append("Failed to load Beasts data."); });
-	createItemList(roboticsDetails, updateRoboticsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Types/Friendly/Pets/MoaPets/") // somewhy these are secondary weapons
-		.catch(function (error) { roboticsDetails.append("Failed to load MOA data."); });
-	createItemList(roboticsDetails, updateRoboticsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Types/Friendly/Pets/ZanukaPets/") // somewhy these are secondary weapons
-		.catch(function (error) { roboticsDetails.append("Failed to load Hound data."); });
+	createItemList(moasDetails, updateMoasCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Types/Friendly/Pets/MoaPets/") // somewhy these are secondary weapons
+		.catch(function (error) { moasDetails.append("Failed to load MOA data."); });
+	createItemList(houndsDetails, updateHoundsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Types/Friendly/Pets/ZanukaPets/") // somewhy these are secondary weapons
+		.catch(function (error) { houndsDetails.append("Failed to load Hound data."); });
 	
 	// vehicles subcategory cards
 	const { section: archwingSection, details: archwingDetails, updateCount: updateArchwingCount } = createCategoryCard("Archwings", false, updateVehiclesCount);
