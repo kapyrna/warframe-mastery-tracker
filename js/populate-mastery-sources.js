@@ -36,7 +36,7 @@
 	    section.className = "card";
 		const details = document.createElement("details");
 		details.className = "mastery-panel";
-		details.open = hasSubcategories === true; //expand if there's subcategories
+		// details.open = hasSubcategories === true; // un-comment if unfurling parent comtainers is desired
 		const summary = document.createElement("summary");
 		details.append(summary);
 		
