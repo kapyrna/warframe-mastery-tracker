@@ -1,5 +1,5 @@
 // build the manifests into cards on the main page
-(async function () {
+(function () {
 	"use strict";
 
 	const repositoryName = document.documentElement.dataset.repositoryName || "warframe-mastery-tracker";
@@ -31,18 +31,18 @@
 		details.append(headerRow);
 	}
 
-	function createItemList(details, filenameCurrentCard, maxLevel, xpPerLevel, manifestLocation, productCategories){
+	async function createItemList(details, filenameCurrentCard, maxLevel, xpPerLevel, exportKey, productCategories){
 		try {
 		const fileLoadResponse = await fetch(filenameCurrentCard);
 		if (!fileLoadResponse.ok) {
 			throw new Error("Failed to load " + filenameCurrentCard);}
 
 		const exportData = await fileLoadResponse.json();
-		const cardItems = (manifestLocation || []).filter(function (item) {
+		const cardItems = (exportData[exportKey] || []).filter(function (item) {
 				return item.productCategory === productCategories;}); // filter to specified and exclude others like warframes versus archwing/necramech
 		
 		let completedCount = 0; // baseline to be incremented when loading player data
-		const totalCount = warframeItems.length;
+		const totalCount = cardItems.length;
 			
 		cardItems.sort(function (firstItem, secondItem) {
 			return firstItem.name.localeCompare(secondItem.name);
@@ -50,7 +50,7 @@
 		
 		for (const cardItem of cardItems) {
 			const currentLevel = 0;
-			const itemRow = createItemRow(cardItems.name, currentLevel, xpPerLevel, maxLevel);
+			const itemRow = createItemRow(cardItem.name, currentLevel, xpPerLevel, maxLevel);
 			details.append(itemRow);
 		}
 	} catch (error) {
@@ -165,11 +165,10 @@
 		starchartSection);
 	
 	// bring in list of warframes
-	try { 
-		createItemList(warframeDetails, "data/ExportWarframes_en.json", 30, 200, exportData.ExportWarframes, null);
-	} catch (error) {
-		warframesDetails.append("Failed to load warframe data.");
-	}
+	createItemList(warframeDetails, "data/ExportWarframes_en.json", 30, 200, exportData.ExportWarframes, null)
+		.catch(function (error) {
+			warframesDetails.append("Failed to load warframe data.");
+		});
 	
 	// bring in list of weapons
 	const { section: primarySection, details: primaryDetails, updateCount: updatePrimaryCount } = createCategoryCard("Primary", false);
