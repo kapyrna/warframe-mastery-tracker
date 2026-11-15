@@ -38,7 +38,8 @@
 		details.className = "mastery-panel";
 		details.open = hasSubcategories === true; //expand if there's subcategories
 		const summary = document.createElement("summary");
-
+		details.append(summary);
+		
 		const headingSpan = document.createElement("span");
 		headingSpan.textContent = headingText;
 
@@ -61,7 +62,6 @@
 		}
 		else createItemListHeader(details);
 		
-		details.append(summary);
 	    return { section, details , updateCount};
 	}
 
