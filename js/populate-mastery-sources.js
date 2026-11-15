@@ -182,10 +182,11 @@
 		// beasts
 		// moa and hounds
 	
-	// vehicles
-		// archwing
-		// necramech
-		// k-drive
+	// vehicles subcategory cards
+	const { section: archwingSection, details: archwingDetails, updateCount: updateArchwingCount } = createCategoryCard("Archwings", false);
+	const { section: necramechSection, details: necramechDetails, updateCount: updateNecramechCount } = createCategoryCard("Necramechs", false);
+	const { section: kDriveSection, details: kDriveDetails, updateCount: updateKDriveCount } = createCategoryCard("K-Drives", false);
+	vehiclesDetails.append(archwingSection, necramechSection, kDriveSection);
 	
 	// intrinsics
 		// railjack
