@@ -202,8 +202,22 @@
 	const { section: ampsSection, details: ampsDetails, updateCount: updateAmpsCount } = createCategoryCard("Amps", false, updateWeaponsCount);
 	const { section: sentinelWeaponsSection, details: sentinelWeaponsDetails, updateCount: updateSentinelWeaponsCount } = createCategoryCard("Sentinel Weapons", false, updateWeaponsCount);
 	weaponsDetails.append(primarySection, secondarySection, meleeSection, archgunSection, archmeleeSection, modularsSection, ampsSection, sentinelWeaponsSection);
-
 	// build each subcategory
+	createItemList(primaryDetails, updatePrimaryCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "LongGuns")
+		.catch(function (error) { primaryDetails.append("Failed to load Primary data."); });
+	createItemList(secondaryDetails, updateSecondaryCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols")
+		.catch(function (error) { secondaryDetails.append("Failed to load Secondary data."); });
+	createItemList(meleeDetails, updateMeleeCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Melee")
+		.catch(function (error) { meleeDetails.append("Failed to load Melee data."); });
+	createItemList(archgunDetails, updateArchgunCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "SpaceGuns")
+		.catch(function (error) { archgunDetails.append("Failed to load Archgun data."); });
+	createItemList(archmeleeDetails, updateArchmeleeCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "SpaceMelee")
+		.catch(function (error) { archmeleeDetails.append("Failed to load Archmelee data."); });
+	// figure out modulars later
+	createItemList(ampsDetails, updateAmpsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "OperatorAmps")
+		.catch(function (error) { ampsDetails.append("Failed to load Amps data."); });
+	createItemList(sentinelWeaponsDetails, updateSentinelWeaponsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "SentinelWeapons")
+		.catch(function (error) { sentinelWeaponsDetails.append("Failed to load Sentinel Weapons data."); });
 	
 	// companions subcategory cards
 	const { section: roboticsSection, details: roboticsDetails, updateCount: updateRoboticsCount } = createCategoryCard("Robotics", false, updateCompanionsCount);
