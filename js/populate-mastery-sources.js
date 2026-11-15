@@ -177,10 +177,10 @@
 		// amps
 		// sentinel weapons
 	
-	// bring in companions
-		// sentinels
-		// beasts
-		// robotics
+	// companions subcategory cards
+	const { section: roboticsSection, details: roboticsDetails, updateCount: updateRoboticsCount } = createCategoryCard("Robotics", false);
+	const { section: beastsSection, details: beastsDetails, updateCount: updatBeastsCount } = createCategoryCard("Beasts", false);
+	companionsDetails.append(roboticsSection, beastsSection);
 	
 	// vehicles subcategory cards
 	const { section: archwingSection, details: archwingDetails, updateCount: updateArchwingCount } = createCategoryCard("Archwings", false);
