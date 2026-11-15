@@ -44,7 +44,7 @@
 		details.append(headerRow);
 	}
 	
-	async function createItemList(details, updateCount, filenameCurrentCard, maxLevel, xpPerLevel, exportKey, productCategories){
+	async function createItemList(details, updateCount, filenameCurrentCard, maxLevel, xpPerLevel, exportKey, itemType, uniqueNamePrefix){
 		try {
 		const fileLoadResponse = await fetch(filenameCurrentCard);
 		if (!fileLoadResponse.ok) {
@@ -52,7 +52,7 @@
 
 		const exportData = await fileLoadResponse.json();
 		const cardItems = (exportData[exportKey] || []).filter(function (item) {
-				return item.productCategory === productCategories;}); // filter to specified and exclude others like warframes versus archwing/necramech
+				return item.productCategory === itemType;}); // filter to specified and exclude others like warframes versus archwing/necramech
 		
 		let completedCount = 0; // baseline to be incremented when loading player data
 		const totalCount = cardItems.length;
