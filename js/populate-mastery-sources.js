@@ -223,6 +223,11 @@
 	const { section: roboticsSection, details: roboticsDetails, updateCount: updateRoboticsCount } = createCategoryCard("Robotics", false, updateCompanionsCount);
 	const { section: beastsSection, details: beastsDetails, updateCount: updateBeastsCount } = createCategoryCard("Beasts", false, updateCompanionsCount);
 	companionsDetails.append(roboticsSection, beastsSection);
+	createItemList(roboticsDetails, updateRoboticsCount, "data/ExportSentinels_en.json", 30, 200, "ExportSentinels", "Sentinels")
+		.catch(function (error) { roboticsDetails.append("Failed to load Robotics data."); });
+	createItemList(beastsDetails, updateBeastsCount, "data/ExportSentinels_en.json", 30, 200, "ExportSentinels", "KubrowPets")
+		.catch(function (error) { beastsDetails.append("Failed to load Beasts data."); });
+	// moas and hounds aren't in public export?
 	
 	// vehicles subcategory cards
 	const { section: archwingSection, details: archwingDetails, updateCount: updateArchwingCount } = createCategoryCard("Archwings", false, updateVehiclesCount);
