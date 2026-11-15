@@ -31,12 +31,8 @@
 		headerRow.append(headerCheckbox, headerName, headerLevel, headerXp);
 		details.append(headerRow);
 	}
-
-	function updateContainerItemCounts(possibleCountContainer, possibleDelta) {
-		possibleCountContainer += possibleDelta;
-	}
 	
-	async function createItemList(details, updateCount, filenameCurrentCard, maxLevel, xpPerLevel, exportKey, productCategories, possibleCountContainer){
+	async function createItemList(details, updateCount, filenameCurrentCard, maxLevel, xpPerLevel, exportKey, productCategories){
 		try {
 		const fileLoadResponse = await fetch(filenameCurrentCard);
 		if (!fileLoadResponse.ok) {
@@ -60,14 +56,13 @@
 		}
 
 		updateCount(completedCount, totalCount);
-		updateContainerItemCounts(possibleCountContainer, totalCount);
 			
 		} catch (error) {
 			details.append("Failed to load " + exportKey + " from " + filenameCurrentCard);
 			}
 		}
 	
-	function createCategoryCard(headingText, hasSubcategories) {
+	function createCategoryCard(headingText, hasSubcategories, notifyParent) {
 	    const section = document.createElement("section");
 	    section.className = "card";
 		const details = document.createElement("details");
@@ -88,9 +83,17 @@
 		
 		summary.append(headingSpan, separatorSpan, countSpan);
 	    section.append(details);
-		
-		function updateCount(completed, available) {
-			countSpan.textContent = completed + "/" + available;
+
+		// initial counts 0
+		let cardCompletedTotal = 0;
+		let cardPossibleTotal = 0
+
+		// adjust running totals on each row append
+		function updateCount(completedDelta, possibleDelta) {
+			cardCompletedTotal += completedDelta;
+			cardPossibleTotal += possibleDelta;
+			countSpan.textContent = cardCompletedTotal + "/" + cardPossibleTotal;
+			notifyParent(completedDelta, possibleDelta);
 		}
 
 		if (hasSubcategories) { /* skip the item table header */ }
