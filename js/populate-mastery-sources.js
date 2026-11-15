@@ -1,14 +1,26 @@
 // build the manifests into cards on the main page
 (function () {
-	"use strict";
+	"use strict"; // form good habits
 
+	// bring in page level elements and variables
 	const repositoryName = document.documentElement.dataset.repositoryName || "warframe-mastery-tracker";
-  	const listsContainer = document.getElementById("lists");
-  	const placeholderElement = document.getElementById("list-placeholder");
-	const statItemsPossible = document.getElementById("stat-items-possible");
+  	const listsContainer = document.getElementById("lists"); // progrreess list container
+  	const placeholderElement = document.getElementById("list-placeholder"); // list placeholder text
+	const statItemsCompleted = document.getElementById("stat-items-completed"); // overiview completed count total
+	const statItemsPossible = document.getElementById("stat-items-possible"); // overview possible count total
 	
-	if (!listsContainer) return;
+	if (!listsContainer) return; // exit if the page already broke
 
+	let overviewCompletedTotal = 0; // overview initial value
+	let overviewPossibleTotal = 0;	// overview initial value
+
+	function updateOverviewItemCount(completedDelta, possibleDelta) {
+		overviewCompletedTotal += completedDelta;
+		overviewPossibleTotal += possibleDelta;
+		if (statItemsCompleted) statItemsCompleted.textContent = overviewCompletedTotal;
+		if (statItemsPossible) statItemsPossible.textContent = overviewPossibleTotal;
+	}
+	
 	function createItemListHeader(details) {
 		const headerRow = document.createElement("div");
 		headerRow.className = "item-row item-row-header";
@@ -159,12 +171,12 @@
 	// plan so that after each list load, total up quantities and xp potential
 
 	// build layout, pass second variable of true if category has subcategories 
-	const { section: warframesSection, details: warframesDetails, updateCount: updateWarframesCount } = createCategoryCard("Warframes", false)
-	const { section: weaponsSection, details: weaponsDetails, updateCount: updateWeaponsCount } = createCategoryCard("Weapons", true);
-	const { section: companionsSection, details: companionsDetails, updateCount: updateCompanionsCount } = createCategoryCard("Companions", true);
-	const { section: vehiclesSection, details: vehiclesDetails, updateCount: updateVehiclesCount } = createCategoryCard("Vehicles", true);
-	const { section: intrinsicsSection, details: intrinsicsDetails, updateCount: updateIntrinsicsCount } = createCategoryCard("Intrinsics", true);
-	const { section: starchartSection, details: starchartDetails, updateCount: updateStarchartCount } = createCategoryCard("Star Chart", true);
+	const { section: warframesSection, details: warframesDetails, updateCount: updateWarframesCount } = createCategoryCard("Warframes", false, updateOverviewItemCount)
+	const { section: weaponsSection, details: weaponsDetails, updateCount: updateWeaponsCount } = createCategoryCard("Weapons", true, updateOverviewItemCount);
+	const { section: companionsSection, details: companionsDetails, updateCount: updateCompanionsCount } = createCategoryCard("Companions", true, updateOverviewItemCount);
+	const { section: vehiclesSection, details: vehiclesDetails, updateCount: updateVehiclesCount } = createCategoryCard("Vehicles", true, updateOverviewItemCount);
+	const { section: intrinsicsSection, details: intrinsicsDetails, updateCount: updateIntrinsicsCount } = createCategoryCard("Intrinsics", true, updateOverviewItemCount);
+	const { section: starchartSection, details: starchartDetails, updateCount: updateStarchartCount } = createCategoryCard("Star Chart", true, updateOverviewItemCount);
 	
 	listsContainer.replaceChildren(
 		warframesSection,
@@ -175,7 +187,7 @@
 		starchartSection);
 	
 	// bring in list of warframes
-	createItemList(warframesDetails, updateWarframesCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "Suits", statItemsPossible)
+	createItemList(warframesDetails, updateWarframesCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "Suits")
 		.catch(function (error) {
 			warframesDetails.append("Failed to load Warframe data.");
 		});
