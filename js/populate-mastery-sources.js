@@ -168,7 +168,14 @@
 		}
 	
 	// bring in list of weapons
-		// make sure modulars make it in here somehow
+		// primary
+		// secondary
+		// melee
+		// archgun
+		// archmelee
+		// modulars
+		// amps
+		// sentinel weapons
 	
 	// bring in companions
 		// sentinels
@@ -178,6 +185,7 @@
 	// vehicles
 		// archwing
 		// necramech
+		// k-drive
 	
 	// intrinsics
 		// railjack
