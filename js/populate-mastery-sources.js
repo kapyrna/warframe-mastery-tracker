@@ -121,12 +121,12 @@
 	// plan so that after each list load, total up quantities and xp potential
 
 	// build layout
-	const { section: warframesSection, details: warframesDetails, updateCount: updateWarframesCount } = createCategoryCard("Warframes", FALSE)
-	const { section: weaponsSection, details: weaponsDetails, updateCount: updateWeaponsCount } = createCategoryCard("Weapons", FALSE);
-	const { section: companionsSection, details: companionsDetails, updateCount: updateCompanionsCount } = createCategoryCard("Companions", FALSE);
-	const { section: vehiclesSection, details: vehiclesDetails, updateCount: updateVehiclesCount } = createCategoryCard("Vehicles", FALSE);
-	const { section: intrinsicsSection, details: intrinsicsDetails, updateCount: updateIntrinsicsCount } = createCategoryCard("Intrinsics", FALSE);
-	const { section: starchartSection, details: starchartDetails, updateCount: updateStarchartCount } = createCategoryCard("Star Chart", FALSE);
+	const { section: warframesSection, details: warframesDetails, updateCount: updateWarframesCount } = createCategoryCard("Warframes", false)
+	const { section: weaponsSection, details: weaponsDetails, updateCount: updateWeaponsCount } = createCategoryCard("Weapons", false);
+	const { section: companionsSection, details: companionsDetails, updateCount: updateCompanionsCount } = createCategoryCard("Companions", false);
+	const { section: vehiclesSection, details: vehiclesDetails, updateCount: updateVehiclesCount } = createCategoryCard("Vehicles", false);
+	const { section: intrinsicsSection, details: intrinsicsDetails, updateCount: updateIntrinsicsCount } = createCategoryCard("Intrinsics", false);
+	const { section: starchartSection, details: starchartDetails, updateCount: updateStarchartCount } = createCategoryCard("Star Chart", false);
 	
 	listsContainer.replaceChildren(
 		warframesSection,
