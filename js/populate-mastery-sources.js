@@ -165,34 +165,11 @@
 		starchartSection);
 	
 	// bring in list of warframes
-	try {
-		const filenameWarframes = "data/ExportWarframes_en.json";
-		const fileLoadResponse = await fetch(filenameWarframes);
-		if (!fileLoadResponse.ok) {
-			throw new Error("Failed to load " + filenameWarframes);}
-
-		const exportData = await fileLoadResponse.json();
-		const warframeItems = (exportData.ExportWarframes || []).filter(function (item) {
-				return item.productCategory === "Suits";});// ignore archwings and necramechs in this file
-		
-		const xpPerLevel = 200; // per Wiki
-		const maxLevel = 30; // per Wiki
-		let completedCount = 0; // baseline to be incremented when loading player data
-		const totalCount = warframeItems.length;
-			
-		warframeItems.sort(function (firstItem, secondItem) {
-			return firstItem.name.localeCompare(secondItem.name);
-		});
-		
-		for (const warframeItem of warframeItems) {
-			const currentLevel = 0;
-			const itemRow = createItemRow(warframeItem.name, currentLevel, xpPerLevel, maxLevel);
-			warframesDetails.append(itemRow);
-			updateWarframesCount(completedCount, totalCount);
-		}
+	try { 
+		createItemList(warframeDetails, "data/ExportWarframes_en.json", 30, 200, exportData.ExportWarframes, null);
 	} catch (error) {
 		warframesDetails.append("Failed to load warframe data.");
-		}
+	}
 	
 	// bring in list of weapons
 	const { section: primarySection, details: primaryDetails, updateCount: updatePrimaryCount } = createCategoryCard("Primary", false);
