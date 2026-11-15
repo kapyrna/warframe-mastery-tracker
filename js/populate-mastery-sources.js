@@ -30,6 +30,33 @@
 		headerRow.append(headerCheckbox, headerName, headerLevel, headerXp);
 		details.append(headerRow);
 	}
+
+	function createItemList(details, filenameCurrentCard, maxLevel, xpPerLevel, manifestLocation, productCategories){
+		try {
+		const fileLoadResponse = await fetch(filenameCurrentCard);
+		if (!fileLoadResponse.ok) {
+			throw new Error("Failed to load " + filenameCurrentCard);}
+
+		const exportData = await fileLoadResponse.json();
+		const cardItems = (manifestLocation || []).filter(function (item) {
+				return item.productCategory === productCategories;}); // filter to specified and exclude others like warframes versus archwing/necramech
+		
+		let completedCount = 0; // baseline to be incremented when loading player data
+		const totalCount = warframeItems.length;
+			
+		cardItems.sort(function (firstItem, secondItem) {
+			return firstItem.name.localeCompare(secondItem.name);
+		});
+		
+		for (const cardItem of cardItems) {
+			const currentLevel = 0;
+			const itemRow = createItemRow(cardItems.name, currentLevel, xpPerLevel, maxLevel);
+			details.append(itemRow);
+		}
+	} catch (error) {
+		details.append("Failed to load " + manifestLocation + " from " + filenameCurrentCard);
+		}
+	}
 	
 	function createCategoryCard(headingText, hasSubcategories) {
 	    const section = document.createElement("section");
