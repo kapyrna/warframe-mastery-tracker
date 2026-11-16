@@ -30,7 +30,7 @@
 		
 		const headerName = document.createElement("span");
 		headerName.className = "item-name";
-		headerName.textContent = "Item";
+		headerName.textContent = "Name";
 		
 		const headerLevel = document.createElement("span");
 		headerLevel.className = "item-current-level numeric-cell";
