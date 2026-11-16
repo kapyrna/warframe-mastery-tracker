@@ -202,11 +202,11 @@
 	const { section: meleeSection, details: meleeDetails, updateCount: updateMeleeCount } = createCategoryCard("Melee", false, updateWeaponsCount);
 	const { section: archgunSection, details: archgunDetails, updateCount: updateArchgunCount } = createCategoryCard("Archgun", false, updateWeaponsCount);
 	const { section: archmeleeSection, details: archmeleeDetails, updateCount: updateArchmeleeCount } = createCategoryCard("Archmelee", false, updateWeaponsCount);
-	const { section: kitgunsSection, details: kitgunsDetails, updateCount: updateKitgunsCount } = createCategoryCard("Modulars", false, updateWeaponsCount);
-	const { section: zawsSection, details: zawsDetails, updateCount: updateZawsCount } = createCategoryCard("Modulars", false, updateWeaponsCount);
+	const { section: kitgunsSection, details: kitgunsDetails, updateCount: updateKitgunsCount } = createCategoryCard("Kitguns", false, updateWeaponsCount);
+	const { section: zawsSection, details: zawsDetails, updateCount: updateZawsCount } = createCategoryCard("Zaws", false, updateWeaponsCount);
 	const { section: ampsSection, details: ampsDetails, updateCount: updateAmpsCount } = createCategoryCard("Amps", false, updateWeaponsCount);
 	const { section: companionWeaponsSection, details: companionWeaponsDetails, updateCount: updateCompanionWeaponsCount } = createCategoryCard("Companion Weapons", false, updateWeaponsCount);
-	weaponsDetails.append(primarySection, secondarySection, meleeSection, archgunSection, archmeleeSection, modularsSection, ampsSection, companionWeaponsSection);
+	weaponsDetails.append(primarySection, secondarySection, meleeSection, archgunSection, archmeleeSection, kitgunsSection, zawsSection, ampsSection, companionWeaponsSection);
 	
 	// build each weaspon subcategory
 	createItemList(primaryDetails, updatePrimaryCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "LongGuns")
@@ -231,7 +231,7 @@
 	    .catch(function (error) { zawsDetails.append("Failed to load Zaw strike data."); });
 	createItemList(zawsDetails, updateZawsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Weapons/Ostron/Melee/ModularMelee02/Tip")
 	    .catch(function (error) { zawsDetails.append("Failed to load Zaw strike data."); });
-	createItemList(zawsDetails, updateZawsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Weapons/Ostron/Melee/ModularMeleeInfested/Tips"
+	createItemList(zawsDetails, updateZawsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Weapons/Ostron/Melee/ModularMeleeInfested/Tips")
 	    .catch(function (error) { zawsDetails.append("Failed to load Zaw strike data."); });
 	// quills modular amps
 	createItemList(ampsDetails, updateAmpsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Weapons/Sentients/OperatorAmplifiers/SentTrainingAmplifier/SentAmpTrainingBarrel")
