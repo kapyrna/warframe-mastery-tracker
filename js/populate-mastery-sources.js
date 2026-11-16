@@ -198,7 +198,7 @@
 	
 	// build subcategories of weapons
 	const { section: primarySection, details: primaryDetails, updateCount: updatePrimaryCount } = createCategoryCard("Primary", false, updateWeaponsCount);
-	const { section: secondarySection, details: secondaryDetails, updateCount: updateSecondaryCount } = createCategoryCard("Secondary", false, updateWeaponsCount, null, "/Lotus/Types/Friendly/");
+	const { section: secondarySection, details: secondaryDetails, updateCount: updateSecondaryCount } = createCategoryCard("Secondary", false, updateWeaponsCount);
 	const { section: meleeSection, details: meleeDetails, updateCount: updateMeleeCount } = createCategoryCard("Melee", false, updateWeaponsCount);
 	const { section: archgunSection, details: archgunDetails, updateCount: updateArchgunCount } = createCategoryCard("Archgun", false, updateWeaponsCount);
 	const { section: archmeleeSection, details: archmeleeDetails, updateCount: updateArchmeleeCount } = createCategoryCard("Archmelee", false, updateWeaponsCount);
@@ -209,7 +209,7 @@
 	// build each subcategory
 	createItemList(primaryDetails, updatePrimaryCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "LongGuns")
 		.catch(function (error) { primaryDetails.append("Failed to load Primary data."); });
-	createItemList(secondaryDetails, updateSecondaryCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols")
+	createItemList(secondaryDetails, updateSecondaryCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", null, "/Lotus/Types/Friendly/")
 		.catch(function (error) { secondaryDetails.append("Failed to load Secondary data."); });
 	createItemList(meleeDetails, updateMeleeCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Melee")
 		.catch(function (error) { meleeDetails.append("Failed to load Melee data."); });
@@ -233,9 +233,9 @@
 		.catch(function (error) { sentinelsDetails.append("Failed to load Sentinels data."); });
 	createItemList(beastsDetails, updateBeastsCount, "data/ExportSentinels_en.json", 30, 200, "ExportSentinels", "KubrowPets")
 		.catch(function (error) { beastsDetails.append("Failed to load Beasts data."); });
-	createItemList(moasDetails, updateMoasCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "SentinelWeapons", "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetParts/MoaPetHead") // somewhy these are secondary weapons
+	createItemList(moasDetails, updateMoasCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetParts/MoaPetHead") // somewhy these are secondary weapons
 		.catch(function (error) { moasDetails.append("Failed to load MOA data."); });
-	createItemList(houndsDetails, updateHoundsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "SentinelWeapons", "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartHead") // somewhy these are secondary weapons
+	createItemList(houndsDetails, updateHoundsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartHead") // somewhy these are secondary weapons
 		.catch(function (error) { houndsDetails.append("Failed to load Hound data."); });
 	
 	// vehicles subcategory cards
