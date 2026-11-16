@@ -215,7 +215,7 @@
 	createItemList(primaryDetails, updatePrimaryCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "LongGuns")
 		.catch(function (error) { primaryDetails.append("Failed to load Primary data."); });
 	// secondaries gets complicated
-	const secondaryPrefixes = [ // DE put a lot more than secondaries in the secondaries datapath
+	const secondaryPrefixes = [ // DE put a lot more than secondaries in the secondaries datapath, so doing as narrow inclusions
 	    "/Lotus/Weapons/Tenno/",
 	    "/Lotus/Weapons/Corpus/Pistols/",
 	    "/Lotus/Weapons/Corpus/BoardExec/",
@@ -305,13 +305,19 @@
 	// kdrives
 	createItemList(kDriveDetails, updateKDriveCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents")
 	    .catch(function (error) { kDriveDetails.append("Failed to load K-Drive data."); });
-	// railjack plexus
+	// railjack plexus not found in manifests, using placeholder file 
+	createItemList(plexusDetails, updatePlexusCount, "data/ExportPlexus_en.json", 30, 200, "ExportPlexus", "RailjackPlexus")
+    	.catch(function (error) { plexusDetails.append("Failed to load Plexus data."); });
 	
 	// intrinsics subcategory cards
 	const { section: railjackSection, details: railjackDetails, updateCount: updateRailjackCount } = createCategoryCard("Railjack", false, updateIntrinsicsCount);
 	const { section: drifterSection, details: drifterDetails, updateCount: updateDrifterCount } = createCategoryCard("Drifter", false, updateIntrinsicsCount);
 	intrinsicsDetails.append(railjackSection, drifterSection);
-	// haven't found in manifests yet
+	// intrinsics not found in manifests yet, using placeholder file
+	createItemList(railjackDetails, updateRailjackCount, "data/ExportIntrinsics_en.json", 10, 1500, "ExportIntrinsics", "RailjackIntrinsics")
+	    .catch(function (error) { railjackDetails.append("Failed to load Railjack intrinsics data."); });
+	createItemList(drifterDetails, updateDrifterCount, "data/ExportIntrinsics_en.json", 10, 1500, "ExportIntrinsics", "DrifterIntrinsics")
+	    .catch(function (error) { drifterDetails.append("Failed to load Drifter intrinsics data."); });
 	
 	// star chart
 		// separate by system
