@@ -209,7 +209,7 @@
 	// build each subcategory
 	createItemList(primaryDetails, updatePrimaryCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "LongGuns")
 		.catch(function (error) { primaryDetails.append("Failed to load Primary data."); });
-	createItemList(secondaryDetails, updateSecondaryCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", null, "/Lotus/Types/Friendly/")
+	createItemList(secondaryDetails, updateSecondaryCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", undefined, "/Lotus/Types/Friendly/")
 		.catch(function (error) { secondaryDetails.append("Failed to load Secondary data."); });
 	createItemList(meleeDetails, updateMeleeCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Melee")
 		.catch(function (error) { meleeDetails.append("Failed to load Melee data."); });
