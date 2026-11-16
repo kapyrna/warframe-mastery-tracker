@@ -14,6 +14,12 @@
 	let overviewCompletedTotal = 0; // overview initial value
 	let overviewPossibleTotal = 0;	// overview initial value
 
+	const founderItems = [
+	    "/Lotus/Powersuits/Excalibur/ExcaliburPrime",
+	    "/Lotus/Weapons/Tenno/Melee/Swords/SkanaP/SkanaPrime",
+	    "/Lotus/Weapons/Tenno/Pistols/LatoPrime/LatoPrime",
+	];
+	
 	function updateOverviewItemCount(completedDelta, possibleDelta) {
 		overviewCompletedTotal += completedDelta;
 		overviewPossibleTotal += possibleDelta;
@@ -70,7 +76,7 @@
 		
 		for (const cardItem of cardItems) {
 			const currentLevel = 0;
-			const itemRow = createItemRow(cardItem.name, currentLevel, xpPerLevel, maxLevel);
+			const itemRow = createItemRow(cardItem.name, cardItem.uniqueName, currentLevel, xpPerLevel, maxLevel);
 			details.append(itemRow);
 		}
 
@@ -122,7 +128,7 @@
 	}
 
 	// template for each item's row
-	function createItemRow(itemName, currentLevel, xpPerLevel, maxLevel) {
+	function createItemRow(itemName, uniqueName, currentLevel, xpPerLevel, maxLevel) {
 		const row = document.createElement("div");
 		row.className = "item-row";
 	
@@ -137,6 +143,11 @@
 		const nameElement = document.createElement("span");
 		nameElement.className = "item-name";
 		nameElement.textContent = itemName;
+		const isFounder = founderItems.includes(uniqueName);
+		if (isFounder) {
+			row.classList.add("item-founder");
+			nameElement.textContent.append(" (Founders exclusive)");
+		}
 
 		// currentl level, only numeric user input
 		const currentLevelInput = document.createElement("input");
