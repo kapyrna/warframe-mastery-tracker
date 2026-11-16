@@ -299,8 +299,8 @@
 	// archwings
 	createItemList(archwingDetails, updateArchwingCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "SpaceSuits")
 		.catch(function (error) { archwingDetails.append("Failed to load Archwing data."); });
-	// necramechs
-	createItemList(necramechDetails, updateNecramechCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "MechSuits")
+	// necramechs, note they go up to 40 with 5 forma
+	createItemList(necramechDetails, updateNecramechCount, "data/ExportWarframes_en.json", 40, 200, "ExportWarframes", "MechSuits")
 		.catch(function (error) { necramechDetails.append("Failed to load Necramech data."); });
 	// kdrives
 	createItemList(kDriveDetails, updateKDriveCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents")
