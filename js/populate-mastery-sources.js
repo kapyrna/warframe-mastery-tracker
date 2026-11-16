@@ -296,22 +296,22 @@
 	const { section: kDriveSection, details: kDriveDetails, updateCount: updateKDriveCount } = createCategoryCard("K-Drives", false, updateVehiclesCount);
 	const { section: plexusSection, details: plexusDetails, updateCount: updatePlexusCount } = createCategoryCard("Plexus", false, updateVehiclesCount); // railjack plexus isn't a vehicle apparently
 	vehiclesDetails.append(archwingSection, necramechSection, kDriveSection, plexusSection);
-
+	// archwings
 	createItemList(archwingDetails, updateArchwingCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "SpaceSuits")
-		.catch(function (error) {
-			archwingDetails.append("Failed to load Archwing data.");
-		});
+		.catch(function (error) { archwingDetails.append("Failed to load Archwing data."); });
+	// necramechs
 	createItemList(necramechDetails, updateNecramechCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "MechSuits")
-		.catch(function (error) {
-			necramechDetails.append("Failed to load Necramech data.");
-		});
+		.catch(function (error) { necramechDetails.append("Failed to load Necramech data."); });
 	// kdrives
+	createItemList(kDriveDetails, updateKDriveCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents")
+	    .catch(function (error) { kDriveDetails.append("Failed to load K-Drive data."); });
 	// railjack plexus
 	
 	// intrinsics subcategory cards
 	const { section: railjackSection, details: railjackDetails, updateCount: updateRailjackCount } = createCategoryCard("Railjack", false, updateIntrinsicsCount);
 	const { section: drifterSection, details: drifterDetails, updateCount: updateDrifterCount } = createCategoryCard("Drifter", false, updateIntrinsicsCount);
 	intrinsicsDetails.append(railjackSection, drifterSection);
+	// haven't found in manifests yet
 	
 	// star chart
 		// separate by system
