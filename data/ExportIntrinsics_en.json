@@ -1,0 +1,15 @@
+{
+	"_comment": "Generated for warframe-mastery-tracker. Not an official Warframe Public Export file. Replace with manifest filepath if DE adds intrinsics to the Public Export.",
+	"ExportIntrinsics": [
+		{ "uniqueName": "/Lotus/Types/Gameplay/Railjack/Intrinsics/Tactical", "name": "Tactical", "productCategory": "RailjackIntrinsics" },
+		{ "uniqueName": "/Lotus/Types/Gameplay/Railjack/Intrinsics/Piloting", "name": "Piloting", "productCategory": "RailjackIntrinsics" },
+		{ "uniqueName": "/Lotus/Types/Gameplay/Railjack/Intrinsics/Gunnery", "name": "Gunnery", "productCategory": "RailjackIntrinsics" },
+		{ "uniqueName": "/Lotus/Types/Gameplay/Railjack/Intrinsics/Engineering", "name": "Engineering", "productCategory": "RailjackIntrinsics" },
+		{ "uniqueName": "/Lotus/Types/Gameplay/Railjack/Intrinsics/Command", "name": "Command", "productCategory": "RailjackIntrinsics" },
+		{ "uniqueName": "/Lotus/Types/Gameplay/Drifter/Intrinsics/Riding", "name": "Riding", "productCategory": "DrifterIntrinsics" },
+		{ "uniqueName": "/Lotus/Types/Gameplay/Drifter/Intrinsics/Tenacity", "name": "Tenacity", "productCategory": "DrifterIntrinsics" },
+		{ "uniqueName": "/Lotus/Types/Gameplay/Drifter/Intrinsics/Drift", "name": "Drift", "productCategory": "DrifterIntrinsics" },
+		{ "uniqueName": "/Lotus/Types/Gameplay/Drifter/Intrinsics/Opportunity", "name": "Opportunity", "productCategory": "DrifterIntrinsics" },
+		{ "uniqueName": "/Lotus/Types/Gameplay/Drifter/Intrinsics/Moxie", "name": "Moxie", "productCategory": "DrifterIntrinsics" }
+	]
+}
