@@ -162,9 +162,10 @@
 		currentXpElement.textContent = currentLevel * xpPerLevel;
 
 		// possible xp value math
+		const maxXpElement = maxLevel * xpPerLevel;
 		const maxXpSuffix = document.createElement("span");
 		maxXpSuffix.className = "item-max-xp-suffix";
-		maxXpSuffix.textContent = "/" + maxLevel * xpPerLevel;
+		maxXpSuffix.textContent = "/" + maxXpElement;
 
 		// xp values into cell
 		const xpWrapper = document.createElement("span");
