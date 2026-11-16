@@ -145,8 +145,8 @@
 		nameElement.textContent = itemName;
 		const isFounder = founderItems.includes(uniqueName);
 		if (isFounder) {
-			row.classList.add("item-founder");
-			nameElement.textContent.append(" (Founders exclusive)");
+			// row.classList.add("item-founder"); use for variant filtering later
+			nameElement.textContent += " (Founders exclusive)";
 		}
 
 		// currentl level, only numeric user input
