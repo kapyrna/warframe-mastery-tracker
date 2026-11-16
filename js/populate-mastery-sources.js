@@ -245,27 +245,31 @@
 	// archmelee
 	createItemList(archmeleeDetails, updateArchmeleeCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "SpaceMelee")
 		.catch(function (error) { archmeleeDetails.append("Failed to load Archmelee data."); });
-	// kitguns has single source
-	createItemList(kitgunsDetails, updateKitgunsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Weapons/SolarisUnited/Secondary/SUModularSecondarySet1/Barrel")
+	// kitguns
+	const kitgunPrefixes = [
+		"/Lotus/Weapons/SolarisUnited/Secondary/SUModularSecondarySet1/Barrel",
+		"/Lotus/Weapons/Infested/Pistols/InfKitGun/Barrels/",
+	];
+	createItemList(kitgunsDetails, updateKitgunsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", kitgunPrefixes)
   	  .catch(function (error) { kitgunsDetails.append("Failed to load Kitgun data."); });
 	// zaws has three sublists and they are in the data as econdary not melee
-	createItemList(zawsDetails, updateZawsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Weapons/Ostron/Melee/ModularMelee01/Tip")
+	const zawPrefixes = [
+	    "/Lotus/Weapons/Ostron/Melee/ModularMelee01/Tip",
+	    "/Lotus/Weapons/Ostron/Melee/ModularMelee02/Tip",
+	    "/Lotus/Weapons/Ostron/Melee/ModularMeleeInfested/Tips",
+	];
+	createItemList(zawsDetails, updateZawsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", zawPrefixes)
 	    .catch(function (error) { zawsDetails.append("Failed to load Zaw strike data."); });
-	createItemList(zawsDetails, updateZawsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Weapons/Ostron/Melee/ModularMelee02/Tip")
-	    .catch(function (error) { zawsDetails.append("Failed to load Zaw strike data."); });
-	createItemList(zawsDetails, updateZawsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Weapons/Ostron/Melee/ModularMeleeInfested/Tips")
-	    .catch(function (error) { zawsDetails.append("Failed to load Zaw strike data."); });
-	// quills modular amps
-	createItemList(ampsDetails, updateAmpsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Weapons/Sentients/OperatorAmplifiers/SentTrainingAmplifier/SentAmpTrainingBarrel")
+	// amps
+	const ampModularPrefixes = [
+	    "/Lotus/Weapons/Sentients/OperatorAmplifiers/SentTrainingAmplifier/SentAmpTrainingBarrel",
+	    "/Lotus/Weapons/Sentients/OperatorAmplifiers/Set1/Barrel",
+	    "/Lotus/Weapons/Sentients/OperatorAmplifiers/Set2/Barrel",
+	    "/Lotus/Weapons/Corpus/OperatorAmplifiers/Set1/Barrel",
+	];
+	createItemList(ampsDetails, updateAmpsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", ampModularPrefixes)
 	    .catch(function (error) { ampsDetails.append("Failed to load Amp prism data."); });
-	createItemList(ampsDetails, updateAmpsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Weapons/Sentients/OperatorAmplifiers/Set1/Barrel")
-	    .catch(function (error) { ampsDetails.append("Failed to load Amp prism data."); });
-	createItemList(ampsDetails, updateAmpsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Weapons/Sentients/OperatorAmplifiers/Set2/Barrel")
-	    .catch(function (error) { ampsDetails.append("Failed to load Amp prism data."); });
-	createItemList(ampsDetails, updateAmpsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Weapons/Corpus/OperatorAmplifiers/Set1/Barrel")
-	    .catch(function (error) { ampsDetails.append("Failed to load Amp prism data."); });
-	// just sirocco
-	createItemList(ampsDetails, updateAmpsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "OperatorAmps")
+	createItemList(ampsDetails, updateAmpsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "OperatorAmps") // just sirocco
 		.catch(function (error) { ampsDetails.append("Failed to load Amps data."); });
 	// companion weapons includes all robots
 	createItemList(companionWeaponsDetails, updateCompanionWeaponsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "SentinelWeapons")
