@@ -1,0 +1,6 @@
+{
+	"_comment": "Generated for warframe-mastery-tracker. Not an official Warframe Public Export file. Replace with manifest filepath if DE adds Plexus to the Public Export.",
+	"ExportPlexus": [
+		{ "uniqueName": "/Lotus/Types/Gameplay/Railjack/Plexus/Plexus", "name": "Plexus", "productCategory": "RailjackPlexus" }
+	]
+}
