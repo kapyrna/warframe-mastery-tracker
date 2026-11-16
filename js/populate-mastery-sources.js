@@ -53,7 +53,10 @@
 		const exportData = await fileLoadResponse.json();
 		const cardItems = (exportData[exportKey] || []).filter(function (item) {
 			if (item.productCategory !== itemType) return false; // filter to specified and exclude others like warframes versus archwing/necramech
-			if (uniqueNamePrefix !== undefined && !item.uniqueName.startsWith(uniqueNamePrefix)) return false; // filter only to spefied prefix
+			if (uniqueNamePrefix !== undefined) { // if we're including by pattern to narrow down like in secondaries
+				const prefixes = Array.isArray(uniqueNamePrefix) ? uniqueNamePrefix : [uniqueNamePrefix];
+				if (!prefixes.some(function (p) { return item.uniqueName.startsWith(p); })) return false;
+			}
 			if (uniqueNameExcludePrefix !== undefined && item.uniqueName.startsWith(uniqueNameExcludePrefix)) return false; // filter out what we know doesn't belong in the list
 			return true;
 		});
@@ -212,7 +215,26 @@
 	createItemList(primaryDetails, updatePrimaryCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "LongGuns")
 		.catch(function (error) { primaryDetails.append("Failed to load Primary data."); });
 	// secondaries gets complicated
-	createItemList(secondaryDetails, updateSecondaryCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", undefined, "/Lotus/Types/Friendly/")
+	const secondaryPrefixes = [ // DE put a lot more than secondaries in the secondaries datapath
+	    "/Lotus/Weapons/Tenno/",
+	    "/Lotus/Weapons/Corpus/Pistols/",
+	    "/Lotus/Weapons/Corpus/BoardExec/",
+	    "/Lotus/Weapons/Grineer/",
+	    "/Lotus/Weapons/Infested/Pistols/InfestedPistol",
+	    "/Lotus/Weapons/Infested/Pistols/InfestedDartPistol",
+	    "/Lotus/Weapons/Infested/Pistols/InfVomitGun",
+	    "/Lotus/Weapons/Infested/Pistols/InfUzi",
+	    "/Lotus/Weapons/Infested/Pistols/InfProximityStars",
+	    "/Lotus/Weapons/Infested/Pistols/InfBeamPistol",
+	    "/Lotus/Weapons/Infested/InfestedLich/",
+	    "/Lotus/Weapons/ClanTech/",
+	    "/Lotus/Weapons/Syndicates/",
+	    "/Lotus/Weapons/Lasria/",
+	    "/Lotus/Weapons/MK1Series/",
+	    "/Lotus/Weapons/Thanotech/",
+	    "/Lotus/Weapons/VoidTrader/VTDetron",
+	];
+	createItemList(secondaryDetails, updateSecondaryCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", secondaryPrefixes)
 		.catch(function (error) { secondaryDetails.append("Failed to load Secondary data."); });
 	// melee
 	createItemList(meleeDetails, updateMeleeCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Melee")
