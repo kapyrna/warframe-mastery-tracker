@@ -16,8 +16,30 @@
 
 	const founderItems = [
 	    "/Lotus/Powersuits/Excalibur/ExcaliburPrime",
-	    "/Lotus/Weapons/Tenno/Melee/Swords/SkanaP/SkanaPrime",
-	    "/Lotus/Weapons/Tenno/Pistols/LatoPrime/LatoPrime",
+	    "/Lotus/Weapons/Tenno/Melee/LongSword/SkanaPrime",
+		"/Lotus/Weapons/Tenno/Pistol/LatoPrime",
+	];
+
+	const adversaryWeapons = [
+	    // Kuva Lich weapons
+	    "/Lotus/Weapons/Grineer/KuvaLich/",
+	    "/Lotus/Weapons/Grineer/Melee/GrnKuvaLichScythe/",
+	    "/Lotus/Weapons/Grineer/LongGuns/GrnKuvaLichRifle/",
+	    "/Lotus/Weapons/Grineer/HeavyWeapons/GrnHeavyGrenadeLauncher",
+	    "/Lotus/Weapons/Grineer/Bows/GrnBow/GrnBowWeapon",
+	    // Tenet (Sister of Parvos) weapons
+	    "/Lotus/Weapons/Corpus/BoardExec/",
+	    "/Lotus/Weapons/Corpus/Pistols/CrpIgniterPistol/",
+	    "/Lotus/Weapons/Corpus/Pistols/CrpBriefcaseAkimbo/",
+	    "/Lotus/Weapons/Corpus/Melee/ShieldAndSword/CrpHammerShield/",
+	    "/Lotus/Weapons/Corpus/Melee/CrpBriefcaseScythe/",
+	    "/Lotus/Weapons/Corpus/Melee/CrpBriefcase2HKatana/",
+	    "/Lotus/Weapons/Corpus/LongGuns/CrpBriefcaseLauncher/",
+	    "/Lotus/Weapons/Tenno/Melee/Swords/CrpBigSlash/",
+		// Coda (Technocyte) weapons
+	    "/Lotus/Weapons/Infested/InfestedLich/",
+	    // Paracesis
+	    "/Lotus/Weapons/Orokin/BallasSword/BallasSwordWeapon",
 	];
 	
 	function updateOverviewItemCount(completedDelta, possibleDelta) {
@@ -152,6 +174,12 @@
 		if (isFounder) {
 			// row.classList.add("item-founder"); use for variant filtering later
 			nameElement.textContent += " (Founders exclusive)";
+		}
+
+		// Adversary check to bump up the max rank to 40
+		const isAdversary = adversaryWeapons.some(function (p) { return uniqueName.startsWith(p); });
+		if (isAdversary) {
+		    maxLevel = 40;
 		}
 
 		// currentl level, only numeric user input
