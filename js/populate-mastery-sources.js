@@ -143,6 +143,11 @@
 		const nameElement = document.createElement("span");
 		nameElement.className = "item-name";
 		nameElement.textContent = itemName;
+		if (itemName.startsWith("<ARCHWING> ")) {
+   			nameElement.textContent = itemName.slice("<ARCHWING> ".length);
+		}
+		
+		// Founders' check
 		const isFounder = founderItems.includes(uniqueName);
 		if (isFounder) {
 			// row.classList.add("item-founder"); use for variant filtering later
