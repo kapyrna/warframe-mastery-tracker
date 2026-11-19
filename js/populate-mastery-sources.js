@@ -365,8 +365,21 @@
 	    .catch(function (error) { drifterDetails.append("Failed to load Drifter intrinsics data."); });
 	
 	// star chart
-		// separate by system
-		// separate by planet
+	// separate by system then by planet
+	const { section: originSection, details: originDetails, updateCount: updateOriginCount } = createCategoryCard("Origin System", undefined, updateStarchartCount);
+	const { section: proximaSection, details: proximaDetails, updateCount: updateProximaCount } = createCategoryCard("Empyrean Proxima", undefined, updateStarchartCount);
+	const { section: duviriSection, details: duviriDetails, updateCount: updateDuviriCount } = createCategoryCard("Duviri", undefined, updateStarchartCount);
+	const { section: hollvaniaSection, details: hollvaniaDetails, updateCount: updateHollvaniaCount } = createCategoryCard("Höllvania", undefined, updateStarchartCount);
+	const { section: darkRefractorySection, details: darkRefractoryDetails, updateCount: updateDarkRefractoryCount } = createCategoryCard("Dark Refractory", undefined, updateStarchartCount);
+	const { section: tauSection, details: tauDetails, updateCount: updateTauCount } = createCategoryCard("Tau", undefined, updateStarchartCount);
+	starchartDetails.append(
+		originSection,
+		proximaSection,
+		duviriSection,
+		hollvaniaSection,
+		darkRefractorySection,
+		tauSection
+	);
 		// column for normal and steel path
 		// figure out how much each gives for XP
 	
