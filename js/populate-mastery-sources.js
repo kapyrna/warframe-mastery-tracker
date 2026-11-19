@@ -220,7 +220,52 @@
 		row.append(checkbox, nameElement, levelWrapper, xpWrapper);
 		return row;
 	}
-	// plan so that after each list load, total up quantities and xp potential
+
+	// star chart nodes are handled differentlyt than item ranks
+	function createNodeRow(nodeName) {
+	    const row = document.createElement("div");
+	    row.className = "item-row";
+	
+	    const checkbox = document.createElement("input");
+	    checkbox.type = "checkbox";
+	    checkbox.className = "item-checkbox";
+	    checkbox.setAttribute("aria-label", nodeName);
+	
+	    const nameElement = document.createElement("span");
+	    nameElement.className = "item-name";
+	    nameElement.textContent = nodeName;
+	
+	    row.append(checkbox, nameElement);
+	    return row;
+	}
+	
+	function createNodeList(parentDetails, notifyParent, dataPath, exportKey, productCategory, systemName) {
+	    return fetch(dataPath)
+	        .then(function (response) {
+	            if (!response.ok) throw new Error("Failed to load " + dataPath);
+	            return response.json();
+	        })
+	        .then(function (exportData) {
+	            const nodeItems = (exportData[exportKey] || []).filter(function (item) {
+	                if (productCategory !== undefined && item.productCategory !== productCategory) return false;
+	                if (systemName !== undefined && item.systemName !== systemName) return false;
+	                return true;
+	            });
+	
+	            nodeItems.sort(function (a, b) {
+	                return a.name.localeCompare(b.name);
+	            });
+	
+	            const completedCount = 0;
+	            const totalCount = nodeItems.length;
+	
+	            for (const node of nodeItems) {
+	                parentDetails.append(createNodeRow(node.name));
+	            }
+	
+	            notifyParent(completedCount, totalCount);
+	        });
+	}
 
 	// build layout, pass second variable of true if category has subcategories 
 	const { section: warframesSection, details: warframesDetails, updateCount: updateWarframesCount } = createCategoryCard("Warframes", false, updateOverviewItemCount)
@@ -380,8 +425,25 @@
 		darkRefractorySection,
 		tauSection
 	);
-		// column for normal and steel path
-		// figure out how much each gives for XP
-	
-	// after all sources are loaded, total the categories
+
+	const originSystems = [ // stage the regions within origin system
+	    "Mercury", "Venus", "Earth", "Mars", "Phobos", "Ceres",
+	    "Jupiter", "Europa", "Saturn", "Uranus", "Neptune", "Pluto",
+	    "Eris", "Sedna", "Void", "Kuva Fortress", "Lua", "Zariman", "Deimos"
+	];
+	for (const system of originSystems) { // loop through the planets
+	    createNodeList(originDetails, updateOriginCount, "data/ExportRegions_en.json", "ExportRegions", undefined, system)
+	        .catch(function (error) { originDetails.append("Failed to load " + system + " data."); });
+	}
+	createNodeList(proximaDetails, updateProximaCount, "data/ExportProxima_en.json", "ExportProxima", "ProximaNode") // railjack
+    .catch(function (error) { proximaDetails.append("Failed to load Empyrean Proxima data."); });
+	createNodeList(duviriDetails, updateDuviriCount, "data/ExportRegions_en.json", "ExportRegions", undefined, "Duviri")
+    	.catch(function (error) { duviriDetails.append("Failed to load Duviri data."); });
+	createNodeList(hollvaniaDetails, updateHollvaniaCount, "data/ExportRegions_en.json", "ExportRegions", undefined, "Höllvania")
+	    .catch(function (error) { hollvaniaDetails.append("Failed to load Höllvania data."); });
+	createNodeList(darkRefractoryDetails, updateDarkRefractoryCount, "data/ExportRegions_en.json", "ExportRegions", undefined, "Dark Refractory, Deimos")
+	    .catch(function (error) { darkRefractoryDetails.append("Failed to load Dark Refractory data."); });
+	createNodeList(tauDetails, updateTauCount, "data/ExportTau_en.json", "ExportTau", "TauNode")
+    	.catch(function (error) { tauDetails.append("Failed to load Tau data."); });
+	// figure out how much each gives for XP
 })();
