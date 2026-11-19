@@ -4,15 +4,20 @@
 
 	// bring in page level elements and variables
 	const repositoryName = document.documentElement.dataset.repositoryName || "warframe-mastery-tracker";
-  	const listsContainer = document.getElementById("lists"); // progrreess list container
+  	const listsContainer = document.getElementById("lists"); // progress list container
   	const placeholderElement = document.getElementById("list-placeholder"); // list placeholder text
-	const statItemsCompleted = document.getElementById("stat-items-completed"); // overiview completed count total
+	const statItemsCompleted = document.getElementById("stat-items-completed"); // overview completed count total
 	const statItemsPossible = document.getElementById("stat-items-possible"); // overview possible count total
+	const statXpTotal = document.getElementById("stat-xp-earned"); // overview xp earned total
+	const statXpPossible = document.getElementById("stat-xp-possible"); // overview xp possible total
+	const statMrPossible = document.getElementById("stat-mr-potential"); // overview mr possible value
 	
 	if (!listsContainer) return; // exit if the page already broke
 
 	let overviewCompletedTotal = 0; // overview initial value
 	let overviewPossibleTotal = 0;	// overview initial value
+	let overviewXpTotal = 0;
+	let overviewXpPossible = 0;
 
 	const founderItems = [
 	    "/Lotus/Powersuits/Excalibur/ExcaliburPrime",
