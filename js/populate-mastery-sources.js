@@ -121,7 +121,7 @@
 			}
 		}
 	
-	function createCategoryCard(headingText, hasSubcategories, updateParentCounts) {
+	function createCategoryCard(headingText, hasSubcategories, updateParentCounts, updateParentXp) {
 	    const section = document.createElement("section");
 	    section.className = "card";
 		const details = document.createElement("details");
@@ -145,7 +145,9 @@
 
 		// initial counts 0
 		let cardCompletedTotal = 0;
-		let cardPossibleTotal = 0
+		let cardPossibleTotal = 0;
+		let cardEarnedXp = 0
+		let cardPossibleXp = 0
 
 		// adjust running totals on each row append
 		function updateCount(completedDelta, possibleDelta) {
@@ -154,11 +156,17 @@
 			countSpan.textContent = cardCompletedTotal + "/" + cardPossibleTotal;
 			updateParentCounts(completedDelta, possibleDelta);
 		}
+		// adjust possible XP on each row append
+		function updateXp(earnedXp, possibleXp) {
+			cardEarnedXp += earnedXp;
+			cardPossibleXp += possibleXp;
+			updateParentXp(earnedXp, possibleXp);
+		}
 
 		if (hasSubcategories) { /* skip the item table header */ }
 		else createItemListHeader(details);
 		
-	    return {section, details , updateCount};
+	    return {section, details , updateCount, updateXp};
 	}
 
 	// template for each item's row
@@ -280,12 +288,12 @@
 	}
 
 	// build layout, pass second variable of true if category has subcategories 
-	const { section: warframesSection, details: warframesDetails, updateCount: updateWarframesCount } = createCategoryCard("Warframes", false, updateOverviewItemCount)
-	const { section: weaponsSection, details: weaponsDetails, updateCount: updateWeaponsCount } = createCategoryCard("Weapons", true, updateOverviewItemCount);
-	const { section: companionsSection, details: companionsDetails, updateCount: updateCompanionsCount } = createCategoryCard("Companions", true, updateOverviewItemCount);
-	const { section: vehiclesSection, details: vehiclesDetails, updateCount: updateVehiclesCount } = createCategoryCard("Vehicles", true, updateOverviewItemCount);
-	const { section: intrinsicsSection, details: intrinsicsDetails, updateCount: updateIntrinsicsCount } = createCategoryCard("Intrinsics", true, updateOverviewItemCount);
-	const { section: starchartSection, details: starchartDetails, updateCount: updateStarchartCount } = createCategoryCard("Star Chart", true, updateOverviewItemCount);
+	const { section: warframesSection, details: warframesDetails, updateCount: updateWarframesCount } = createCategoryCard("Warframes", false, updateOverviewItemCount, updateOverviewXp)
+	const { section: weaponsSection, details: weaponsDetails, updateCount: updateWeaponsCount } = createCategoryCard("Weapons", true, updateOverviewItemCount, updateOverviewXp);
+	const { section: companionsSection, details: companionsDetails, updateCount: updateCompanionsCount } = createCategoryCard("Companions", true, updateOverviewItemCount, updateOverviewXp);
+	const { section: vehiclesSection, details: vehiclesDetails, updateCount: updateVehiclesCount } = createCategoryCard("Vehicles", true, updateOverviewItemCount, updateOverviewXp);
+	const { section: intrinsicsSection, details: intrinsicsDetails, updateCount: updateIntrinsicsCount } = createCategoryCard("Intrinsics", true, updateOverviewItemCount, updateOverviewXp);
+	const { section: starchartSection, details: starchartDetails, updateCount: updateStarchartCount } = createCategoryCard("Star Chart", true, updateOverviewItemCount, updateOverviewXp);
 	
 	listsContainer.replaceChildren(
 		warframesSection,
