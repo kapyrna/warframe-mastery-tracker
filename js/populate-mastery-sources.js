@@ -53,6 +53,13 @@
 		if (statItemsCompleted) statItemsCompleted.textContent = overviewCompletedTotal;
 		if (statItemsPossible) statItemsPossible.textContent = overviewPossibleTotal;
 	}
+
+	function updateOverviewXp(xpTotalDelta, xpPossibleDelta) {
+	    overviewXpTotal += xpTotalDelta;
+	    overviewXpPossible += xpPossibleDelta;
+	    if (statXpTotal) statXpTotal.textContent = overviewXpTotal;
+	    if (statXpPossible) statXpPossible.textContent = overviewXpPossible;
+	}
 	
 	function createItemListHeader(details) {
 		const headerRow = document.createElement("div");
@@ -114,7 +121,7 @@
 			}
 		}
 	
-	function createCategoryCard(headingText, hasSubcategories, notifyParent) {
+	function createCategoryCard(headingText, hasSubcategories, updateParentCounts) {
 	    const section = document.createElement("section");
 	    section.className = "card";
 		const details = document.createElement("details");
@@ -145,7 +152,7 @@
 			cardCompletedTotal += completedDelta;
 			cardPossibleTotal += possibleDelta;
 			countSpan.textContent = cardCompletedTotal + "/" + cardPossibleTotal;
-			notifyParent(completedDelta, possibleDelta);
+			updateParentCounts(completedDelta, possibleDelta);
 		}
 
 		if (hasSubcategories) { /* skip the item table header */ }
