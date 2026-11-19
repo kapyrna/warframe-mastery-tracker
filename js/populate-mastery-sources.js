@@ -59,6 +59,7 @@
 	    overviewXpPossible += xpPossibleDelta;
 	    if (statXpTotal) statXpTotal.textContent = overviewXpTotal;
 	    if (statXpPossible) statXpPossible.textContent = overviewXpPossible;
+		if (statMrPossible) statMrPossible.textContent = xpToMasteryRank(overviewXpPossible);
 	}
 
 	function xpToMasteryRank(xp) {
