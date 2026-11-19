@@ -27,14 +27,13 @@
 				<div class="profile">
 					<div class="stat">
 						<span class="label">Mastery rank</span>
-						<span class="value" id="stat-rank">MR 0</span>
+						<span class="value">MR <!-- prefix  -->
+							<span id="stat-mastery-rank">0</span> <!-- variable  -->
 					</div>
 					<div class="stat" style="white-space: nowrap;">
 						<span class="label">Total XP</span>
-						<span class="value">MR <!-- prefix  -->
-							<span id="stat-mastery-rank">0</span> <!-- variable  -->
+						<span class="value" id="stat-xp-earned">0</span> <!-- variable we will use to calculate earned MR  -->
 						</span>
-						<span id="stat-xp-possible" hidden>0</span>
 					</div>
 					<div class="stat">
 						<span class="label">Items mastered</span>
@@ -46,6 +45,7 @@
 					</div>
 					<div class="stat">
 						<span class="label">If everything is maxed</span>
+						<span id="stat-xp-possible" hidden>0</span> <!-- variable we will use to calculate possible MR  -->
 						<span class="value" id="stat-mr-potential">MR 0</span>
 					</div>
 				</div>
