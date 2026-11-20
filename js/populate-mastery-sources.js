@@ -142,11 +142,6 @@
 			updateCount(completedCount, totalCount);
 			updateXp(earnedXpTotal, possibleXpTotal);
 			
-			const totalsRow = document.createElement("div");
-			totalsRow.className = "item-row-totals";
-			totalsRow.textContent = "Total possible XP: " + possibleXpTotal;
-			details.append(totalsRow);
-			
 			} catch (error) {
 				details.append("Failed to load " + exportKey + " from " + filenameCurrentCard);
 			}
@@ -170,8 +165,12 @@
 		const countSpan = document.createElement("span");
 		countSpan.className = "category-count";
 		countSpan.textContent = "0/0";
+
+		const xpSpan = document.createElement("span");
+		xpSpan.className = "category-xp";
+		xpSpan.textContent = "0 XP";
 		
-		summary.append(headingSpan, separatorSpan, countSpan);
+		summary.append(headingSpan, separatorSpan, countSpan, separatorSpan.cloneNode(true), xpSpan);
 	    section.append(details);
 
 		// initial counts 0
@@ -185,6 +184,7 @@
 			cardCompletedTotal += completedDelta;
 			cardPossibleTotal += possibleDelta;
 			countSpan.textContent = cardCompletedTotal + "/" + cardPossibleTotal;
+			xpSpan.textContent = cardEarnedXp + "/" + cardPossibleXp + " XP";
 			updateParentCounts(completedDelta, possibleDelta);
 		}
 		// adjust possible XP on each row append
