@@ -184,13 +184,13 @@
 			cardCompletedTotal += completedDelta;
 			cardPossibleTotal += possibleDelta;
 			countSpan.textContent = cardCompletedTotal + "/" + cardPossibleTotal;
-			xpSpan.textContent = cardEarnedXp + "/" + cardPossibleXp + " XP";
 			updateParentCounts(completedDelta, possibleDelta);
 		}
 		// adjust possible XP on each row append
 		function updateXp(earnedXp, possibleXp) {
 			cardEarnedXp += earnedXp;
 			cardPossibleXp += possibleXp;
+			xpSpan.textContent = cardEarnedXp + "/" + cardPossibleXp + " XP";
 			updateParentXp(earnedXp, possibleXp);
 		}
 
@@ -280,7 +280,7 @@
 	    const checkbox = document.createElement("input");
 	    checkbox.type = "checkbox";
 	    checkbox.className = "item-checkbox";
-	    checkbox.setAttribute("aria-label", nodeName + " (Normal));
+	    checkbox.setAttribute("aria-label", nodeName + " (Normal)");
 
 		const checkboxSteelPath = document.createElement("input");
 	    checkboxSteelPath.type = "checkbox";
@@ -291,7 +291,7 @@
 	    nameElement.className = "item-name";
 	    nameElement.textContent = nodeName;
 	
-	    row.append(checkbox, nameElement);
+	    row.append(checkbox, checkboxSteelPath, nameElement);
 	    return row;
 	}
 	
