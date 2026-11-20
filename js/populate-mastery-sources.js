@@ -108,38 +108,42 @@
 	
 	async function createItemList(details, updateCount, upodateXp, filenameCurrentCard, maxLevel, xpPerLevel, exportKey, itemType, uniqueNamePrefix, uniqueNameExcludePrefix){
 		try {
-		const fileLoadResponse = await fetch(filenameCurrentCard);
-		if (!fileLoadResponse.ok) {
-			throw new Error("Failed to load " + filenameCurrentCard);}
-
-		const exportData = await fileLoadResponse.json();
-		const cardItems = (exportData[exportKey] || []).filter(function (item) {
-			if (item.productCategory !== itemType) return false; // filter to specified and exclude others like warframes versus archwing/necramech
-			if (uniqueNamePrefix !== undefined) { // if we're including by pattern to narrow down like in secondaries
-				const prefixes = Array.isArray(uniqueNamePrefix) ? uniqueNamePrefix : [uniqueNamePrefix];
-				if (!prefixes.some(function (p) { return item.uniqueName.startsWith(p); })) return false;
-			}
-			if (uniqueNameExcludePrefix !== undefined && item.uniqueName.startsWith(uniqueNameExcludePrefix)) return false; // filter out what we know doesn't belong in the list
-			return true;
-		});
+			const fileLoadResponse = await fetch(filenameCurrentCard);
+			if (!fileLoadResponse.ok) {
+				throw new Error("Failed to load " + filenameCurrentCard);}
+	
+			const exportData = await fileLoadResponse.json();
+			const cardItems = (exportData[exportKey] || []).filter(function (item) {
+				if (item.productCategory !== itemType) return false; // filter to specified and exclude others like warframes versus archwing/necramech
+				if (uniqueNamePrefix !== undefined) { // if we're including by pattern to narrow down like in secondaries
+					const prefixes = Array.isArray(uniqueNamePrefix) ? uniqueNamePrefix : [uniqueNamePrefix];
+					if (!prefixes.some(function (p) { return item.uniqueName.startsWith(p); })) return false;
+				}
+				if (uniqueNameExcludePrefix !== undefined && item.uniqueName.startsWith(uniqueNameExcludePrefix)) return false; // filter out what we know doesn't belong in the list
+				return true;
+			});
+					
+			let completedCount = 0; // baseline to be incremented when loading player data
+			let earnedXpTotal = 0;
+			let possibleXpTotal = 0;
+			const totalCount = cardItems.length;
 				
-		let completedCount = 0; // baseline to be incremented when loading player data
-		const totalCount = cardItems.length;
+			cardItems.sort(function (firstItem, secondItem) {
+				return firstItem.name.localeCompare(secondItem.name);
+			});
 			
-		cardItems.sort(function (firstItem, secondItem) {
-			return firstItem.name.localeCompare(secondItem.name);
-		});
-		
-		for (const cardItem of cardItems) {
-			const currentLevel = 0;
-			const itemRow = createItemRow(cardItem.name, cardItem.uniqueName, currentLevel, xpPerLevel, maxLevel);
-			details.append(itemRow);
-		}
-
-		updateCount(completedCount, totalCount);
-			
-		} catch (error) {
-			details.append("Failed to load " + exportKey + " from " + filenameCurrentCard);
+			for (const cardItem of cardItems) {
+				const currentLevel = 0;
+				const itemRow = createItemRow(cardItem.name, cardItem.uniqueName, currentLevel, xpPerLevel, maxLevel);
+				details.append(itemRow);
+				possibleXpTotal += ( xpPerLevel * maxLevel );
+			}
+	
+			updateCount(completedCount, totalCount);
+			updateXp(earnedXpTotal, possibleXpTotal);
+				
+			} catch (error) {
+				details.append("Failed to load " + exportKey + " from " + filenameCurrentCard);
 			}
 		}
 	
