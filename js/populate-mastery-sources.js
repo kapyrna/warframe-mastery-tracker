@@ -141,7 +141,12 @@
 	
 			updateCount(completedCount, totalCount);
 			updateXp(earnedXpTotal, possibleXpTotal);
-				
+			
+			const totalsRow = document.createElement("div");
+			totalsRow.className = "item-row item-row-totals";
+			totalsRow.textContent = "Total possible XP: " + possibleXpTotal;
+			details.append(totalsRow);
+			
 			} catch (error) {
 				details.append("Failed to load " + exportKey + " from " + filenameCurrentCard);
 			}
