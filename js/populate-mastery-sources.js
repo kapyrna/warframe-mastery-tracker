@@ -106,7 +106,7 @@
 		details.append(headerRow);
 	}
 	
-	async function createItemList(details, updateCount, filenameCurrentCard, maxLevel, xpPerLevel, exportKey, itemType, uniqueNamePrefix, uniqueNameExcludePrefix){
+	async function createItemList(details, updateCount, upodateXp, filenameCurrentCard, maxLevel, xpPerLevel, exportKey, itemType, uniqueNamePrefix, uniqueNameExcludePrefix){
 		try {
 		const fileLoadResponse = await fetch(filenameCurrentCard);
 		if (!fileLoadResponse.ok) {
@@ -311,11 +311,11 @@
 
 	// build layout, pass second variable of true if category has subcategories 
 	const { section: warframesSection, details: warframesDetails, updateCount: updateWarframesCount, updateXp: updateWarframesXp } = createCategoryCard("Warframes", false, updateOverviewItemCount, updateOverviewXp)
-	const { section: weaponsSection, details: weaponsDetails, updateCount: updateWeaponsCount } = createCategoryCard("Weapons", true, updateOverviewItemCount, updateOverviewXp);
-	const { section: companionsSection, details: companionsDetails, updateCount: updateCompanionsCount } = createCategoryCard("Companions", true, updateOverviewItemCount, updateOverviewXp);
-	const { section: vehiclesSection, details: vehiclesDetails, updateCount: updateVehiclesCount } = createCategoryCard("Vehicles", true, updateOverviewItemCount, updateOverviewXp);
-	const { section: intrinsicsSection, details: intrinsicsDetails, updateCount: updateIntrinsicsCount } = createCategoryCard("Intrinsics", true, updateOverviewItemCount, updateOverviewXp);
-	const { section: starchartSection, details: starchartDetails, updateCount: updateStarchartCount } = createCategoryCard("Star Chart", true, updateOverviewItemCount, updateOverviewXp);
+	const { section: weaponsSection, details: weaponsDetails, updateCount: updateWeaponsCount, updateXp: updateWeaponsXp } = createCategoryCard("Weapons", true, updateOverviewItemCount, updateOverviewXp);
+	const { section: companionsSection, details: companionsDetails, updateCount: updateCompanionsCount, updateXp: updateCompanionsXp } = createCategoryCard("Companions", true, updateOverviewItemCount, updateOverviewXp);
+	const { section: vehiclesSection, details: vehiclesDetails, updateCount: updateVehiclesCount, updateXp: updateVehiclesXp } = createCategoryCard("Vehicles", true, updateOverviewItemCount, updateOverviewXp);
+	const { section: intrinsicsSection, details: intrinsicsDetails, updateCount: updateIntrinsicsCount, updateXp: updateIntrinsicsXp } = createCategoryCard("Intrinsics", true, updateOverviewItemCount, updateOverviewXp);
+	const { section: starchartSection, details: starchartDetails, updateCount: updateStarchartCount, updateXp: updateStarchartXp } = createCategoryCard("Star Chart", true, updateOverviewItemCount, updateOverviewXp);
 	
 	listsContainer.replaceChildren(
 		warframesSection,
@@ -332,15 +332,15 @@
 		});
 	
 	// build subcategories of weapons
-	const { section: primarySection, details: primaryDetails, updateCount: updatePrimaryCount } = createCategoryCard("Primary", false, updateWeaponsCount);
-	const { section: secondarySection, details: secondaryDetails, updateCount: updateSecondaryCount } = createCategoryCard("Secondary", false, updateWeaponsCount);
-	const { section: meleeSection, details: meleeDetails, updateCount: updateMeleeCount } = createCategoryCard("Melee", false, updateWeaponsCount);
-	const { section: archgunSection, details: archgunDetails, updateCount: updateArchgunCount } = createCategoryCard("Archgun", false, updateWeaponsCount);
-	const { section: archmeleeSection, details: archmeleeDetails, updateCount: updateArchmeleeCount } = createCategoryCard("Archmelee", false, updateWeaponsCount);
-	const { section: kitgunsSection, details: kitgunsDetails, updateCount: updateKitgunsCount } = createCategoryCard("Kitguns", false, updateWeaponsCount);
-	const { section: zawsSection, details: zawsDetails, updateCount: updateZawsCount } = createCategoryCard("Zaws", false, updateWeaponsCount);
-	const { section: ampsSection, details: ampsDetails, updateCount: updateAmpsCount } = createCategoryCard("Amps", false, updateWeaponsCount);
-	const { section: companionWeaponsSection, details: companionWeaponsDetails, updateCount: updateCompanionWeaponsCount } = createCategoryCard("Companion Weapons", false, updateWeaponsCount);
+	const { section: primarySection, details: primaryDetails, updateCount: updatePrimaryCount } = createCategoryCard("Primary", false, updateWeaponsCount, updateWeaponsXp);
+	const { section: secondarySection, details: secondaryDetails, updateCount: updateSecondaryCount } = createCategoryCard("Secondary", false, updateWeaponsCount, updateWeaponsXp);
+	const { section: meleeSection, details: meleeDetails, updateCount: updateMeleeCount } = createCategoryCard("Melee", false, updateWeaponsCount, updateWeaponsXp);
+	const { section: archgunSection, details: archgunDetails, updateCount: updateArchgunCount } = createCategoryCard("Archgun", false, updateWeaponsCount, updateWeaponsXp);
+	const { section: archmeleeSection, details: archmeleeDetails, updateCount: updateArchmeleeCount } = createCategoryCard("Archmelee", false, updateWeaponsCount, updateWeaponsXp);
+	const { section: kitgunsSection, details: kitgunsDetails, updateCount: updateKitgunsCount } = createCategoryCard("Kitguns", false, updateWeaponsCount, updateWeaponsXp);
+	const { section: zawsSection, details: zawsDetails, updateCount: updateZawsCount } = createCategoryCard("Zaws", false, updateWeaponsCount, updateWeaponsXp);
+	const { section: ampsSection, details: ampsDetails, updateCount: updateAmpsCount } = createCategoryCard("Amps", false, updateWeaponsCount, updateWeaponsXp);
+	const { section: companionWeaponsSection, details: companionWeaponsDetails, updateCount: updateCompanionWeaponsCount } = createCategoryCard("Companion Weapons", false, updateWeaponsCount, updateWeaponsXp);
 	weaponsDetails.append(primarySection, secondarySection, meleeSection, archgunSection, archmeleeSection, kitgunsSection, zawsSection, ampsSection, companionWeaponsSection);
 	
 	// build each weaspon subcategory
@@ -408,10 +408,10 @@
 		.catch(function (error) { companionWeaponsDetails.append("Failed to load Sentinel Weapons data."); });
 	
 	// companions subcategory cards
-	const { section: sentinelsSection, details: sentinelsDetails, updateCount: updateSentinelsCount } = createCategoryCard("Sentinels", false, updateCompanionsCount);
-	const { section: beastsSection, details: beastsDetails, updateCount: updateBeastsCount } = createCategoryCard("Beasts", false, updateCompanionsCount);
-	const { section: moasSection, details: moasDetails, updateCount: updateMoasCount } = createCategoryCard("MOAs", false, updateCompanionsCount);
-	const { section: houndsSection, details: houndsDetails, updateCount: updateHoundsCount } = createCategoryCard("Hounds", false, updateCompanionsCount);
+	const { section: sentinelsSection, details: sentinelsDetails, updateCount: updateSentinelsCount } = createCategoryCard("Sentinels", false, updateCompanionsCount, updateCompanionsXp);
+	const { section: beastsSection, details: beastsDetails, updateCount: updateBeastsCount } = createCategoryCard("Beasts", false, updateCompanionsCount, updateCompanionsXp);
+	const { section: moasSection, details: moasDetails, updateCount: updateMoasCount } = createCategoryCard("MOAs", false, updateCompanionsCount, updateCompanionsXp);
+	const { section: houndsSection, details: houndsDetails, updateCount: updateHoundsCount } = createCategoryCard("Hounds", false, updateCompanionsCount, updateCompanionsXp);
 	companionsDetails.append(sentinelsSection, beastsSection, moasSection, houndsSection);
 	createItemList(sentinelsDetails, updateSentinelsCount, "data/ExportSentinels_en.json", 30, 200, "ExportSentinels", "Sentinels")
 		.catch(function (error) { sentinelsDetails.append("Failed to load Sentinels data."); });
@@ -423,10 +423,10 @@
 		.catch(function (error) { houndsDetails.append("Failed to load Hound data."); });
 	
 	// vehicles subcategory cards
-	const { section: archwingSection, details: archwingDetails, updateCount: updateArchwingCount } = createCategoryCard("Archwings", false, updateVehiclesCount);
-	const { section: necramechSection, details: necramechDetails, updateCount: updateNecramechCount } = createCategoryCard("Necramechs", false, updateVehiclesCount);
-	const { section: kDriveSection, details: kDriveDetails, updateCount: updateKDriveCount } = createCategoryCard("K-Drives", false, updateVehiclesCount);
-	const { section: plexusSection, details: plexusDetails, updateCount: updatePlexusCount } = createCategoryCard("Plexus", false, updateVehiclesCount); // railjack plexus isn't a vehicle apparently
+	const { section: archwingSection, details: archwingDetails, updateCount: updateArchwingCount } = createCategoryCard("Archwings", false, updateVehiclesCount, updateVehiclesXp);
+	const { section: necramechSection, details: necramechDetails, updateCount: updateNecramechCount } = createCategoryCard("Necramechs", false, updateVehiclesCount, updateVehiclesXp);
+	const { section: kDriveSection, details: kDriveDetails, updateCount: updateKDriveCount } = createCategoryCard("K-Drives", false, updateVehiclesCount, updateVehiclesXp);
+	const { section: plexusSection, details: plexusDetails, updateCount: updatePlexusCount } = createCategoryCard("Plexus", false, updateVehiclesCount, updateVehiclesXp); // railjack plexus isn't a vehicle apparently
 	vehiclesDetails.append(archwingSection, necramechSection, kDriveSection, plexusSection);
 	// archwings
 	createItemList(archwingDetails, updateArchwingCount, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "SpaceSuits")
@@ -442,8 +442,8 @@
     	.catch(function (error) { plexusDetails.append("Failed to load Plexus data."); });
 	
 	// intrinsics subcategory cards
-	const { section: railjackSection, details: railjackDetails, updateCount: updateRailjackCount } = createCategoryCard("Railjack", false, updateIntrinsicsCount);
-	const { section: drifterSection, details: drifterDetails, updateCount: updateDrifterCount } = createCategoryCard("Drifter", false, updateIntrinsicsCount);
+	const { section: railjackSection, details: railjackDetails, updateCount: updateRailjackCount } = createCategoryCard("Railjack", false, updateIntrinsicsCount, updateIntrinsicsXp);
+	const { section: drifterSection, details: drifterDetails, updateCount: updateDrifterCount } = createCategoryCard("Drifter", false, updateIntrinsicsCount, updateIntrinsicsXp);
 	intrinsicsDetails.append(railjackSection, drifterSection);
 	// intrinsics not found in manifests yet, using placeholder file
 	createItemList(railjackDetails, updateRailjackCount, "data/ExportIntrinsics_en.json", 10, 1500, "ExportIntrinsics", "RailjackIntrinsics")
@@ -453,12 +453,12 @@
 	
 	// star chart
 	// separate by system then by planet
-	const { section: originSection, details: originDetails, updateCount: updateOriginCount } = createCategoryCard("Origin System", undefined, updateStarchartCount);
-	const { section: proximaSection, details: proximaDetails, updateCount: updateProximaCount } = createCategoryCard("Empyrean Proxima", undefined, updateStarchartCount);
-	const { section: duviriSection, details: duviriDetails, updateCount: updateDuviriCount } = createCategoryCard("Duviri", undefined, updateStarchartCount);
-	const { section: hollvaniaSection, details: hollvaniaDetails, updateCount: updateHollvaniaCount } = createCategoryCard("Höllvania", undefined, updateStarchartCount);
-	const { section: darkRefractorySection, details: darkRefractoryDetails, updateCount: updateDarkRefractoryCount } = createCategoryCard("Dark Refractory", undefined, updateStarchartCount);
-	const { section: tauSection, details: tauDetails, updateCount: updateTauCount } = createCategoryCard("Tau", undefined, updateStarchartCount);
+	const { section: originSection, details: originDetails, updateCount: updateOriginCount } = createCategoryCard("Origin System", undefined, updateStarchartCount, updateStarchartXp);
+	const { section: proximaSection, details: proximaDetails, updateCount: updateProximaCount } = createCategoryCard("Empyrean Proxima", undefined, updateStarchartCount, updateStarchartXp);
+	const { section: duviriSection, details: duviriDetails, updateCount: updateDuviriCount } = createCategoryCard("Duviri", undefined, updateStarchartCount, updateStarchartXp);
+	const { section: hollvaniaSection, details: hollvaniaDetails, updateCount: updateHollvaniaCount } = createCategoryCard("Höllvania", undefined, updateStarchartCount, updateStarchartXp);
+	const { section: darkRefractorySection, details: darkRefractoryDetails, updateCount: updateDarkRefractoryCount } = createCategoryCard("Dark Refractory", undefined, updateStarchartCount, updateStarchartXp);
+	const { section: tauSection, details: tauDetails, updateCount: updateTauCount } = createCategoryCard("Tau", undefined, updateStarchartCount, updateStarchartXp);
 	starchartDetails.append(
 		originSection,
 		proximaSection,
