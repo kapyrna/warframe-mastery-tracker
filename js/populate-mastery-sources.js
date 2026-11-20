@@ -106,7 +106,7 @@
 		details.append(headerRow);
 	}
 	
-	async function createItemList(details, updateCount, upodateXp, filenameCurrentCard, maxLevel, xpPerLevel, exportKey, itemType, uniqueNamePrefix, uniqueNameExcludePrefix){
+	async function createItemList(details, updateCount, updateXp, filenameCurrentCard, maxLevel, xpPerLevel, exportKey, itemType, uniqueNamePrefix, uniqueNameExcludePrefix){
 		try {
 			const fileLoadResponse = await fetch(filenameCurrentCard);
 			if (!fileLoadResponse.ok) {
@@ -405,7 +405,7 @@
 	];
 	createItemList(ampsDetails, updateAmpsCount, updateAmpsXp, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", ampModularPrefixes)
 	    .catch(function (error) { ampsDetails.append("Failed to load Amp prism data."); });
-	createItemList(ampsDetails, updateAmpsCount, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "OperatorAmps") // just sirocco
+	createItemList(ampsDetails, updateAmpsCount, updateAmpsXp, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "OperatorAmps") // just sirocco
 		.catch(function (error) { ampsDetails.append("Failed to load Amps data."); });
 	// companion weapons includes all robots
 	createItemList(companionWeaponsDetails, updateCompanionWeaponsCount, updateCompanionWeaponsXp, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "SentinelWeapons")
