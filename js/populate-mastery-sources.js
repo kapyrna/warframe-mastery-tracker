@@ -160,6 +160,7 @@
 		headingSpan.textContent = headingText;
 
 		const separatorSpan = document.createElement("span");
+		separatorSpan.className = "summary-separator";
 		separatorSpan.textContent = " | ";
 
 		const countSpan = document.createElement("span");
