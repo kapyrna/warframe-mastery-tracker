@@ -275,12 +275,17 @@
 	// star chart nodes are handled differentlyt than item ranks
 	function createNodeRow(nodeName) {
 	    const row = document.createElement("div");
-	    row.className = "item-row";
+	    row.className = "node-row";
 	
 	    const checkbox = document.createElement("input");
 	    checkbox.type = "checkbox";
 	    checkbox.className = "item-checkbox";
-	    checkbox.setAttribute("aria-label", nodeName);
+	    checkbox.setAttribute("aria-label", nodeName + " (Normal));
+
+		const checkboxSteelPath = document.createElement("input");
+	    checkboxSteelPath.type = "checkbox";
+	    checkboxSteelPath.className = "item-checkbox";
+	    checkboxSteelPath.setAttribute("aria-label", nodeName + " (Steel Path)");
 	
 	    const nameElement = document.createElement("span");
 	    nameElement.className = "item-name";
