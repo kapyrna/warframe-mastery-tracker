@@ -143,7 +143,7 @@
 			updateXp(earnedXpTotal, possibleXpTotal);
 			
 			const totalsRow = document.createElement("div");
-			totalsRow.className = "item-row item-row-totals";
+			totalsRow.className = "item-row-totals";
 			totalsRow.textContent = "Total possible XP: " + possibleXpTotal;
 			details.append(totalsRow);
 			
