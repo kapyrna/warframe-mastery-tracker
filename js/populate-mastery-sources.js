@@ -358,7 +358,7 @@
 	weaponsDetails.append(primarySection, secondarySection, meleeSection, archgunSection, archmeleeSection, kitgunsSection, zawsSection, ampsSection, companionWeaponsSection);
 	
 	// build each weaspon subcategory
-	createItemList(primaryDetails, updatePrimaryCount, updatePrimariesXp, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "LongGuns")
+	createItemList(primaryDetails, updatePrimaryCount, updatePrimariesXp, "data/ExportWeapons_en.json", 30, 100, "ExportWeapons", "LongGuns")
 		.catch(function (error) { primaryDetails.append("Failed to load Primary data."); });
 	// secondaries gets complicated
 	const secondaryPrefixes = [ // DE put a lot more than secondaries in the secondaries datapath, so doing as narrow inclusions
@@ -380,23 +380,23 @@
 	    "/Lotus/Weapons/Thanotech/",
 	    "/Lotus/Weapons/VoidTrader/VTDetron",
 	];
-	createItemList(secondaryDetails, updateSecondaryCount, updateSecondariesXp, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", secondaryPrefixes)
+	createItemList(secondaryDetails, updateSecondaryCount, updateSecondariesXp, "data/ExportWeapons_en.json", 30, 100, "ExportWeapons", "Pistols", secondaryPrefixes)
 		.catch(function (error) { secondaryDetails.append("Failed to load Secondary data."); });
 	// melee
-	createItemList(meleeDetails, updateMeleeCount, updateMeleeXp, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Melee")
+	createItemList(meleeDetails, updateMeleeCount, updateMeleeXp, "data/ExportWeapons_en.json", 30, 100, "ExportWeapons", "Melee")
 		.catch(function (error) { meleeDetails.append("Failed to load Melee data."); });
 	// archguns
-	createItemList(archgunDetails, updateArchgunCount, updateArchgunXp, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "SpaceGuns")
+	createItemList(archgunDetails, updateArchgunCount, updateArchgunXp, "data/ExportWeapons_en.json", 30, 100, "ExportWeapons", "SpaceGuns")
 		.catch(function (error) { archgunDetails.append("Failed to load Archgun data."); });
 	// archmelee
-	createItemList(archmeleeDetails, updateArchmeleeCount, updateArchmeleeXp, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "SpaceMelee")
+	createItemList(archmeleeDetails, updateArchmeleeCount, updateArchmeleeXp, "data/ExportWeapons_en.json", 30, 100, "ExportWeapons", "SpaceMelee")
 		.catch(function (error) { archmeleeDetails.append("Failed to load Archmelee data."); });
 	// kitguns
 	const kitgunPrefixes = [
 		"/Lotus/Weapons/SolarisUnited/Secondary/SUModularSecondarySet1/Barrel",
 		"/Lotus/Weapons/Infested/Pistols/InfKitGun/Barrels/",
 	];
-	createItemList(kitgunsDetails, updateKitgunsCount, updateKitgunsXp, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", kitgunPrefixes)
+	createItemList(kitgunsDetails, updateKitgunsCount, updateKitgunsXp, "data/ExportWeapons_en.json", 30, 100, "ExportWeapons", "Pistols", kitgunPrefixes)
   	  .catch(function (error) { kitgunsDetails.append("Failed to load Kitgun data."); });
 	// zaws has three sublists and they are in the data as econdary not melee
 	const zawPrefixes = [
@@ -404,7 +404,7 @@
 	    "/Lotus/Weapons/Ostron/Melee/ModularMelee02/Tip",
 	    "/Lotus/Weapons/Ostron/Melee/ModularMeleeInfested/Tips",
 	];
-	createItemList(zawsDetails, updateZawsCount, updateZawsXp, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", zawPrefixes)
+	createItemList(zawsDetails, updateZawsCount, updateZawsXp, "data/ExportWeapons_en.json", 30, 100, "ExportWeapons", "Pistols", zawPrefixes)
 	    .catch(function (error) { zawsDetails.append("Failed to load Zaw strike data."); });
 	// amps
 	const ampModularPrefixes = [
@@ -413,12 +413,12 @@
 	    "/Lotus/Weapons/Sentients/OperatorAmplifiers/Set2/Barrel",
 	    "/Lotus/Weapons/Corpus/OperatorAmplifiers/Set1/Barrel",
 	];
-	createItemList(ampsDetails, updateAmpsCount, updateAmpsXp, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", ampModularPrefixes)
+	createItemList(ampsDetails, updateAmpsCount, updateAmpsXp, "data/ExportWeapons_en.json", 30, 100, "ExportWeapons", "Pistols", ampModularPrefixes)
 	    .catch(function (error) { ampsDetails.append("Failed to load Amp prism data."); });
-	createItemList(ampsDetails, updateAmpsCount, updateAmpsXp, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "OperatorAmps") // just sirocco
+	createItemList(ampsDetails, updateAmpsCount, updateAmpsXp, "data/ExportWeapons_en.json", 30, 100, "ExportWeapons", "OperatorAmps") // just sirocco
 		.catch(function (error) { ampsDetails.append("Failed to load Amps data."); });
 	// companion weapons includes all robots
-	createItemList(companionWeaponsDetails, updateCompanionWeaponsCount, updateCompanionWeaponsXp, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "SentinelWeapons")
+	createItemList(companionWeaponsDetails, updateCompanionWeaponsCount, updateCompanionWeaponsXp, "data/ExportWeapons_en.json", 30, 100, "ExportWeapons", "SentinelWeapons")
 		.catch(function (error) { companionWeaponsDetails.append("Failed to load Sentinel Weapons data."); });
 	
 	// companions subcategory cards
