@@ -119,6 +119,13 @@
 						<button type="button" id="button-fetch-manual" disabled>Fetch</button> <!-- for manual -->
 						<button id="button-fetch-automated" type="button" disabled hidden>Fetch</button> <!-- for using the cloudflare worker -->
 					</div>
+
+					<div class="row" id="importer-method-select">
+						<!--- radio options, neither selected by default -->
+						<!--- option to enable the manual paste of JSON, save as localStorage key -->
+						<!--- option to enable the cloudflare worker, save as localStorage key -->
+						<!--- option to hide this div, save as localstorageKey -->
+					</div>
 					
 					<div class="row" hidden> <!--- textbox and button to save player JSON to localStorage -->
 						<textarea id="profile-json-input" rows="4" placeholder="Paste profile JSON here…"></textarea>
