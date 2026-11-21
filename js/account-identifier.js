@@ -37,12 +37,13 @@
 
 	 function updateButtonState() {
 		 buttonElementManual.disabled = !isValid(inputElement.value.trim());
+		 buttonElementAutomated.disabled = !isValid(inputElement.value.trim());
 	}
 
 	inputElement.value = readStoredAccountIdentifier();
 	updateButtonState();
 
-	inputElement.addEventListener("input", updateButtonState);
+	inputElement.addEventListener("input", updateButtonState (buttonElement);
 
 	buttonElementManual.addEventListener("click", function () {
 		const accountIdentifier = inputElement.value.trim();
@@ -50,6 +51,7 @@
 		writeStoredAccountIdentifier(accountIdentifier);
 	
 		const profileUrl = "https://api.warframe.com/cdn/getProfileViewingData.php?playerId=" + accountIdentifier;
+		
 		window.open(profileUrl, "_blank");
 	});
 
