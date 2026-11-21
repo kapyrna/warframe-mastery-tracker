@@ -43,7 +43,7 @@
 	inputElement.value = readStoredAccountIdentifier();
 	updateButtonState();
 
-	inputElement.addEventListener("input", updateButtonState (buttonElement);
+	inputElement.addEventListener("input", updateButtonState);
 
 	buttonElementManual.addEventListener("click", function () {
 		const accountIdentifier = inputElement.value.trim();
