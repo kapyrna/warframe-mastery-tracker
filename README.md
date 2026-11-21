@@ -13,7 +13,7 @@ Nothing to install and no account needed. It works in any modern browser, on des
 If you're tracking manually and not importing from an active profile, skip to step 3.
 
 1. Log in at [warframe.com](https://www.warframe.com).
-2. Install the open-source **Warframe Account ID Grabber** extension for [Chrome](https://chromewebstore.google.com/detail/warframe-account-id-grabb/kjjjjdcjnanbbghoebnjnbjlkmmfaiga) or [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/warframe-account-id-grabber/) ([source code](https://github.com/Sainan/warframe-account-id-grabber)) and open it. It shows your ID.
+2. Install the ([open-source **Warframe Account ID Grabber** extension](https://github.com/Sainan/warframe-account-id-grabber)) for [Chrome](https://chromewebstore.google.com/detail/warframe-account-id-grabb/kjjjjdcjnanbbghoebnjnbjlkmmfaiga) or [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/warframe-account-id-grabber/) and open it. It shows your ID.
 
 PC players can also find it in the `EE.log` file: search for `Logged in`, and the ID is in the brackets on that line.
 
