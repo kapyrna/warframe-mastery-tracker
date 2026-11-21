@@ -10,7 +10,7 @@
 	const statItemsPossible = document.getElementById("stat-items-possible"); // overview possible count total
 	const statXpTotal = document.getElementById("stat-xp-earned"); // overview xp earned total
 	const statXpPossible = document.getElementById("stat-xp-possible"); // overview xp possible total
-	const statMrPossible = document.getElementById("stat-mr-potential-value"); // overview mr possible value
+	const statMrPossible = document.getElementById("stat-mr-potential"); // overview mr possible value
 	
 	if (!listsContainer) return; // exit if the page already broke
 
