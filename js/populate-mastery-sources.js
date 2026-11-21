@@ -485,4 +485,6 @@
 	createNodeList(tauDetails, updateTauCount, "data/ExportTau_en.json", "ExportTau", "TauNode")
     	.catch(function (error) { tauDetails.append("Failed to load Tau data."); });
 	// figure out how much each gives for XP
+
+	document.dispatchEvent(new Event("mastery-sources-ready")); // ready to start loading tenno progress
 })();
