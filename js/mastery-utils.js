@@ -6,10 +6,11 @@ function xpToMasteryRank(xp) {
 	while ( mr < 30 ) { // because LR math is different
 		if  (xp > xpTotalTarget) {
 			mr++; // enough for next rank
-			xpTotalTarget = 2500 * mr * mr; // bvmp up to the next target
+			xpTotalTarget = 2500 * mr * mr; // bump up to the next target
 		}
 	else return mr; // not enough to hit the next rank
 	}
+	return mr; // only once there's no more possible ranks with the passed XP value, LRs not handled yet
 }
 
 function xpToNextMR(xp) {
