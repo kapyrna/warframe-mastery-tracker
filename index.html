@@ -118,7 +118,7 @@
 					    </label>
 					</div>
 					
-					<div class="row"> <!--- instructions that hopefully fit in four lines when narrowest -->
+					<div class="row" hidden> <!--- instructions that hopefully fit in four lines when narrowest -->
 						<p>
 							<span class="sentence"><a href="https://github.com/kapyrna/warframe-mastery-tracker/tree/main#1-find-your-account-id" target="_blank" rel="noopener noreferrer">Find</a> and enter your player ID, then click Fetch.</span>
 							<span class="sentence">You have the option of either a one-time copy/paste of the JSON to import your Tenno, or using an automatic importer that can refresh each time the page loads.</span>
@@ -126,7 +126,7 @@
 						</p>
 					</div>
 
-					<div class="row"> <!--- textbox and button to save player JSON to localStorage -->
+					<div class="row" hidden> <!--- textbox and button to save player JSON to localStorage -->
 						<input type="text" id="player-id" placeholder="Account ID" maxlength="24" autocomplete="off" spellcheck="false" aria-label="Account ID">
 						<button type="button" id="button-fetch-manual" disabled>Fetch</button> <!-- for manual -->
 						<button id="button-fetch-automated" type="button" disabled hidden>Fetch</button> <!-- for using the cloudflare worker -->
