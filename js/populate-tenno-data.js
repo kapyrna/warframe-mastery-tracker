@@ -24,10 +24,12 @@
             playerData.Results[0] &&
             playerData.Results[0].DisplayName;
 
-        var nameEl = document.getElementById("player-name");
-        if (nameEl && displayName) {
-            nameEl.textContent = displayName;
-            nameEl.hidden = false;
+        var nameElement = document.getElementById("player-name");
+        var separatorElement = document.getElementById("player-name-separator");
+        if (nameElement && displayName) {
+            nameElement.textContent = displayName;
+            nameElement.hidden = false;
+            separatorElement.hidden = false;
         }
     }
 })();
