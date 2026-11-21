@@ -99,6 +99,10 @@
 					if (!prefixes.some(function (p) { return item.uniqueName.startsWith(p); })) return false;
 				}
 				if (uniqueNameExcludePrefix !== undefined && item.uniqueName.startsWith(uniqueNameExcludePrefix)) return false; // filter out what we know doesn't belong in the list
+				// filter down K-Drives to deck only
+				if (prefixes !== undefined && prefixes.some(function (p) { return p.includes("Hoverboard"); })) {
+					if (!item.uniqueName.includes("Deck")) return false;
+				}
 				return true;
 			});
 					
