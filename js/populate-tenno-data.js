@@ -3,6 +3,12 @@
 
     var repoName = document.documentElement.dataset.repositoryName || "warframe-mastery-tracker";
     var storageKey = repoName + ":tennoData";
+
+    // Overview elements
+    var statItemsCompleted = document.getElementById("stat-items-completed");
+    var statXpEarned = document.getElementById("stat-xp-earned");
+    var statMasteryRank = document.getElementById("stat-mastery-rank");
+    var statXpToNextMr = document.getElementById("stat-xp-to-next-mr");
     
     var playerData = null;
 
@@ -24,12 +30,18 @@
             playerData.Results[0] &&
             playerData.Results[0].DisplayName;
 
-        var nameElement = document.getElementById("player-name");
+        var statPlayername = document.getElementById("player-name");
         var separatorElement = document.getElementById("player-name-separator");
-        if (nameElement && displayName) {
-            nameElement.textContent = displayName;
-            nameElement.hidden = false;
+        if (statPlayername && displayName) {
+            statPlayername.textContent = displayName;
+            statPlayername.hidden = false;
             separatorElement.hidden = false;
         }
+
+    // XP to next MR from current earned XP
+    if (statXpToNextMr && statXpEarned) {
+        statXpToNextMr.textContent = xpToNextMR(currentXp);
+    }
+    
     }
 })();
