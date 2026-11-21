@@ -32,7 +32,7 @@ body {
 	padding: 0 0px;
 }
 
-.site-header { padding-top: 28px; padding-bottom: 8px; text-align: center; }
+.site-header { padding-bottom: 8px; text-align: center; }
 .site-header h1 { margin: 0; font-size: 1.6rem; }
 .header-row { display: flex; flex-wrap: nowrap; justify-content: space-between; align-items: center; gap: 8px 16px; margin-top: 6px; }
 .sub {
