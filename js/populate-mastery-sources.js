@@ -62,27 +62,6 @@
 		if (statMrPossible) statMrPossible.textContent = xpToMasteryRank(overviewXpPossible);
 	}
 
-	function xpToMasteryRank(xp) {
-		let mr = 0;
-		let xpTotalTarget = 2500; // inital needed for next rank
-		// XP required for a rank is 2500 * (that MR squared)
-		
-		while ( mr < 30 ) { // because LR math is different
-			if  (xp > xpTotalTarget) {
-				mr++; // enough for next rank
-				xpTotalTarget = 2500 * mr * mr; // bvmp up to the next target
-			}
-			else return mr; // not enough to hit the next rank
-		}
-
-		// proceed through LRs
-		while (xp > xpTotalTarget) {
-			mr++;
-			xpTotalTarget += 147500;
-		}
-		return mr;
-	}
-	
 	function createItemListHeader(details) {
 		const headerRow = document.createElement("div");
 		headerRow.className = "item-row item-row-header";
