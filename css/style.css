@@ -16,6 +16,7 @@
 :root[data-theme="light"] { color-scheme: light; }
 :root[data-theme="dark"]  { color-scheme: dark; }
 
+[hidden] { display: none; }
 * { box-sizing: border-box; }
 
 body {
@@ -144,7 +145,6 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   border: 1px solid var(--accent);
   border-radius: 8px;
 }
-.hint[hidden] { display: none; }
 .hint p { margin: 0; flex: 1 1 240px; }
 
 .profile {
@@ -206,7 +206,7 @@ summary { cursor: pointer; font-weight: 600; font-size: 1.05rem; }
 .filters { --fw: 17rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
 .filters > input { flex: 0 0 100%; width: 100%; min-width: 0; }
 .filters > select { flex: 0 0 min(var(--fw), 100%); width: min(var(--fw), 100%); }
-.filters[hidden] { display: none; }
+[hidden] { display: none; }
 
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; }
@@ -246,7 +246,6 @@ td input[type="checkbox"] { width: 18px; height: 18px; }
 .list.sub .list-name { font-weight: 500; }
 .list.sub.sub2 { background: var(--surface); }
 #other-sources { margin-top: 0; }
-#other-sources[hidden] { display: none; }
 .other-note { margin: 0 4px 6px; }
 .other-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 4px 14px 14px; }
 .xp-input { width: 180px; }
