@@ -206,6 +206,7 @@ summary { cursor: pointer; font-weight: 600; font-size: 1.05rem; }
 .filters { --fw: 17rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
 .filters > input { flex: 0 0 100%; width: 100%; min-width: 0; }
 .filters > select { flex: 0 0 min(var(--fw), 100%); width: min(var(--fw), 100%); }
+.filters[hidden] { display: none; }
 
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; }
