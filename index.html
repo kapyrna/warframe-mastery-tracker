@@ -30,9 +30,23 @@
 				</h2>
 				<div class="profile">
 					<div class="stat">
-						<span class="label">Mastery rank</span>
+						<span class="label">
+							<span>Mastery rank</span>
+							/
+							<span id="stat-mr-potential">MR 0</span>
+						</span>
 						<span class="value">MR <!-- prefix  -->
 							<span id="stat-mastery-rank">0</span> <!-- variable  -->
+						</span>
+					</div>
+					<div class="stat" style="white-space: nowrap;">
+						<span class="label">
+							<span>Items mastered</span>
+							/
+							<span id="stat-items-possible">0</span>
+						</span>
+						<span class="value">
+							<span id="stat-items-completed">0</span>
 						</span>
 					</div>
 					<div class="stat" style="white-space: nowrap;">
@@ -43,19 +57,10 @@
 						</span>
 						<span class="value" id="stat-xp-earned">0</span> <!-- variable we will use to calculate earned MR  -->
 					</div>
+
 					<div class="stat">
-						<span class="label">
-							<span>Items mastered</span>
-							/
-							<span id="stat-items-possible">0</span>
-						</span>
-						<span class="value">
-							<span id="stat-items-completed">0</span>
-						</span>
-					</div>
-					<div class="stat">
-						<span class="label">If everything is maxed</span>
-						<span class="value">MR <span id="stat-mr-potential">MR 0</span></span>
+						<span class="label">XP to next MR</span>
+						<span class="value">0</span>
 					</div>
 				</div>
 			</section>
