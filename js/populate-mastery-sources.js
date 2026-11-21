@@ -147,7 +147,7 @@
 		countSpan.textContent = "0/0";
 
 		const xpSpan = document.createElement("span");
-		xpSpan.className = "category-xp";
+		xpSpan.className = "category-xp sentence";
 		xpSpan.textContent = "0 XP";
 		
 		summary.append(headingSpan, separatorSpan, countSpan, separatorSpan.cloneNode(true), xpSpan);
