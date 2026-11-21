@@ -1,6 +1,9 @@
 (function () {
     "use strict";
 
+    var repoName = document.documentElement.dataset.repositoryName || "warframe-mastery-tracker";
+    var storageKey = repoName + ":tennoData";
+    
     var playerData = null;
 
     try {
