@@ -8,7 +8,8 @@
 
 	// reference the relevant HTML elements
 	const inputElement = document.getElementById("player-id");
-	const buttonElement = document.getElementById("button-fetch");
+	const buttonElementManual = document.getElementById("button-fetch-manual");
+	const buttonElementAutomated = document.getElementById("button-fetch-automated");
 	const profileJsonInput = document.getElementById("profile-json-input");
 	const saveProfileButton = document.getElementById("button-save-profile");
 
@@ -35,7 +36,7 @@
 	}
 
 	 function updateButtonState() {
-		 buttonElement.disabled = !isValid(inputElement.value.trim());
+		 buttonElementManual.disabled = !isValid(inputElement.value.trim());
 	}
 
 	inputElement.value = readStoredAccountIdentifier();
@@ -43,7 +44,7 @@
 
 	inputElement.addEventListener("input", updateButtonState);
 
-	buttonElement.addEventListener("click", function () {
+	buttonElementManual.addEventListener("click", function () {
 		const accountIdentifier = inputElement.value.trim();
 		if (!isValid(accountIdentifier)) return;
 		writeStoredAccountIdentifier(accountIdentifier);
