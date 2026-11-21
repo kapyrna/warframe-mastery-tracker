@@ -29,3 +29,17 @@ function xpToNextMR(xp) {
     var nextThreshold = 2500 * 30 * 30 + (currentRank - 30 + 1) * 147500;
     return nextThreshold - xp;
 }
+
+function setItemRank(uniqueName, rank) {
+    var row = document.querySelector('.item-row[data-unique-name="' + uniqueName + '"]');
+    if (!row) {
+        console.log("[populate-tenno-data] No row found for uniqueName: " + uniqueName);
+        return;
+    }
+
+    var levelInput = row.querySelector(".item-current-level");
+    if (levelInput) {
+        levelInput.value = rank;
+        levelInput.dispatchEvent(new Event("change"));
+    }
+}
