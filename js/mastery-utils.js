@@ -9,6 +9,7 @@ function xpToMasteryRank(xp) {
 			xpTotalTarget = 2500 * mr * mr; // bvmp up to the next target
 		}
 	else return mr; // not enough to hit the next rank
+	}
 }
 
 function xpToNextMR(xp) {
