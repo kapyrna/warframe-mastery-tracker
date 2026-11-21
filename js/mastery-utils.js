@@ -10,7 +10,15 @@ function xpToMasteryRank(xp) {
 		}
 	else return mr; // not enough to hit the next rank
 	}
-	return mr; // only once there's no more possible ranks with the passed XP value, LRs not handled yet
+	
+	// Legendary ranks: 147500 XP each beyond MR 30
+    let lrThreshold = 2500 * 30 * 30; // 2,250,000
+    while (xp >= lrThreshold + 147500) {
+        lrThreshold += 147500;
+        mr++;
+    }
+	
+	return mr; // only once there's no more possible ranks with the passed XP value
 }
 
 function xpToNextMR(xp) {
