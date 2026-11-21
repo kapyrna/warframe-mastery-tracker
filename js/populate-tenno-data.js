@@ -47,7 +47,7 @@
     }
 
     // load intrinsics progress
-    var SKILL_TO_UNIQUE_NAME = { // PlayerSkills key → intrinsic uniqueName
+    var INTRINSICS_TO_UNIQUE_NAME = { // PlayerSkills key → intrinsic uniqueName
         LPS_TACTICAL: "/Intrinsics/Railjack/Tactical",
         LPS_PILOTING: "/Intrinsics/Railjack/Piloting",
         LPS_GUNNERY: "/Intrinsics/Railjack/Gunnery",
@@ -59,17 +59,19 @@
         LPS_DRIFT_ENDURANCE: "/Intrinsics/Drifter/Endurance"
     };
     if (playerData) {
-        var playerSkills =
+        var playerIntrinsics =
             playerData.Results &&
             playerData.Results[0] &&
             playerData.Results[0].PlayerSkills;
 
-        if (playerSkills) {
-            Object.keys(SKILL_TO_UNIQUE_NAME).forEach(function (skillKey) {
-                var rank = playerSkills[skillKey];
-                if (rank === undefined) return;
-                var uniqueName = SKILL_TO_UNIQUE_NAME[skillKey];
-                setItemRank(uniqueName, rank);
+        if (playerData) {
+            document.addEventListener("mastery-sources-ready", function () {
+                Object.keys(INTRINSICS_TO_UNIQUE_NAME).forEach(function (intrinsicsKey) {
+                    var rank = playerIntrinsics[intrinsicsKey];
+                    if (rank === undefined) return;
+                    var uniqueName = INTRINSICS_TO_UNIQUE_NAME[intrinsicsKey];
+                    setItemRank(uniqueName, rank);
+                });
             });
         }
 };
