@@ -40,6 +40,7 @@
 
     // XP to next MR from current earned XP
     if (statXpToNextMr && statXpEarned) {
+        var currentXp = parseInt(statXpEarned.textContent) || 0;
         statXpToNextMr.textContent = xpToNextMR(currentXp);
     }
     
