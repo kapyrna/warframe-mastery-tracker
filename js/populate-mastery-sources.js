@@ -94,8 +94,13 @@
 			const exportData = await fileLoadResponse.json();
 			const cardItems = (exportData[exportKey] || []).filter(function (item) {
 				if (item.productCategory !== itemType) return false; // filter to specified and exclude others like warframes versus archwing/necramech
+				let prefixes = undefined;
 				if (uniqueNamePrefix !== undefined) { // if we're including by pattern to narrow down like in secondaries
-					const prefixes = Array.isArray(uniqueNamePrefix) ? uniqueNamePrefix : [uniqueNamePrefix];
+					if (Array.isArray(uniqueNamePrefix)) { // check for array and store
+			            prefixes = uniqueNamePrefix;
+			        } else { // otherwise just take the string
+			            prefixes = [uniqueNamePrefix];
+			        }
 					if (!prefixes.some(function (p) { return item.uniqueName.startsWith(p); })) return false;
 				}
 				if (uniqueNameExcludePrefix !== undefined && item.uniqueName.startsWith(uniqueNameExcludePrefix)) return false; // filter out what we know doesn't belong in the list
