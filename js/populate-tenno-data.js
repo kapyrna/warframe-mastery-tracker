@@ -7,7 +7,7 @@
     var playerData = null;
 
     try {
-        var raw = localStorage.getItem("tennoData");
+        var raw = localStorage.getItem(storageKey);
         if (!raw) {
             console.log("[populate-tenno-data] No player JSON found in localStorage.");
         } else {
