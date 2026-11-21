@@ -205,6 +205,9 @@
 	function createItemRow(itemName, uniqueName, currentLevel, xpPerLevel, maxLevel) {
 		const row = document.createElement("div");
 		row.className = "item-row";
+		row.dataset.uniqueName = uniqueName;
+		row.dataset.xpPerLevel = xpPerLevel;
+		row.dataset.maxLevel = maxLevel;
 	
 		// checkbox
 		const checkbox = document.createElement("input");
