@@ -121,10 +121,15 @@
 					</div>
 
 					<div class="row" id="importer-method-select">
-						<!--- radio options, neither selected by default -->
-						<!--- option to enable the manual paste of JSON, save as localStorage key -->
-						<!--- option to enable the cloudflare worker, save as localStorage key -->
-						<!--- option to hide this div, save as localstorageKey -->
+						<label>
+							<input type="radio" name="importer-method" value="manual"> Paste JSON manually
+    					</label>
+						<label>
+					        <input type="radio" name="importer-method" value="worker"> Fetch via Cloudflare Worker
+					    </label>
+						<label>
+					        <input type="radio" name="importer-method" value="none"> Don't import player data
+					    </label>
 					</div>
 					
 					<div class="row" hidden> <!--- textbox and button to save player JSON to localStorage -->
