@@ -69,7 +69,7 @@
                 var rank = playerSkills[skillKey];
                 if (rank === undefined) return;
                 var uniqueName = SKILL_TO_UNIQUE_NAME[skillKey];
-                // setItemRank(uniqueName, rank);
+                setItemRank(uniqueName, rank);
             });
         }
 };
