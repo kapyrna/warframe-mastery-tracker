@@ -48,7 +48,7 @@ body {
 .theme-toggle {
 	--icon-size: 32; /* change this value to resize the theme picker icons */
 	display: inline-grid;
-	grid-template-columns: repeat(3, calc(var(--icon-size) * 1px));
+	grid-template-columns: repeat(2, calc(var(--icon-size) * 1px));
 	flex: none;
 	margin-left: auto;
 }
