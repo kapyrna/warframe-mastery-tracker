@@ -368,3 +368,8 @@ button:disabled { opacity: .5; cursor: not-allowed; }
 	align-items: flex-start;
     gap: 4px;
 }
+
+input[type="radio"]:disabled + span,
+input[type="radio"]:disabled ~ span {
+    opacity: 0.4;
+}
