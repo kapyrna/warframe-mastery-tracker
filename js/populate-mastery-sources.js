@@ -307,9 +307,14 @@
 	
 	            const completedCount = 0;
 	            const totalCount = nodeItems.length;
-	
+
+				const systemHeader = document.createElement("div");
+				systemHeader.className = "node-system-header";
+				systemHeader.textContent = systemName;
+				parentDetails.append(systemHeader);
+				
 	            for (const node of nodeItems) {
-	                parentDetails.append(createNodeRow(node.name));
+					parentDetails.append(createNodeRow(node.name));
 	            }
 	
 	            notifyParent(completedCount, totalCount);
@@ -476,9 +481,26 @@
 	);
 
 	const originSystems = [ // stage the regions within origin system
-	    "Mercury", "Venus", "Earth", "Mars", "Phobos", "Ceres",
-	    "Jupiter", "Europa", "Saturn", "Uranus", "Neptune", "Pluto",
-	    "Eris", "Sedna", "Void", "Kuva Fortress", "Lua", "Zariman", "Deimos"
+	    "Earth",
+		"Venus",
+		"Mercury",
+		"Mars",
+		"Deimos"
+		"Phobos",
+		"Ceres",
+		"Jupiter",
+		"Europa",
+		"Saturn",
+		"Uranus",
+		"Neptune",
+		"Pluto",
+		"Sedna",
+		"Eris",
+		"Void",
+		"Lua",
+		"Kuva Fortress",
+		"Zariman",
+
 	];
 	for (const system of originSystems) { // loop through the planets
 	    createNodeList(originDetails, updateOriginCount, "data/ExportRegions_en.json", "ExportRegions", undefined, system)
