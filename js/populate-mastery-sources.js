@@ -485,7 +485,7 @@
 		"Venus",
 		"Mercury",
 		"Mars",
-		"Deimos"
+		"Deimos",
 		"Phobos",
 		"Ceres",
 		"Jupiter",
