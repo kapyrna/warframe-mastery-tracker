@@ -302,8 +302,8 @@
 	            });
 	
 	            nodeItems.sort(function (a, b) {
-	                return a.name.localeCompare(b.name);
-	            });
+				    return a.missionIndex - b.missionIndex;
+				});
 	
 	            const completedCount = 0;
 	            const totalCount = nodeItems.length;
@@ -483,25 +483,25 @@
 	);
 
 	const originRegions = [ // stage the regions within origin system
+	    "Mercury",
+	    "Venus",
 	    "Earth",
-		"Venus",
-		"Mercury",
-		"Mars",
-		"Deimos",
-		"Phobos",
-		"Ceres",
-		"Jupiter",
-		"Europa",
-		"Saturn",
-		"Uranus",
-		"Neptune",
-		"Pluto",
-		"Sedna",
-		"Eris",
-		"Void",
-		"Lua",
-		"Kuva Fortress",
-		"Zariman",
+	    "Mars",
+	    "Jupiter",
+	    "Saturn",
+	    "Uranus",
+	    "Neptune",
+	    "Pluto",
+	    "Ceres",
+	    "Eris",
+	    "Sedna",
+	    "Europa",
+	    "Void",
+	    "Phobos",
+	    "Deimos",
+	    "Lua",
+	    "Kuva Fortress",
+	    "Zariman",
 	];
 
 	const proximaRegions = [
