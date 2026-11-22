@@ -80,9 +80,13 @@
     function applyImporterMethod(method) {
 		if (rowImporterInstructions) {
 			// set the none instructions unhidden only for method == none
+			document.getElementById("instruction-element-none").hidden = (method !== "none");
 			// set the fetch instructions unhidden when method != none
+			document.getElementById("instruction-element-fetch").hidden = (method === "none");
 			// set the fetch manual instructions unhidden when method == manual
-			// set the fetch automatic instructions unhidden when method == automatic
+			document.getElementById("instruction-element-fetch-json").hidden = (method !== "manual");
+			// set the fetch automatic instructions unhidden when method == worker
+			document.getElementById("instruction-element-fetch-automatic").hidden = (method !== "worker");
 		}
         if (rowPlayerId) rowPlayerId.hidden = (method === "none");
         if (rowJsonPaste) rowJsonPaste.hidden = (method !== "manual");
