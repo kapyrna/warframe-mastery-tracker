@@ -13,7 +13,7 @@
 	const profileJsonInput = document.getElementById("profile-json-input");
 	const saveProfileButton = document.getElementById("button-save-profile");
 
-	if (!inputElement || !buttonElementManual) return; //exit if the page didn't fully load
+	if (!inputElement || !buttonElementManual || !buttonElementAutomated) return; //exit if the page didn't fully load
 
 	function isValid(value) {
 		return regexAccountIdentifier.test(value);
