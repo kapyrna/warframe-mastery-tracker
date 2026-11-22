@@ -69,4 +69,30 @@
 			saveProfileButton.disabled = true;
 		});
 	}
+
+	// importer method picker — show/hide rows based on selection
+    var importerMethodKey = repositoryName + ":importerMethod";
+    var importerRadios = document.querySelectorAll('input[name="importer-method"]');
+    var rowPlayerId = inputElement && inputElement.closest(".row");
+    var rowJsonPaste = profileJsonInput && profileJsonInput.closest(".row");
+
+    function applyImporterMethod(method) {
+        if (rowPlayerId) rowPlayerId.hidden = (method === "none");
+        if (rowJsonPaste) rowJsonPaste.hidden = (method !== "manual");
+        if (buttonElementManual) buttonElementManual.hidden = (method !== "manual");
+        if (buttonElementAutomated) buttonElementAutomated.hidden = (method !== "worker");
+    }
+
+    // restore saved selection, default to "none"
+    var savedMethod = localStorage.getItem(importerMethodKey) || "none";
+    var savedRadio = document.querySelector('input[name="importer-method"][value="' + savedMethod + '"]');
+    if (savedRadio) savedRadio.checked = true;
+    applyImporterMethod(savedMethod);
+
+    importerRadios.forEach(function (radio) {
+        radio.addEventListener("change", function () {
+            localStorage.setItem(importerMethodKey, radio.value);
+            applyImporterMethod(radio.value);
+        });
+    });
 })();
