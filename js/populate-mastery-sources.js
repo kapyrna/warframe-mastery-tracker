@@ -288,7 +288,7 @@
 	    return row;
 	}
 	
-	function createNodeList(parentDetails, notifyParent, dataPath, exportKey, productCategory, systemName) {
+	function createNodeList(parentDetails, notifyParent, dataPath, exportKey, productCategory, systemName, hasRegions) {
 	    return fetch(dataPath)
 	        .then(function (response) {
 	            if (!response.ok) throw new Error("Failed to load " + dataPath);
@@ -307,11 +307,13 @@
 	
 	            const completedCount = 0;
 	            const totalCount = nodeItems.length;
-
-				const systemHeader = document.createElement("div");
-				systemHeader.className = "node-system-header";
-				systemHeader.textContent = systemName;
-				parentDetails.append(systemHeader);
+				
+				if (hasRegions) {
+					const systemHeader = document.createElement("div");
+					systemHeader.className = "node-system-header";
+					systemHeader.textContent = systemName;
+					parentDetails.append(systemHeader);
+				}
 				
 	            for (const node of nodeItems) {
 					parentDetails.append(createNodeRow(node.name));
@@ -503,18 +505,18 @@
 
 	];
 	for (const system of originSystems) { // loop through the planets
-	    createNodeList(originDetails, updateOriginCount, "data/ExportRegions_en.json", "ExportRegions", undefined, system)
+	    createNodeList(originDetails, updateOriginCount, "data/ExportRegions_en.json", "ExportRegions", undefined, system, true)
 	        .catch(function (error) { originDetails.append("Failed to load " + system + " data."); });
 	}
-	createNodeList(proximaDetails, updateProximaCount, "data/ExportProxima_en.json", "ExportProxima", "ProximaNode") // railjack
+	createNodeList(proximaDetails, updateProximaCount, "data/ExportProxima_en.json", "ExportProxima", "ProximaNode", true) // railjack
     .catch(function (error) { proximaDetails.append("Failed to load Empyrean Proxima data."); });
-	createNodeList(duviriDetails, updateDuviriCount, "data/ExportRegions_en.json", "ExportRegions", undefined, "Duviri")
+	createNodeList(duviriDetails, updateDuviriCount, "data/ExportRegions_en.json", "ExportRegions", undefined, "Duviri", false)
     	.catch(function (error) { duviriDetails.append("Failed to load Duviri data."); });
-	createNodeList(hollvaniaDetails, updateHollvaniaCount, "data/ExportRegions_en.json", "ExportRegions", undefined, "Höllvania")
+	createNodeList(hollvaniaDetails, updateHollvaniaCount, "data/ExportRegions_en.json", "ExportRegions", undefined, "Höllvania", false)
 	    .catch(function (error) { hollvaniaDetails.append("Failed to load Höllvania data."); });
-	createNodeList(darkRefractoryDetails, updateDarkRefractoryCount, "data/ExportRegions_en.json", "ExportRegions", undefined, "Dark Refractory, Deimos")
+	createNodeList(darkRefractoryDetails, updateDarkRefractoryCount, "data/ExportRegions_en.json", "ExportRegions", undefined, "Dark Refractory, Deimos", false)
 	    .catch(function (error) { darkRefractoryDetails.append("Failed to load Dark Refractory data."); });
-	createNodeList(tauDetails, updateTauCount, "data/ExportTau_en.json", "ExportTau", "TauNode")
+	createNodeList(tauDetails, updateTauCount, "data/ExportTau_en.json", "ExportTau", "TauNode", false)
     	.catch(function (error) { tauDetails.append("Failed to load Tau data."); });
 	// figure out how much each gives for XP
 
