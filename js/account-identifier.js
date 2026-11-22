@@ -3,8 +3,8 @@
 	"use strict";
 	
 	const repositoryName = document.documentElement.dataset.repositoryName || "warframe-mastery-tracker";
-	const STORAGE_KEY = repositoryName + ":accountid";
-	const VALID_PATTERN = /^[A-Za-z0-9]{24}$/; // regex sorcery
+	const storageKeyAccountIdentifier = repositoryName + ":accountid";
+	const regexAccountIdentifier = /^[A-Za-z0-9]{24}$/; // regex sorcery
 
 	// reference the relevant HTML elements
 	const inputElement = document.getElementById("player-id");
@@ -16,12 +16,12 @@
 	if (!inputElement || !buttonElementManual) return; //exit if the page didn't fully load
 
 	function isValid(value) {
-		return VALID_PATTERN.test(value);
+		return regexAccountIdentifier.test(value);
 	}
 
 	function readStoredAccountIdentifier() {
 		try {
-			return localStorage.getItem(STORAGE_KEY) || "";
+			return localStorage.getItem(storageKeyAccountIdentifier) || "";
 		}
 		catch (error) {
 			return "";
@@ -30,7 +30,7 @@
 
 	function writeStoredAccountIdentifier(accountIdentifier) {
 		try {
-			localStorage.setItem(STORAGE_KEY, accountIdentifier);
+			localStorage.setItem(storageKeyAccountIdentifier, accountIdentifier);
 		}
 		catch (error) {}
 	}
