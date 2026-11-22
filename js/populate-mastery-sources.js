@@ -467,12 +467,12 @@
 	
 	// star chart
 	// separate by system then by planet
-	const { section: originSection, details: originDetails, updateCount: updateOriginCount, updateXp: updateOriginNodesXp } = createCategoryCard("Origin System", false, updateStarchartCount, updateStarchartXp);
-	const { section: proximaSection, details: proximaDetails, updateCount: updateProximaCount, updateXp: updateProximaNodesXp } = createCategoryCard("Empyrean Proxima", false, updateStarchartCount, updateStarchartXp);
-	const { section: duviriSection, details: duviriDetails, updateCount: updateDuviriCount, updateXp: updateDuviriNodesXp } = createCategoryCard("Duviri", false, updateStarchartCount, updateStarchartXp);
-	const { section: hollvaniaSection, details: hollvaniaDetails, updateCount: updateHollvaniaCount, updateXp: updateHollvaniaNodesXp } = createCategoryCard("Höllvania", false, updateStarchartCount, updateStarchartXp);
-	const { section: darkRefractorySection, details: darkRefractoryDetails, updateCount: updateDarkRefractoryCount, updateXp: updateDarkRefactoryNodesXp } = createCategoryCard("Dark Refractory", false, updateStarchartCount, updateStarchartXp);
-	const { section: tauSection, details: tauDetails, updateCount: updateTauCount, updateXp: updateTauNodesXp } = createCategoryCard("Tau", false, updateStarchartCount, updateStarchartXp);
+	const { section: originSection, details: originDetails, updateCount: updateOriginCount, updateXp: updateOriginNodesXp } = createCategoryCard("Origin System", true, updateStarchartCount, updateStarchartXp);
+	const { section: proximaSection, details: proximaDetails, updateCount: updateProximaCount, updateXp: updateProximaNodesXp } = createCategoryCard("Empyrean Proxima", true, updateStarchartCount, updateStarchartXp);
+	const { section: duviriSection, details: duviriDetails, updateCount: updateDuviriCount, updateXp: updateDuviriNodesXp } = createCategoryCard("Duviri", true, updateStarchartCount, updateStarchartXp);
+	const { section: hollvaniaSection, details: hollvaniaDetails, updateCount: updateHollvaniaCount, updateXp: updateHollvaniaNodesXp } = createCategoryCard("Höllvania", true, updateStarchartCount, updateStarchartXp);
+	const { section: darkRefractorySection, details: darkRefractoryDetails, updateCount: updateDarkRefractoryCount, updateXp: updateDarkRefactoryNodesXp } = createCategoryCard("Dark Refractory", true, updateStarchartCount, updateStarchartXp);
+	const { section: tauSection, details: tauDetails, updateCount: updateTauCount, updateXp: updateTauNodesXp } = createCategoryCard("Tau", true, updateStarchartCount, updateStarchartXp);
 	starchartDetails.append(
 		originSection,
 		proximaSection,
