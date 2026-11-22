@@ -37,9 +37,7 @@
 
 	 function updateButtonState() {
 		 buttonElementManual.disabled = !isValid(inputElement.value.trim());
-		 buttonElementManual.hidden = !isValid(inputElement.value.trim());
 		 buttonElementAutomated.disabled = !isValid(inputElement.value.trim());
-		 buttonElementAutomated.hidden = !isValid(inputElement.value.trim());
 	}
 
 	inputElement.value = readStoredAccountIdentifier();
