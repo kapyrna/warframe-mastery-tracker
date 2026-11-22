@@ -508,7 +508,7 @@
 	    createNodeList(originDetails, updateOriginCount, "data/ExportRegions_en.json", "ExportRegions", undefined, system, true)
 	        .catch(function (error) { originDetails.append("Failed to load " + system + " data."); });
 	}
-	createNodeList(proximaDetails, updateProximaCount, "data/ExportProxima_en.json", "ExportProxima", "ProximaNode", true) // railjack
+	createNodeList(proximaDetails, updateProximaCount, "data/ExportProxima_en.json", "ExportProxima", "ProximaNode", undefined, true) // railjack
     .catch(function (error) { proximaDetails.append("Failed to load Empyrean Proxima data."); });
 	createNodeList(duviriDetails, updateDuviriCount, "data/ExportRegions_en.json", "ExportRegions", undefined, "Duviri", false)
     	.catch(function (error) { duviriDetails.append("Failed to load Duviri data."); });
