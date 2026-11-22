@@ -482,7 +482,7 @@
 		tauSection
 	);
 
-	const originSystems = [ // stage the regions within origin system
+	const originRegions = [ // stage the regions within origin system
 	    "Earth",
 		"Venus",
 		"Mercury",
@@ -502,14 +502,25 @@
 		"Lua",
 		"Kuva Fortress",
 		"Zariman",
-
 	];
-	for (const system of originSystems) { // loop through the planets
-	    createNodeList(originDetails, updateOriginCount, "data/ExportRegions_en.json", "ExportRegions", undefined, system, true)
+
+	const proximaRegions = [
+	    "Earth Proxima",
+	    "Venus Proxima",
+	    "Saturn Proxima",
+	    "Neptune Proxima",
+	    "Pluto Proxima",
+	    "Veil Proxima",
+	];
+	
+	for (const region of originRegions) { // loop through the planets
+	    createNodeList(originDetails, updateOriginCount, "data/ExportRegions_en.json", "ExportRegions", undefined, region, true)
 	        .catch(function (error) { originDetails.append("Failed to load " + system + " data."); });
 	}
-	createNodeList(proximaDetails, updateProximaCount, "data/ExportProxima_en.json", "ExportProxima", "ProximaNode", undefined, true) // railjack
-    .catch(function (error) { proximaDetails.append("Failed to load Empyrean Proxima data."); });
+	for (const region of proximaRegions) {
+	    createNodeList(proximaDetails, updateProximaCount, "data/ExportProxima_en.json", "ExportProxima", "ProximaNode", region, true)
+	        .catch(function (error) { proximaDetails.append("Failed to load " + region + " data."); });
+	}
 	createNodeList(duviriDetails, updateDuviriCount, "data/ExportRegions_en.json", "ExportRegions", undefined, "Duviri", false)
     	.catch(function (error) { duviriDetails.append("Failed to load Duviri data."); });
 	createNodeList(hollvaniaDetails, updateHollvaniaCount, "data/ExportRegions_en.json", "ExportRegions", undefined, "Höllvania", false)
