@@ -73,10 +73,17 @@
 	// importer method picker — show/hide rows based on selection
     var importerMethodKey = repositoryName + ":importerMethod";
     var importerRadios = document.querySelectorAll('input[name="importer-method"]');
-    var rowPlayerId = inputElement && inputElement.closest(".row");
-    var rowJsonPaste = profileJsonInput && profileJsonInput.closest(".row");
+	var rowImporterInstructions = document.getElementById("row-importer-instructions");
+	var rowPlayerId = document.getElementById("row-player-id");
+	var rowJsonPaste = document.getElementById("row-json-paste");
 
     function applyImporterMethod(method) {
+		if (rowImporterInstructions) {
+			// set the none instructions unhidden only for method == none
+			// set the fetch instructions unhidden when method != none
+			// set the fetch manual instructions unhidden when method == manual
+			// set the fetch automatic instructions unhidden when method == automatic
+		}
         if (rowPlayerId) rowPlayerId.hidden = (method === "none");
         if (rowJsonPaste) rowJsonPaste.hidden = (method !== "manual");
         if (buttonElementManual) buttonElementManual.hidden = (method !== "manual");
