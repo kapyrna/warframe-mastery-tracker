@@ -129,13 +129,13 @@
 						</p>
 					</div>
 
-					<div class="row" hidden> <!--- textbox and button to save player JSON to localStorage -->
+					<div class="row" id="row-player-id" hidden> <!--- textbox and button to save player JSON to localStorage -->
 						<input type="text" id="player-id" placeholder="Account ID" maxlength="24" autocomplete="off" spellcheck="false" aria-label="Account ID">
 						<button type="button" id="button-fetch-manual" disabled>Fetch</button> <!-- for manual -->
 						<button id="button-fetch-automated" type="button" disabled hidden>Fetch</button> <!-- for using the cloudflare worker -->
 					</div>
 					
-					<div class="row" hidden> <!--- textbox and button to save player JSON to localStorage -->
+					<div class="row" id="row-json-paste" hidden> <!--- textbox and button to save player JSON to localStorage -->
 						<textarea id="profile-json-input" rows="4" placeholder="Paste profile JSON here…"></textarea>
 						<button type="button" id="button-save-profile" disabled>Save</button>
 					</div>
