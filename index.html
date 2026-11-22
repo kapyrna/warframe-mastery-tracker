@@ -122,8 +122,10 @@
 					
 					<div class="row"> <!--- instructions that hopefully fit in four lines when narrowest -->
 						<p>
+							<span class="sentence" id="instruction-element-none">Select and de-select items from the lists above to track your progress.</span>
 							<span class="sentence" id="instruction-element-fetch" hidden><a href="https://github.com/kapyrna/warframe-mastery-tracker/tree/main#1-find-your-account-id" target="_blank" rel="noopener noreferrer">Find</a> and enter your player ID, then click Fetch.</span>
-							<span class="sentence" hidden>You have the option of either a one-time copy/paste of the JSON to import your Tenno, or using an automatic importer that can refresh each time the page loads.</span>
+							<span class="sentence" id="instruction-element-fetch-json" hidden>Then paste in the JSON that opens in a new tab, and save to load your progress.</span>
+							<span class="sentence" id="instruction-element-fetch-automatic" hidden>A CloudFlare worker will then run the API query behind the scenes to refresh your progress.</span>
 						</p>
 					</div>
 
