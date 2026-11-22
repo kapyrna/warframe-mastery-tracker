@@ -10,6 +10,7 @@
 	--good:			light-dark(#1f8a4c, #4cc38a);
 	--danger:		light-dark(#c23b3b, #e5707a);
 	--bar:			light-dark(#dbe7ef, #1f3a52);
+	--cell-padding: 8px;
 }
 
 /* for when manually selected with the toggle */
@@ -84,7 +85,7 @@ body {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 18px;
+  padding: var(--cell-padding);
   margin: 12px 0;
 }
 
