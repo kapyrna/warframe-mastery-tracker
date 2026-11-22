@@ -222,7 +222,8 @@
 		// Adversary check to bump up the max rank to 40
 		const isAdversary = adversaryWeapons.some(function (p) { return uniqueName.startsWith(p); });
 		if (isAdversary) {
-		    maxLevel = 40;
+		    // row.classlist.add("item-adversary"); use for variant filtering later
+			maxLevel = 40;
 		}
 
 		// currentl level, only numeric user input
