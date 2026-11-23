@@ -467,7 +467,7 @@
 	
 	// star chart
 	const starchartNote = document.createElement("p");
-	starchartNote.textContent = "Nodes are organized by system and region. Systems that do not award mastery points are excluded from this list.";
+	starchartNote.textContent = "Nodes are organized by system and region. Systems that do not award mastery points are excluded from this list. The first checkbox is for normal ccompletion and the second checkbox is for Steel Path.";
 	starchartDetails.append(starchartNote);
 	// separate by system then by planet
 	const { section: originSection, details: originDetails, updateCount: updateOriginCount, updateXp: updateOriginNodesXp } = createCategoryCard("Origin System", true, updateStarchartCount, updateStarchartXp);
