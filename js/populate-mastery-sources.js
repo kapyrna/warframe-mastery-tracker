@@ -279,12 +279,16 @@
 	    checkboxSteelPath.type = "checkbox";
 	    checkboxSteelPath.className = "item-checkbox";
 	    checkboxSteelPath.setAttribute("aria-label", nodeName + " (Steel Path)");
+
+		const checkboxWrapper = document.createElement("div");
+		checkboxWrapper.className = "node-checkbox-group";
+		checkboxWrapper.append(normalCheckbox, steelPathCheckbox);
+		row.append(checkboxWrapper);
 	
 	    const nameElement = document.createElement("span");
 	    nameElement.className = "item-name";
 	    nameElement.textContent = nodeName;
-	
-	    row.append(checkbox, checkboxSteelPath, nameElement);
+	    row.append(nameElement);
 	    return row;
 	}
 	
