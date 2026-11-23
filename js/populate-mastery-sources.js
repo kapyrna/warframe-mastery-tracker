@@ -516,7 +516,7 @@
 	for (const region of originRegions) { // loop through the planets
 	    createNodeList(originDetails, updateOriginCount, "data/ExportRegions_en.json", "ExportRegions", undefined, region, true)
 	        .catch(function (error) { originDetails.append("Failed to load " + region + " data."); });
-		createNodeList(originDetails, updateOriginCount, "data/ExportJunctions_en.json", "ExportJunctions", undefined, region, false)
+		createNodeList(originDetails, updateOriginCount, "data/ExportJunctions_en.json", "ExportJunctions", undefined, region, true)
         	.catch(function (error) { originDetails.append("Failed to load " + region + " junction data."); });
 	}
 	for (const region of proximaRegions) {
