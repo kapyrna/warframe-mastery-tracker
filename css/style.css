@@ -170,6 +170,21 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 	/* margin: 10px 0; */
 }
 
+.json-input-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.json-input-row textarea {
+    flex: 1;
+    min-width: 0;
+}
+
+.json-input-row button {
+    flex-shrink: 0;
+}
+
 button, .button {
   font: inherit;
   padding: 8px 14px;
