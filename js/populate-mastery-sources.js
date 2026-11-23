@@ -468,14 +468,14 @@
 	// star chart
 	// separate by system then by planet
 	const { section: originSection, details: originDetails, updateCount: updateOriginCount, updateXp: updateOriginNodesXp } = createCategoryCard("Origin System", true, updateStarchartCount, updateStarchartXp);
-	const { section: proximaSection, details: proximaDetails, updateCount: updateProximaCount, updateXp: updateProximaNodesXp } = createCategoryCard("Empyrean Proxima", true, updateStarchartCount, updateStarchartXp);
+	//  const { section: proximaSection, details: proximaDetails, updateCount: updateProximaCount, updateXp: updateProximaNodesXp } = createCategoryCard("Empyrean Proxima", true, updateStarchartCount, updateStarchartXp);
 	const { section: duviriSection, details: duviriDetails, updateCount: updateDuviriCount, updateXp: updateDuviriNodesXp } = createCategoryCard("Duviri", true, updateStarchartCount, updateStarchartXp);
 	const { section: hollvaniaSection, details: hollvaniaDetails, updateCount: updateHollvaniaCount, updateXp: updateHollvaniaNodesXp } = createCategoryCard("Höllvania", true, updateStarchartCount, updateStarchartXp);
 	const { section: darkRefractorySection, details: darkRefractoryDetails, updateCount: updateDarkRefractoryCount, updateXp: updateDarkRefactoryNodesXp } = createCategoryCard("Dark Refractory", true, updateStarchartCount, updateStarchartXp);
 	const { section: tauSection, details: tauDetails, updateCount: updateTauCount, updateXp: updateTauNodesXp } = createCategoryCard("Tau", true, updateStarchartCount, updateStarchartXp);
 	starchartDetails.append(
 		originSection,
-		proximaSection,
+		// proximaSection,
 		duviriSection,
 		hollvaniaSection,
 		darkRefractorySection,
@@ -504,14 +504,14 @@
 	    "Zariman",
 	];
 
-	const proximaRegions = [
+	/* const proximaRegions = [
 	    "Earth Proxima",
 	    "Venus Proxima",
 	    "Saturn Proxima",
 	    "Neptune Proxima",
 	    "Pluto Proxima",
 	    "Veil Proxima",
-	];
+	]; */
 
 	// card per region
 	for (const region of originRegions) {
@@ -529,13 +529,13 @@
 	        .catch(function (error) { regionDetails.append("Failed to load " + region + " junction data."); });
 	}
 	
-	for (const region of proximaRegions) {
+	/* for (const region of proximaRegions) {
 	    const { section: regionSection, details: regionDetails, updateCount: updateRegionCount } = createCategoryCard(region, false, updateProximaCount, updateProximaNodesXp);
 	    proximaDetails.append(regionSection);
 	
 	    createNodeList(regionDetails, updateRegionCount, "data/ExportProxima_en.json", "ExportProxima", "ProximaNode", region, false)
 	        .catch(function (error) { regionDetails.append("Failed to load " + region + " data."); });
-	}
+	} railjack missions currently do not award mastery */
 	
 	createNodeList(duviriDetails, updateDuviriCount, "data/ExportRegions_en.json", "ExportRegions", undefined, "Duviri", false)
     	.catch(function (error) { duviriDetails.append("Failed to load Duviri data."); });
