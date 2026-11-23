@@ -517,9 +517,14 @@
 	    const { section: regionSection, details: regionDetails, updateCount: updateRegionCount, updateXp: updateRegionXp } = createCategoryCard(region, false, updateOriginCount, updateOriginNodesXp);
 	    originDetails.append(regionSection);
 	
-	    createNodeList(regionDetails, updateRegionCount, updateRegionXp, "data/ExportRegions_en.json", "ExportRegions", undefined, region, false)
+	    function updateRegion(completedDelta, possibleDelta) {
+	        updateRegionCount(completedDelta, possibleDelta);
+	        // updateRegionXp handled separately — see note below
+	    }
+	
+	    createNodeList(regionDetails, updateRegionCount, "data/ExportRegions_en.json", "ExportRegions", undefined, region, false)
 	        .catch(function (error) { regionDetails.append("Failed to load " + region + " data."); });
-	    createNodeList(regionDetails, updateRegionCount, updateRegionXp, "data/ExportJunctions_en.json", "ExportJunctions", undefined, region, false)
+	    createNodeList(regionDetails, updateRegionCount, "data/ExportJunctions_en.json", "ExportJunctions", undefined, region, false)
 	        .catch(function (error) { regionDetails.append("Failed to load " + region + " junction data."); });
 	}
 	
