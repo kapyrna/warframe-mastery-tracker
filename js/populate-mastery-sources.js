@@ -514,7 +514,7 @@
 	];
 	
 	for (const region of originRegions) {
-	    const { section: regionSection, details: regionDetails, updateCount: updateRegionCount, updateXp: updateRegionXp } = createCategoryCard(region, false, updateOriginCount, updateOriginXp);
+	    const { section: regionSection, details: regionDetails, updateCount: updateRegionCount, updateXp: updateRegionXp } = createCategoryCard(region, false, updateOriginCount, updateOriginNodesXp);
 	    originDetails.append(regionSection);
 	
 	    createNodeList(regionDetails, updateRegionCount, updateRegionXp, "data/ExportRegions_en.json", "ExportRegions", undefined, region, false)
