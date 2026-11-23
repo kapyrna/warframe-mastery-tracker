@@ -316,7 +316,7 @@
 	    return row;
 	}
 	
-	function createNodeList(parentDetails, notifyParent, dataPath, exportKey, productCategory, systemName, hasRegions) {
+	function createNodeList(parentDetails, notifyParent, notifyParentXp, dataPath, exportKey, productCategory, systemName, hasRegions) {
 	    return Promise.all([
         	fetch(dataPath).then(function (response) {
 	            if (!response.ok) throw new Error("Failed to load " + dataPath);
@@ -362,12 +362,16 @@
 					listHeader.append(clearedHeader, nameHeader, xpHeader);
 					parentDetails.append(listHeader);
 				}
-				
+
+				let totalXp = 0;
 	            for (const node of nodeItems) {
+					const xp = nodeXpMap[node.uniqueName] ?? 0;
+					totalXp += xp * 2; // Normal + Steel Path
 					parentDetails.append(createNodeRow(node.name, node.uniqueName, node.masteryReq, nodeXpMap[node.uniqueName]));
 	            }
 	
 	            notifyParent(completedCount, totalCount);
+				notifyParentXp(0, totalXp);
 	        });
 	}
 
@@ -574,9 +578,9 @@
 	        // updateRegionXp handled separately — see note below
 	    }
 	
-	    createNodeList(regionDetails, updateRegionCount, "data/ExportRegions_en.json", "ExportRegions", undefined, region, false)
+	    createNodeList(regionDetails, updateRegionCount, updateRegionXp, "data/ExportRegions_en.json", "ExportRegions", undefined, region, false)
 	        .catch(function (error) { regionDetails.append("Failed to load " + region + " data."); });
-	    createNodeList(regionDetails, updateRegionCount, "data/ExportJunctions_en.json", "ExportJunctions", undefined, region, false)
+	    createNodeList(regionDetails, updateRegionCount, updateRegionXp, "data/ExportJunctions_en.json", "ExportJunctions", undefined, region, false)
 	        .catch(function (error) { regionDetails.append("Failed to load " + region + " junction data."); });
 	}
 	
