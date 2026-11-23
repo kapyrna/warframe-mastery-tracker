@@ -266,9 +266,11 @@
 	}
 
 	// star chart nodes are handled differentlyt than item ranks
-	function createNodeRow(nodeName) {
+	function createNodeRow(nodeName, nodeUniqueName, nodeMasteryReq) {
 	    const row = document.createElement("div");
 	    row.className = "node-row";
+		row.dataset.uniqueName = nodeUniqueName;
+		row.dataset.masteryReq = nodeMasteryReq;
 	
 	    const checkboxNormal = document.createElement("input");
 	    checkboxNormal.type = "checkbox";
@@ -333,7 +335,7 @@
 				}
 				
 	            for (const node of nodeItems) {
-					parentDetails.append(createNodeRow(node.name));
+					parentDetails.append(createNodeRow(node.name, node.uniqueName, node.masteryReq));
 	            }
 	
 	            notifyParent(completedCount, totalCount);
