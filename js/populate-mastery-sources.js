@@ -366,8 +366,9 @@
 				let totalXp = 0;
 	            for (const node of nodeItems) {
 					const xp = nodeXpMap[node.uniqueName] ?? 0;
+					if (xp === 0) continue;
 					totalXp += xp * 2; // Normal + Steel Path
-					parentDetails.append(createNodeRow(node.name, node.uniqueName, node.masteryReq, nodeXpMap[node.uniqueName]));
+					parentDetails.append(createNodeRow(node.name, node.uniqueName, node.masteryReq, xp));
 	            }
 	
 	            notifyParent(completedCount, totalCount);
