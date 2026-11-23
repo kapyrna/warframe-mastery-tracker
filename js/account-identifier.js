@@ -106,4 +106,20 @@
             applyImporterMethod(radio.value);
         });
     });
+
+	const buttonClearStorage = document.getElementById("button-clear-localstorage");
+	if (buttonClearStorage) {
+		buttonClearStorage.addEventListener("click", function () {
+			try {
+				const keysToRemove = [];
+				for (let i = 0; i < localStorage.length; i++) {
+					const key = localStorage.key(i);
+					if (key && key.startsWith(repositoryName + ":")) {
+						keysToRemove.push(key);
+					}
+				}
+				keysToRemove.forEach(function (key) { localStorage.removeItem(key); });
+			} catch (error) {}
+		});
+	}
 })();
