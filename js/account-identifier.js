@@ -67,6 +67,7 @@
 			} catch (error) {}
 			profileJsonInput.value = "";
 			saveProfileButton.disabled = true;
+			location.reload();
 		});
 	}
 
@@ -121,6 +122,7 @@
 					}
 				}
 				keysToRemove.forEach(function (key) { localStorage.removeItem(key); });
+				location.reload();
 			} catch (error) {}
 		});
 	}
