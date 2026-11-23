@@ -2,91 +2,91 @@
     "_comment": "Generated for warframe-mastery-tracker. Not an official Warframe Public Export file. Solar rail junctions not listed in Public Export — stub placeholder.",
     "ExportJunctions": [
         {
-            "uniqueName": "JunctionNode1",
+            "uniqueName": "EarthToVenusJunction",
             "name": "Venus Junction",
             "systemIndex": 2,
             "systemName": "Earth",
             "masteryReq": 0
         },
         {
-            "uniqueName": "JunctionNode2",
+            "uniqueName": "VenusToMercuryJunction",
             "name": "Mercury Junction",
             "systemIndex": 1,
             "systemName": "Venus",
             "masteryReq": 0
         },
         {
-            "uniqueName": "JunctionNode3",
+            "uniqueName": "EarthToMarsJunction",
             "name": "Mars Junction",
             "systemIndex": 2,
             "systemName": "Earth",
             "masteryReq": 0
         },
         {
-            "uniqueName": "JunctionNode4",
+            "uniqueName": "MarsToPhobosJunction",
             "name": "Phobos Junction",
             "systemIndex": 3,
             "systemName": "Mars",
             "masteryReq": 0
         },
         {
-            "uniqueName": "JunctionNode5",
+            "uniqueName": "MarsToCeresJunction",
             "name": "Ceres Junction",
             "systemIndex": 3,
             "systemName": "Mars",
             "masteryReq": 0
         },
         {
-            "uniqueName": "JunctionNode6",
+            "uniqueName": "CeresToJupiterJunction",
             "name": "Jupiter Junction",
             "systemIndex": 9,
             "systemName": "Ceres",
             "masteryReq": 0
         },
         {
-            "uniqueName": "JunctionNode7",
+            "uniqueName": "JupiterToEuropaJunction",
             "name": "Europa Junction",
-            "systemIndex": 9,
-            "systemName": "Ceres",
+            "systemIndex": 4,
+            "systemName": "Jupiter",
             "masteryReq": 0
         },
         {
-            "uniqueName": "JunctionNode8",
+            "uniqueName": "JupiterToSaturnJunction",
             "name": "Saturn Junction",
             "systemIndex": 4,
             "systemName": "Jupiter",
             "masteryReq": 0
         },
         {
-            "uniqueName": "JunctionNode9",
+            "uniqueName": "SaturnToUranusJunction",
             "name": "Uranus Junction",
             "systemIndex": 5,
             "systemName": "Saturn",
             "masteryReq": 0
         },
         {
-            "uniqueName": "JunctionNode10",
+            "uniqueName": "UranusToNeptuneJunction",
             "name": "Neptune Junction",
             "systemIndex": 6,
             "systemName": "Uranus",
             "masteryReq": 0
         },
         {
-            "uniqueName": "JunctionNode11",
+            "uniqueName": "NeptuneToPlutoJunction",
             "name": "Pluto Junction",
             "systemIndex": 7,
             "systemName": "Neptune",
             "masteryReq": 0
         },
         {
-            "uniqueName": "JunctionNode12",
+            "uniqueName": "PlutoToErisJunction",
             "name": "Eris Junction",
             "systemIndex": 8,
             "systemName": "Pluto",
             "masteryReq": 0
         },
         {
-            "uniqueName": "JunctionNode13",
+            "uniqueName": "ErisToSednaJunction",
             "name": "Sedna Junction",
             "systemIndex": 8,
             "systemName": "Pluto",
