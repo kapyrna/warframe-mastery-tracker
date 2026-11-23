@@ -413,3 +413,7 @@ input[type="radio"]:disabled ~ span {
 .node-row input[type="checkbox"] + input[type="checkbox"] {
     margin-left: 0.25rem;
 }
+
+.node-xp {
+    text-align: right;
+}
