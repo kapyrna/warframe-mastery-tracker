@@ -326,7 +326,7 @@
 	            if (!response.ok) return {};
 	            return response.json();
 	        })
-		})
+		])
 	        .then(function ([exportData, xpData]) {
 				const nodeXpMap = xpData.ExportNodeXp || {};
 				
