@@ -317,12 +317,19 @@
 	}
 	
 	function createNodeList(parentDetails, notifyParent, dataPath, exportKey, productCategory, systemName, hasRegions) {
-	    return fetch(dataPath)
-	        .then(function (response) {
+	    return Promise.all([
+        	fetch(dataPath).then(function (response) {
 	            if (!response.ok) throw new Error("Failed to load " + dataPath);
 	            return response.json();
+	        }),
+			fetch("data/ExportNodeXp_en.json").then(function (response) {
+	            if (!response.ok) return {};
+	            return response.json();
 	        })
-	        .then(function (exportData) {
+		})
+	        .then(function ([exportData, xpData]) {
+				const nodeXpMap = xpData.ExportNodeXp || {};
+				
 	            const nodeItems = (exportData[exportKey] || []).filter(function (item) {
 	                if (productCategory !== undefined && item.productCategory !== productCategory) return false;
 	                if (systemName !== undefined && item.systemName !== systemName) return false;
@@ -357,7 +364,7 @@
 				}
 				
 	            for (const node of nodeItems) {
-					parentDetails.append(createNodeRow(node.name, node.uniqueName, node.masteryReq));
+					parentDetails.append(createNodeRow(node.name, node.uniqueName, node.masteryReq, nodeXpMap[node.uniqueName]));
 	            }
 	
 	            notifyParent(completedCount, totalCount);
