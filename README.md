@@ -19,7 +19,9 @@ PC players can also find it in the `EE.log` file: search for `Logged in`, and th
 
 ### 2. Import your account
 
-Open the importer section and paste in your account ID.  This should automagically pull the game data for your profile and update the tracker's page to reflect your progress.  Note that this is not you logging-in, as always only enter passwords where they belong on sites you trust.  Your cached game data stays in this browser session in JavaScript `localStorage` and never sent out to other servers.
+Scroll to the importer section and paste in your account ID, then hit `Fetch`.  This should open your entire player profile in a new tab, copy all of it and paste into the profile JSOPN text box and hit `Save`.  Note that this is not you logging-into this website with your account password, as always only enter passwords where they belong on sites you trust.  Your cached game data stays in this browser session in JavaScript `localStorage` and never sent out to other servers.
+
+This site is read-only, and never uploads or writes to your account.
 
 ### 3. Read your progress in Overview
 
@@ -50,10 +52,10 @@ Toward the top is a three-position switch to change between Sol, Lua, and whatev
 
 - Everything stays in your browser. Your profile data is never sent to a server.
 - It's saved on this device so it's still there next time you visit. Clearing your browser's site data removes it, and it won't appear on your other devices.
-- To keep a backup or move to another device, press **Download my progress** (not implemented yet), then import that file on the other device.
 - **Clear saved data** removes everything the tracker has stored in this browser.
 
 ## The Disclaimers
 
 - The tracker is only as accurate as the data it's given. Warframe's data sources are unofficial and could change, which may temporarily break importing or the item list.
+- There is a significant amount of game data not found in the Public Export API, and is instead assembled for this site from community resources like [the Wiki](https://wiki.warframe.com).
 - This is an unofficial fan project and is not affiliated with [Digital Extremes](https://www.digitalextremes.com).  [Warframe](https://www.warframe.com) is a trademark of Digital Extremes.
