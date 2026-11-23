@@ -270,10 +270,10 @@
 	    const row = document.createElement("div");
 	    row.className = "node-row";
 	
-	    const checkbox = document.createElement("input");
-	    checkbox.type = "checkbox";
-	    checkbox.className = "item-checkbox";
-	    checkbox.setAttribute("aria-label", nodeName + " (Normal)");
+	    const checkboxNormal = document.createElement("input");
+	    checkboxNormal.type = "checkbox";
+	    checkboxNormal.className = "item-checkbox";
+	    checkboxNormal.setAttribute("aria-label", nodeName + " (Normal)");
 
 		const checkboxSteelPath = document.createElement("input");
 	    checkboxSteelPath.type = "checkbox";
@@ -282,7 +282,7 @@
 
 		const checkboxWrapper = document.createElement("div");
 		checkboxWrapper.className = "node-checkbox-group";
-		checkboxWrapper.append(normalCheckbox, steelPathCheckbox);
+		checkboxWrapper.append(checkboxNormal, steelPathCheckbox);
 		row.append(checkboxWrapper);
 	
 	    const nameElement = document.createElement("span");
