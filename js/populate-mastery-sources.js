@@ -515,7 +515,7 @@
 
 	// card per region
 	for (const region of originRegions) {
-	    const { section: regionSection, details: regionDetails, updateCount: updateRegionCount, updateXp: updateRegionXp } = createCategoryCard(region, false, updateOriginCount, updateOriginNodesXp);
+	    const { section: regionSection, details: regionDetails, updateCount: updateRegionCount, updateXp: updateRegionXp } = createCategoryCard(region, true, updateOriginCount, updateOriginNodesXp);
 	    originDetails.append(regionSection);
 	
 	    function updateRegion(completedDelta, possibleDelta) {
