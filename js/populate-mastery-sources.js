@@ -512,7 +512,8 @@
 	    "Pluto Proxima",
 	    "Veil Proxima",
 	];
-	
+
+	// card per region
 	for (const region of originRegions) {
 	    const { section: regionSection, details: regionDetails, updateCount: updateRegionCount, updateXp: updateRegionXp } = createCategoryCard(region, false, updateOriginCount, updateOriginNodesXp);
 	    originDetails.append(regionSection);
@@ -529,9 +530,13 @@
 	}
 	
 	for (const region of proximaRegions) {
-	    createNodeList(proximaDetails, updateProximaCount, "data/ExportProxima_en.json", "ExportProxima", "ProximaNode", region, true)
-	        .catch(function (error) { proximaDetails.append("Failed to load " + region + " data."); });
+	    const { section: regionSection, details: regionDetails, updateCount: updateRegionCount } = createCategoryCard(region, false, updateProximaCount, updateProximaXp);
+	    proximaDetails.append(regionSection);
+	
+	    createNodeList(regionDetails, updateRegionCount, "data/ExportProxima_en.json", "ExportProxima", "ProximaNode", region, false)
+	        .catch(function (error) { regionDetails.append("Failed to load " + region + " data."); });
 	}
+	
 	createNodeList(duviriDetails, updateDuviriCount, "data/ExportRegions_en.json", "ExportRegions", undefined, "Duviri", false)
     	.catch(function (error) { duviriDetails.append("Failed to load Duviri data."); });
 	createNodeList(hollvaniaDetails, updateHollvaniaCount, "data/ExportRegions_en.json", "ExportRegions", undefined, "Höllvania", false)
