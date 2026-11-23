@@ -282,7 +282,7 @@
 
 		const checkboxWrapper = document.createElement("div");
 		checkboxWrapper.className = "node-checkbox-group";
-		checkboxWrapper.append(checkboxNormal, steelPathCheckbox);
+		checkboxWrapper.append(checkboxNormal, checkboxSteelPath);
 		row.append(checkboxWrapper);
 	
 	    const nameElement = document.createElement("span");
