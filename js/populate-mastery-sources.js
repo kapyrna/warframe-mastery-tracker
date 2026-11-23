@@ -466,6 +466,9 @@
 	    .catch(function (error) { drifterDetails.append("Failed to load Drifter intrinsics data."); });
 	
 	// star chart
+	const starChartNote = document.createElement("p");
+	starChartNote.textContent = "Nodes are organized by system and region. Systems that do not award mastery points are excluded from this list.";
+	starChartDetails.append(starChartNote);
 	// separate by system then by planet
 	const { section: originSection, details: originDetails, updateCount: updateOriginCount, updateXp: updateOriginNodesXp } = createCategoryCard("Origin System", true, updateStarchartCount, updateStarchartXp);
 	//  const { section: proximaSection, details: proximaDetails, updateCount: updateProximaCount, updateXp: updateProximaNodesXp } = createCategoryCard("Empyrean Proxima", true, updateStarchartCount, updateStarchartXp);
