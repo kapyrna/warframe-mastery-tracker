@@ -314,6 +314,17 @@
 					systemHeader.textContent = systemName;
 					parentDetails.append(systemHeader);
 				}
+
+				const listHeader = document.createElement("div");
+				listHeader.className = "node-list-header";
+				const clearedHeader = document.createElement("span");
+				clearedHeader.textContent = "Cleared";
+				const nameHeader = document.createElement("span");
+				nameHeader.textContent = "Node";
+				const xpHeader = document.createElement("span");
+				xpHeader.textContent = "XP";
+				listHeader.append(clearedHeader, nameHeader, xpHeader);
+				parentDetails.append(listHeader);
 				
 	            for (const node of nodeItems) {
 					parentDetails.append(createNodeRow(node.name));
