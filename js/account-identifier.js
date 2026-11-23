@@ -110,6 +110,8 @@
 	const buttonClearStorage = document.getElementById("button-clear-localstorage");
 	if (buttonClearStorage) {
 		buttonClearStorage.addEventListener("click", function () {
+			const confirmed = window.confirm("Delete all saved data for " + repositoryName + "? This can't be undone.");
+        	if (!confirmed) return;
 			try {
 				const keysToRemove = [];
 				for (let i = 0; i < localStorage.length; i++) {
