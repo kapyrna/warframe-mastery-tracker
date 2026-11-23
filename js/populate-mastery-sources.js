@@ -469,17 +469,17 @@
 	// separate by system then by planet
 	const { section: originSection, details: originDetails, updateCount: updateOriginCount, updateXp: updateOriginNodesXp } = createCategoryCard("Origin System", true, updateStarchartCount, updateStarchartXp);
 	//  const { section: proximaSection, details: proximaDetails, updateCount: updateProximaCount, updateXp: updateProximaNodesXp } = createCategoryCard("Empyrean Proxima", true, updateStarchartCount, updateStarchartXp);
-	const { section: duviriSection, details: duviriDetails, updateCount: updateDuviriCount, updateXp: updateDuviriNodesXp } = createCategoryCard("Duviri", true, updateStarchartCount, updateStarchartXp);
-	const { section: hollvaniaSection, details: hollvaniaDetails, updateCount: updateHollvaniaCount, updateXp: updateHollvaniaNodesXp } = createCategoryCard("Höllvania", true, updateStarchartCount, updateStarchartXp);
-	const { section: darkRefractorySection, details: darkRefractoryDetails, updateCount: updateDarkRefractoryCount, updateXp: updateDarkRefactoryNodesXp } = createCategoryCard("Dark Refractory", true, updateStarchartCount, updateStarchartXp);
-	const { section: tauSection, details: tauDetails, updateCount: updateTauCount, updateXp: updateTauNodesXp } = createCategoryCard("Tau", true, updateStarchartCount, updateStarchartXp);
+	// const { section: duviriSection, details: duviriDetails, updateCount: updateDuviriCount, updateXp: updateDuviriNodesXp } = createCategoryCard("Duviri", true, updateStarchartCount, updateStarchartXp);
+	// const { section: hollvaniaSection, details: hollvaniaDetails, updateCount: updateHollvaniaCount, updateXp: updateHollvaniaNodesXp } = createCategoryCard("Höllvania", true, updateStarchartCount, updateStarchartXp);
+	// const { section: darkRefractorySection, details: darkRefractoryDetails, updateCount: updateDarkRefractoryCount, updateXp: updateDarkRefactoryNodesXp } = createCategoryCard("Dark Refractory", true, updateStarchartCount, updateStarchartXp);
+	// const { section: tauSection, details: tauDetails, updateCount: updateTauCount, updateXp: updateTauNodesXp } = createCategoryCard("Tau", true, updateStarchartCount, updateStarchartXp);
 	starchartDetails.append(
 		originSection,
 		// proximaSection,
-		duviriSection,
-		hollvaniaSection,
-		darkRefractorySection,
-		tauSection
+		// duviriSection,
+		// hollvaniaSection,
+		// darkRefractorySection,
+		// tauSection
 	);
 
 	const originRegions = [ // stage the regions within origin system
@@ -496,12 +496,12 @@
 	    "Eris",
 	    "Sedna",
 	    "Europa",
-	    "Void",
+	    // "Void",
 	    "Phobos",
 	    "Deimos",
-	    "Lua",
-	    "Kuva Fortress",
-	    "Zariman",
+	    // "Lua",
+	    // "Kuva Fortress",
+	    // "Zariman",
 	];
 
 	/* const proximaRegions = [
@@ -537,14 +537,14 @@
 	        .catch(function (error) { regionDetails.append("Failed to load " + region + " data."); });
 	} railjack missions currently do not award mastery */
 	
-	createNodeList(duviriDetails, updateDuviriCount, "data/ExportRegions_en.json", "ExportRegions", undefined, "Duviri", false)
-    	.catch(function (error) { duviriDetails.append("Failed to load Duviri data."); });
-	createNodeList(hollvaniaDetails, updateHollvaniaCount, "data/ExportRegions_en.json", "ExportRegions", undefined, "Höllvania", false)
-	    .catch(function (error) { hollvaniaDetails.append("Failed to load Höllvania data."); });
-	createNodeList(darkRefractoryDetails, updateDarkRefractoryCount, "data/ExportRegions_en.json", "ExportRegions", undefined, "Dark Refractory, Deimos", false)
-	    .catch(function (error) { darkRefractoryDetails.append("Failed to load Dark Refractory data."); });
-	createNodeList(tauDetails, updateTauCount, "data/ExportTau_en.json", "ExportTau", "TauNode", false)
-    	.catch(function (error) { tauDetails.append("Failed to load Tau data."); });
+	// createNodeList(duviriDetails, updateDuviriCount, "data/ExportRegions_en.json", "ExportRegions", undefined, "Duviri", false)
+    	// .catch(function (error) { duviriDetails.append("Failed to load Duviri data."); });
+	// createNodeList(hollvaniaDetails, updateHollvaniaCount, "data/ExportRegions_en.json", "ExportRegions", undefined, "Höllvania", false)
+	    // .catch(function (error) { hollvaniaDetails.append("Failed to load Höllvania data."); });
+	// createNodeList(darkRefractoryDetails, updateDarkRefractoryCount, "data/ExportRegions_en.json", "ExportRegions", undefined, "Dark Refractory, Deimos", false)
+	    // .catch(function (error) { darkRefractoryDetails.append("Failed to load Dark Refractory data."); });
+	// createNodeList(tauDetails, updateTauCount, "data/ExportTau_en.json", "ExportTau", "TauNode", false)
+    	// .catch(function (error) { tauDetails.append("Failed to load Tau data."); });
 	// figure out how much each gives for XP
 
 	document.dispatchEvent(new Event("mastery-sources-ready")); // ready to start loading tenno progress
