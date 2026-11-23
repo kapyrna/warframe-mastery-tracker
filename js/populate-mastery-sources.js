@@ -266,7 +266,7 @@
 	}
 
 	// star chart nodes are handled differentlyt than item ranks
-	function createNodeRow(nodeName, nodeUniqueName, nodeMasteryReq) {
+	function createNodeRow(nodeName, nodeUniqueName, nodeMasteryReq, nodeXp) {
 	    const row = document.createElement("div");
 	    row.className = "node-row";
 		row.dataset.uniqueName = nodeUniqueName;
@@ -291,6 +291,28 @@
 	    nameElement.className = "item-name";
 	    nameElement.textContent = nodeName;
 	    row.append(nameElement);
+
+		// XP: each node can be cleared twice (Normal + Steel Path)
+	    const xpPerClear = nodeXp ?? 0; //fallback to 0
+	    let clearedCount = 0;
+	    const xpPossible = xpPerClear * 2;
+	
+	    const xpEarnedSpan = document.createElement("span");
+	    xpEarnedSpan.className = "node-xp-earned";
+	    xpEarnedSpan.textContent = "0";
+	
+	    const xpSeparatorSpan = document.createElement("span");
+	    xpSeparatorSpan.textContent = "/";
+	
+	    const xpPossibleSpan = document.createElement("span");
+	    xpPossibleSpan.className = "node-xp-possible";
+	    xpPossibleSpan.textContent = xpPossible;
+	
+	    const xpWrapper = document.createElement("div");
+	    xpWrapper.className = "node-xp";
+	    xpWrapper.append(xpEarnedSpan, xpSeparatorSpan, xpPossibleSpan);
+	    row.append(xpWrapper);
+		
 	    return row;
 	}
 	
