@@ -316,7 +316,6 @@
 				}
 				
 				if (!parentDetails.querySelector(".node-list-header")) {
-    				const listHeader = document.createElement("div");
 					const listHeader = document.createElement("div");
 					listHeader.className = "node-list-header";
 					const clearedHeader = document.createElement("span");
