@@ -530,7 +530,7 @@
 	}
 	
 	for (const region of proximaRegions) {
-	    const { section: regionSection, details: regionDetails, updateCount: updateRegionCount } = createCategoryCard(region, false, updateProximaCount, updateProximaXp);
+	    const { section: regionSection, details: regionDetails, updateCount: updateRegionCount } = createCategoryCard(region, false, updateProximaCount, updateProximaNodesXp);
 	    proximaDetails.append(regionSection);
 	
 	    createNodeList(regionDetails, updateRegionCount, "data/ExportProxima_en.json", "ExportProxima", "ProximaNode", region, false)
