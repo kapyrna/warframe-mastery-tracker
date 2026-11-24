@@ -11,6 +11,8 @@
 	const statXpTotal = document.getElementById("stat-xp-earned"); // overview xp earned total
 	const statXpPossible = document.getElementById("stat-xp-possible"); // overview xp possible total
 	const statMrPossible = document.getElementById("stat-mr-potential"); // overview mr possible value
+	const statMrAchieved = document.getElementById("stat-mastery-rank"); // overview mr achieved
+	const statXpToNextMr = document.getElementById("stat-xp-to-next-mr"); // overview remaining xp to next rank
 	
 	if (!listsContainer) return; // exit if the page already broke
 
@@ -60,6 +62,10 @@
 	    if (statXpTotal) statXpTotal.textContent = overviewXpTotal;
 	    if (statXpPossible) statXpPossible.textContent = overviewXpPossible;
 		if (statMrPossible) statMrPossible.textContent = xpToMasteryRank(overviewXpPossible);
+
+		const currentMr = xpToMasteryRank(overviewXpTotal);
+		if (statMrAchieved) statMrAchieved.textContent = currentMr;
+		if (statXpToNextMr) statXpToNextMr.textContent = xpToNextMR(overviewXpTotal);
 	}
 
 	function createItemListHeader(details) {
