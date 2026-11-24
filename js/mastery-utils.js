@@ -1,14 +1,15 @@
 function xpToMasteryRank(xp) {
 	let mr = 0;
-	let xpTotalTarget = 2500; // inital needed for next rank
 	// XP required for a rank is 2500 * (that MR squared)
 	
 	while ( mr < 30 ) { // because LR math is different
-		if  (xp > xpTotalTarget) {
+		const nextTarget = 2500 * (mr + 1) * (mr + 1);
+		if  (xp > nextTarget) {
 			mr++; // enough for next rank
-			xpTotalTarget = 2500 * mr * mr; // bump up to the next target
 		}
-	else return mr; // not enough to hit the next rank
+		else { // not enough for next rank
+			return mr; 
+		}
 	}
 	
 	// Legendary ranks: 147500 XP each beyond MR 30
