@@ -423,13 +423,23 @@ input[type="radio"]:disabled ~ span {
 
 /* keep both checkboxes together in the first column */
 .node-row {
-    grid-template-columns: 4rem 1fr 10rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
 }
 
-.node-row input[type="checkbox"] + input[type="checkbox"] {
-    margin-left: 0.25rem;
+.node-checkbox-group {
+    flex-shrink: 0;
+    display: flex;
+    gap: 0.25rem;
+}
+
+.item-name {
+    flex: 1;
 }
 
 .node-xp {
     text-align: right;
+	flex-shrink: 0;
+    white-space: nowrap;
 }
