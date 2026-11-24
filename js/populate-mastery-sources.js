@@ -575,7 +575,7 @@
 	
 	// star chart
 	const starchartNote = document.createElement("p");
-	starchartNote.textContent = "Nodes are organized by system and region. Systems that do not award mastery points are excluded from this list. The first checkbox is for normal ccompletion and the second checkbox is for Steel Path.";
+	starchartNote.textContent = "Nodes are organized by system and region. Systems that do not award mastery points are excluded from this list. The first checkbox is for normal completion and the second checkbox is for Steel Path.";
 	starchartDetails.append(starchartNote);
 	// separate by system then by planet
 	const { section: originSection, details: originDetails, updateCount: updateOriginCount, updateXp: updateOriginNodesXp } = createCategoryCard("Origin System", true, updateStarchartCount, updateStarchartXp);
@@ -628,12 +628,7 @@
 	for (const region of originRegions) {
 	    const { section: regionSection, details: regionDetails, updateCount: updateRegionCount, updateXp: updateRegionXp } = createCategoryCard(region, true, updateOriginCount, updateOriginNodesXp);
 	    originDetails.append(regionSection);
-	
-	    function updateRegion(completedDelta, possibleDelta) {
-	        updateRegionCount(completedDelta, possibleDelta);
-	        // updateRegionXp handled separately — see note below
-	    }
-	
+
 	    createNodeList(regionDetails, updateRegionCount, updateRegionXp, "data/ExportRegions_en.json", "ExportRegions", undefined, region, false)
 	        .catch(function (error) { regionDetails.append("Failed to load " + region + " data."); });
 	    createNodeList(regionDetails, updateRegionCount, updateRegionXp, "data/ExportJunctions_en.json", "ExportJunctions", undefined, region, false)
