@@ -71,6 +71,7 @@
 	function applyIntrinsics() {
 		if (!playerIntrinsics) return;
 	    console.log("[populate-tenno-data] Beginning Intrinsics progress.");
+		console.log("[populate-tenno-data] Intrinsics rows in DOM:", document.querySelectorAll('.item-row[data-unique-name^="/Intrinsics/"]').length);
 		Object.keys(INTRINSICS_TO_UNIQUE_NAME).forEach(function (intrinsicsKey) {
 	        var rank = playerIntrinsics[intrinsicsKey];
 	        if (rank === undefined) return;
