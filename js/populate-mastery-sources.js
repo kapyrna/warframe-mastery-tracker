@@ -122,7 +122,7 @@
 			
 			for (const cardItem of cardItems) {
 				const currentLevel = 0;
-				const itemRow = createItemRow(cardItem.name, cardItem.uniqueName, currentLevel, xpPerLevel, maxLevel);
+				const itemRow = createItemRow(cardItem.name, cardItem.uniqueName, currentLevel, xpPerLevel, maxLevel, updateCount, updateXp);
 				details.append(itemRow);
 				possibleXpTotal += ( xpPerLevel * maxLevel );
 			}
@@ -190,7 +190,7 @@
 	}
 
 	// template for each item's row
-	function createItemRow(itemName, uniqueName, currentLevel, xpPerLevel, maxLevel) {
+	function createItemRow(itemName, uniqueName, currentLevel, xpPerLevel, maxLevel, updateCount, updateXp) {
 		const row = document.createElement("div");
 		row.className = "item-row";
 		row.dataset.uniqueName = uniqueName;
@@ -259,6 +259,28 @@
 		const xpWrapper = document.createElement("span");
 		xpWrapper.className = "item-xp-wrapper";
 		xpWrapper.append(currentXpElement, maxXpSuffix);
+
+		// listener for user input
+		currentLevelInput.addEventListener("change", function () {
+		    const newLevel = Math.min(Math.max(parseInt(currentLevelInput.value) || 0, 0), maxLevel);
+		    currentLevelInput.value = newLevel;
+		
+		    const oldXp = parseInt(currentXpElement.textContent) || 0;
+		    const newXp = newLevel * xpPerLevel;
+		    currentXpElement.textContent = newXp;
+		
+		    const wasCompleted = oldXp >= maxLevel * xpPerLevel;
+		    const isCompleted = newLevel >= maxLevel;
+		    checkbox.checked = isCompleted;
+		
+		    const xpDelta = newXp - oldXp;
+		    let completedDelta = 0;
+		    if (isCompleted && !wasCompleted) { completedDelta = 1; }
+		    if (!isCompleted && wasCompleted) { completedDelta = -1; }
+		
+		    updateXp(xpDelta, 0); // possible XP does not change on rank entry
+		    updateCount(completedDelta, 0);
+		});
 
 		// build row
 		row.append(checkbox, nameElement, levelWrapper, xpWrapper);
