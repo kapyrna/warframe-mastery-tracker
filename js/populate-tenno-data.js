@@ -59,19 +59,19 @@
         LPS_DRIFT_OPPORTUNITY: "/Intrinsics/Drifter/Opportunity",
         LPS_DRIFT_ENDURANCE: "/Intrinsics/Drifter/Endurance"
     };
-    if (playerData) {
-        var playerIntrinsics =
-            playerData.Results &&
-            playerData.Results[0] &&
-            playerData.Results[0].PlayerSkills;
-
-		document.addEventListener("mastery-sources-ready", function () {
-			Object.keys(INTRINSICS_TO_UNIQUE_NAME).forEach(function (intrinsicsKey) {
-			var rank = playerIntrinsics[intrinsicsKey];
-			if (rank === undefined) return;
-			var uniqueName = INTRINSICS_TO_UNIQUE_NAME[intrinsicsKey];
-			setItemRank(uniqueName, rank);
-        });
-    });
-}
+    
+	function applyIntrinsics() {
+	    Object.keys(INTRINSICS_TO_UNIQUE_NAME).forEach(function (intrinsicsKey) {
+	        var rank = playerIntrinsics[intrinsicsKey];
+	        if (rank === undefined) return;
+	        var uniqueName = INTRINSICS_TO_UNIQUE_NAME[intrinsicsKey];
+	        setItemRank(uniqueName, rank);
+	    });
+	}
+	
+	if (document.documentElement.dataset.masterysourcesready === "true") {
+	    applyIntrinsics(); // already fired, run now
+	} else {
+	    document.addEventListener("mastery-sources-ready", applyIntrinsics);
+	}
 })();
