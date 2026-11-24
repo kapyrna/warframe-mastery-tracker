@@ -260,8 +260,8 @@
 		xpWrapper.className = "item-xp-wrapper";
 		xpWrapper.append(currentXpElement, maxXpSuffix);
 
-		// listener for user input
-		currentLevelInput.addEventListener("change", function () {
+		// doer for maintaining state between checkboxes and earned rank numerics
+		function applyRankChange() {
 		    const newLevel = Math.min(Math.max(parseInt(currentLevelInput.value) || 0, 0), maxLevel);
 		    currentLevelInput.value = newLevel;
 		
@@ -272,14 +272,30 @@
 		    const wasCompleted = oldXp >= maxLevel * xpPerLevel;
 		    const isCompleted = newLevel >= maxLevel;
 		    checkbox.checked = isCompleted;
+			currentLevelInput.disabled = isCompleted;
 		
 		    const xpDelta = newXp - oldXp;
 		    let completedDelta = 0;
 		    if (isCompleted && !wasCompleted) { completedDelta = 1; }
 		    if (!isCompleted && wasCompleted) { completedDelta = -1; }
 		
-		    updateXp(xpDelta, 0); // possible XP does not change on rank entry
+		    updateXp(xpDelta, 0);
 		    updateCount(completedDelta, 0);
+		}
+
+		// listener for user numeric input
+		currentLevelInput.addEventListener("change", function () {
+		    applyRankChange();
+		});
+
+		// listener for checkbox toggle
+		checkbox.addEventListener("change", function () {
+		    if (checkbox.checked) {
+		        currentLevelInput.value = maxLevel;
+		    } else {
+		        currentLevelInput.value = 0;
+		    }
+		    applyRankChange();
 		});
 
 		// build row
