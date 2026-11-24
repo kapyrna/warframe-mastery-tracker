@@ -24,7 +24,9 @@
     } catch (e) {
         console.log("[populate-tenno-data] Failed to load player JSON:", e);
     }
-
+	
+	var playerIntrinsics = null;
+	
     if (playerData) {
         var displayName =
             playerData.Results &&
@@ -61,6 +63,7 @@
     };
     
 	function applyIntrinsics() {
+		if (!playerIntrinsics) return;
 	    console.log("[populate-tenno-data] Beginning Intrinsics progress.");
 		Object.keys(INTRINSICS_TO_UNIQUE_NAME).forEach(function (intrinsicsKey) {
 	        var rank = playerIntrinsics[intrinsicsKey];
