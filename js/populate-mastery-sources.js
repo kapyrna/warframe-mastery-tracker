@@ -13,6 +13,7 @@
 	const statMrPossible = document.getElementById("stat-mr-potential"); // overview mr possible value
 	const statMrAchieved = document.getElementById("stat-mastery-rank"); // overview mr achieved
 	const statXpToNextMr = document.getElementById("stat-xp-to-next-mr"); // overview remaining xp to next rank
+	const importerMethod = localStorage.getItem(repositoryName + ":importerMethod");
 	
 	if (!listsContainer) return; // exit if the page already broke
 
