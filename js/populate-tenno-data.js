@@ -61,12 +61,14 @@
     };
     
 	function applyIntrinsics() {
-	    Object.keys(INTRINSICS_TO_UNIQUE_NAME).forEach(function (intrinsicsKey) {
+	    console.log("[populate-tenno-data] Beginning Intrinsics progress.");
+		Object.keys(INTRINSICS_TO_UNIQUE_NAME).forEach(function (intrinsicsKey) {
 	        var rank = playerIntrinsics[intrinsicsKey];
 	        if (rank === undefined) return;
 	        var uniqueName = INTRINSICS_TO_UNIQUE_NAME[intrinsicsKey];
 	        setItemRank(uniqueName, rank);
 	    });
+		console.log("[populate-tenno-data] Intrinsics progress complete.");
 	}
 	
 	if (document.documentElement.dataset.masterysourcesready === "true") {
