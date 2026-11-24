@@ -65,15 +65,13 @@
             playerData.Results[0] &&
             playerData.Results[0].PlayerSkills;
 
-        if (playerData) {
-            document.addEventListener("mastery-sources-ready", function () {
-                Object.keys(INTRINSICS_TO_UNIQUE_NAME).forEach(function (intrinsicsKey) {
-                    var rank = playerIntrinsics[intrinsicsKey];
-                    if (rank === undefined) return;
-                    var uniqueName = INTRINSICS_TO_UNIQUE_NAME[intrinsicsKey];
-                    setItemRank(uniqueName, rank);
-                });
-            });
-        }
-};
+		document.addEventListener("mastery-sources-ready", function () {
+			Object.keys(INTRINSICS_TO_UNIQUE_NAME).forEach(function (intrinsicsKey) {
+			var rank = playerIntrinsics[intrinsicsKey];
+			if (rank === undefined) return;
+			var uniqueName = INTRINSICS_TO_UNIQUE_NAME[intrinsicsKey];
+			setItemRank(uniqueName, rank);
+        });
+    });
+}
 })();
