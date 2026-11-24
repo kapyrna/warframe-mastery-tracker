@@ -11,7 +11,7 @@
 	--danger:		light-dark(#c23b3b, #e5707a);
 	--bar:			light-dark(#dbe7ef, #1f3a52);
 	--cell-padding: 8px;
-	--double-checkbox-width: 3rem;
+	--double-checkbox-width: 4rem;
 }
 
 /* for when manually selected with the toggle */
