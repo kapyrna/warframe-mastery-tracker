@@ -516,7 +516,7 @@
 		createItemList(warframesDetails, updateWarframesCount, updateWarframesXp, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "Suits")
 			.catch(function (error) {
 				warframesDetails.append("Failed to load Warframe data.");
-			});
+			})
 		
 		// build each weaspon subcategory
 		createItemList(primaryDetails, updatePrimaryCount, updatePrimariesXp, "data/ExportWeapons_en.json", 30, 100, "ExportWeapons", "LongGuns")
