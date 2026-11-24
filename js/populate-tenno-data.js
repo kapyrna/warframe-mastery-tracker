@@ -27,27 +27,31 @@
 	
 	var playerIntrinsics = null;
 	
-    if (playerData) {
-        var displayName =
-            playerData.Results &&
-            playerData.Results[0] &&
-            playerData.Results[0].DisplayName;
+	if (playerData) {
+		var displayName =
+			playerData.Results &&
+			playerData.Results[0] &&
+			playerData.Results[0].DisplayName;
 
-        var statPlayername = document.getElementById("player-name");
-        var separatorElement = document.getElementById("player-name-separator");
-        if (statPlayername && displayName) {
-            statPlayername.textContent = displayName;
-            statPlayername.hidden = false;
-            separatorElement.hidden = false;
-        }
-
-    // XP to next MR from current earned XP
-    if (statXpToNextMr && statXpEarned) {
-        var currentXp = parseInt(statXpEarned.textContent) || 0;
-        statXpToNextMr.textContent = xpToNextMR(currentXp);
-    }
-    
-    }
+		playerIntrinsics = playerData.Results &&
+		    playerData.Results[0] &&
+		    playerData.Results[0].PlayerSkills;
+	
+		var statPlayername = document.getElementById("player-name");
+		var separatorElement = document.getElementById("player-name-separator");
+		if (statPlayername && displayName) {
+			statPlayername.textContent = displayName;
+			statPlayername.hidden = false;
+			separatorElement.hidden = false;
+		}
+	
+		// XP to next MR from current earned XP
+		if (statXpToNextMr && statXpEarned) {
+			var currentXp = parseInt(statXpEarned.textContent) || 0;
+			statXpToNextMr.textContent = xpToNextMR(currentXp);
+		}
+	
+	}
 
     // load intrinsics progress
     var INTRINSICS_TO_UNIQUE_NAME = { // PlayerSkills key → intrinsic uniqueName
