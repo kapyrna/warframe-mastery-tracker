@@ -656,4 +656,5 @@
 	// figure out how much each gives for XP
 
 	document.dispatchEvent(new Event("mastery-sources-ready")); // ready to start loading tenno progress
+	document.documentElement.dataset.masterySourcesReady = "true"; // go-time for loading tenno progress
 })();
