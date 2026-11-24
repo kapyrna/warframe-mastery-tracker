@@ -2,7 +2,8 @@
     "use strict";
 
     var repoName = document.documentElement.dataset.repositoryName || "warframe-mastery-tracker";
-    var storageKey = repoName + ":tennoData";
+    var storageKeyFetchedImport = repoName + ":tennoData";
+    var storageKeyNoImport = repoName + ":maraData";
 
     // Overview elements
     var statItemsCompleted = document.getElementById("stat-items-completed");
@@ -13,7 +14,7 @@
     var playerData = null;
 
     try {
-        var raw = localStorage.getItem(storageKey);
+        var raw = localStorage.getItem(storageKeyFetchedImport);
         if (!raw) {
             console.log("[populate-tenno-data] No player JSON found in localStorage.");
         } else {
