@@ -396,36 +396,37 @@ input[type="radio"]:disabled ~ span {
     opacity: 0.4;
 }
 
-.node-list-header,
-.node-row {
-    display: grid;
-    grid-template-columns: 4rem 1fr 10rem;
+.node-list-header {
+    display: flex;
     align-items: center;
+    color: var(--muted);
+    gap: 0.5rem;
     padding: 0.25rem 0.5rem;
 }
 
-.node-list-header {
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
-    color: var(--color-text-muted, #888);
-    border-bottom: 1px solid var(--color-border, #333);
-    margin-bottom: 0.25rem;
+.node-list-header span:first-child {
+	/* "Cleared" */
+    flex-shrink: 0;
+    width: 2.75rem;
 }
 
-.node-list-header span:first-child,
-.node-row .item-checkbox:first-child {
-    /* first column: "Cleared" header or the two checkboxes */
+.node-list-header span:nth-child(2) {
+	/* "Node" */
+    flex: 1;
 }
 
 .node-list-header span:last-child {
+	/* "XP" */
+    flex-shrink: 0;
+    white-space: nowrap;
     text-align: right;
 }
 
-/* keep both checkboxes together in the first column */
 .node-row {
     display: flex;
     align-items: flex-start;
     gap: 0.5rem;
+    padding: 0.25rem 0.5rem;
 }
 
 .node-checkbox-group {
@@ -439,7 +440,7 @@ input[type="radio"]:disabled ~ span {
 }
 
 .node-xp {
-    text-align: right;
-	flex-shrink: 0;
+    flex-shrink: 0;
     white-space: nowrap;
+    text-align: right;
 }
