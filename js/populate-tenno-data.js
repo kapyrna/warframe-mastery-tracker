@@ -20,6 +20,7 @@
         } else {
             playerData = JSON.parse(raw);
             console.log("[populate-tenno-data] Player JSON loaded successfully.");
+			console.log("[populate-tenno-data] Transference stream strong for ", playerData.Results && playerData.Results[0] && playerData.Results[0].DisplayName);
         }
     } catch (e) {
         console.log("[populate-tenno-data] Failed to load player JSON:", e);
@@ -36,6 +37,7 @@
 		playerIntrinsics = playerData.Results &&
 		    playerData.Results[0] &&
 		    playerData.Results[0].PlayerSkills;
+		console.log("[populate-tenno-data] playerIntrinsics:", playerIntrinsics);
 	
 		var statPlayername = document.getElementById("player-name");
 		var separatorElement = document.getElementById("player-name-separator");
@@ -79,8 +81,10 @@
 	}
 	
 	if (document.documentElement.dataset.masterysourcesready === "true") {
-	    applyIntrinsics(); // already fired, run now
+	    console.log("[populate-tenno-data] Sources already ready, applying intrinsics now.");
+		applyIntrinsics(); // already fired, run now
 	} else {
-	    document.addEventListener("mastery-sources-ready", applyIntrinsics);
+	    console.log("[populate-tenno-data] Waiting for mastery-sources-ready event.");
+		document.addEventListener("mastery-sources-ready", applyIntrinsics);
 	}
 })();
