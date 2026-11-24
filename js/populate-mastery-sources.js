@@ -191,7 +191,9 @@
 			updateParentXp(earnedXp, possibleXp);
 		}
 
-		if (hasSubcategories) { /* skip the item table header */ }
+		if (hasSubcategories) {
+			details.classList.add("has-subcategories"); // skip the item table header
+		}
 		else createItemListHeader(details);
 		
 	    return {section, details , updateCount, updateXp};
