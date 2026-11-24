@@ -86,6 +86,7 @@
 			document.getElementById("instruction-element-fetch").hidden = (method === "none");
 			// set the fetch manual instructions unhidden when method == manual
 			document.getElementById("instruction-element-fetch-json").hidden = (method !== "manual");
+			document.getElementById("instruction-element-fetch-disables-manual").hidden = (method !== "manual");
 			// set the fetch automatic instructions unhidden when method == worker
 			document.getElementById("instruction-element-fetch-automatic").hidden = (method !== "worker");
 		}
