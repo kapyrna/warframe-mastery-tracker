@@ -137,6 +137,7 @@
 			updateXp(earnedXpTotal, possibleXpTotal);
 			
 			} catch (error) {
+				console.error("createItemList error:", error);
 				details.append("Failed to load " + exportKey + " from " + filenameCurrentCard);
 			}
 		}
