@@ -289,6 +289,12 @@
 		    updateCount(completedDelta, 0);
 		}
 
+		if (importerMethod !== "none") { // disallow manual entry when using API import
+		    checkbox.disabled = true;
+		    currentLevelInput.disabled = true;
+			currentLevelInput.title = "Rank is set automatically from imported data";
+		}
+		
 		// listener for user numeric input
 		currentLevelInput.addEventListener("change", function () {
 		    applyRankChange();
@@ -326,6 +332,11 @@
 	    checkboxSteelPath.className = "item-checkbox";
 	    checkboxSteelPath.setAttribute("aria-label", nodeName + " (Steel Path)");
 
+		if (importerMethod !== "none") { // disallow manual entry when using API import
+		    checkboxNormal.disabled = true;
+			checkboxSteelPath.disabled = true;
+		}
+		
 		const checkboxWrapper = document.createElement("div");
 		checkboxWrapper.className = "node-checkbox-group";
 		checkboxWrapper.append(checkboxNormal, checkboxSteelPath);
