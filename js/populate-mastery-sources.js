@@ -516,11 +516,11 @@
 		createItemList(warframesDetails, updateWarframesCount, updateWarframesXp, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "Suits")
 			.catch(function (error) {
 				warframesDetails.append("Failed to load Warframe data.");
-			})
+			}),
 		
 		// build each weaspon subcategory
 		createItemList(primaryDetails, updatePrimaryCount, updatePrimariesXp, "data/ExportWeapons_en.json", 30, 100, "ExportWeapons", "LongGuns")
-			.catch(function (error) { primaryDetails.append("Failed to load Primary data."); });
+			.catch(function (error) { primaryDetails.append("Failed to load Primary data."); }),
 		
 		// secondaries gets complicated
 		const secondaryPrefixes = [ // DE put a lot more than secondaries in the secondaries datapath, so doing as narrow inclusions
@@ -543,19 +543,19 @@
 		    "/Lotus/Weapons/VoidTrader/VTDetron",
 		];
 		createItemList(secondaryDetails, updateSecondaryCount, updateSecondariesXp, "data/ExportWeapons_en.json", 30, 100, "ExportWeapons", "Pistols", secondaryPrefixes)
-			.catch(function (error) { secondaryDetails.append("Failed to load Secondary data."); });
+			.catch(function (error) { secondaryDetails.append("Failed to load Secondary data."); }),
 		
 		// melee
 		createItemList(meleeDetails, updateMeleeCount, updateMeleeXp, "data/ExportWeapons_en.json", 30, 100, "ExportWeapons", "Melee")
-			.catch(function (error) { meleeDetails.append("Failed to load Melee data."); });
+			.catch(function (error) { meleeDetails.append("Failed to load Melee data."); }),
 		
 		// archguns
 		createItemList(archgunDetails, updateArchgunCount, updateArchgunXp, "data/ExportWeapons_en.json", 30, 100, "ExportWeapons", "SpaceGuns")
-			.catch(function (error) { archgunDetails.append("Failed to load Archgun data."); });
+			.catch(function (error) { archgunDetails.append("Failed to load Archgun data."); }),
 		
 		// archmelee
 		createItemList(archmeleeDetails, updateArchmeleeCount, updateArchmeleeXp, "data/ExportWeapons_en.json", 30, 100, "ExportWeapons", "SpaceMelee")
-			.catch(function (error) { archmeleeDetails.append("Failed to load Archmelee data."); });
+			.catch(function (error) { archmeleeDetails.append("Failed to load Archmelee data."); }),
 		
 		// kitguns
 		const kitgunPrefixes = [
@@ -563,7 +563,7 @@
 			"/Lotus/Weapons/Infested/Pistols/InfKitGun/Barrels/",
 		];
 		createItemList(kitgunsDetails, updateKitgunsCount, updateKitgunsXp, "data/ExportWeapons_en.json", 30, 100, "ExportWeapons", "Pistols", kitgunPrefixes)
-	  	  .catch(function (error) { kitgunsDetails.append("Failed to load Kitgun data."); });
+	  	  .catch(function (error) { kitgunsDetails.append("Failed to load Kitgun data."); }),
 		
 		// zaws has three sublists and they are in the data as econdary not melee
 		const zawPrefixes = [
@@ -572,7 +572,7 @@
 		    "/Lotus/Weapons/Ostron/Melee/ModularMeleeInfested/Tips",
 		];
 		createItemList(zawsDetails, updateZawsCount, updateZawsXp, "data/ExportWeapons_en.json", 30, 100, "ExportWeapons", "Pistols", zawPrefixes)
-		    .catch(function (error) { zawsDetails.append("Failed to load Zaw strike data."); });
+		    .catch(function (error) { zawsDetails.append("Failed to load Zaw strike data."); }),
 		
 		// amps
 		const ampModularPrefixes = [
@@ -582,41 +582,41 @@
 		    "/Lotus/Weapons/Corpus/OperatorAmplifiers/Set1/Barrel",
 		];
 		createItemList(ampsDetails, updateAmpsCount, updateAmpsXp, "data/ExportWeapons_en.json", 30, 100, "ExportWeapons", "Pistols", ampModularPrefixes)
-		    .catch(function (error) { ampsDetails.append("Failed to load Amp prism data."); });
+		    .catch(function (error) { ampsDetails.append("Failed to load Amp prism data."); }),
 		createItemList(ampsDetails, updateAmpsCount, updateAmpsXp, "data/ExportWeapons_en.json", 30, 100, "ExportWeapons", "OperatorAmps") // just sirocco
-			.catch(function (error) { ampsDetails.append("Failed to load Amps data."); });
+			.catch(function (error) { ampsDetails.append("Failed to load Amps data."); }),
 		
 		// companion weapons includes all robots
 		createItemList(companionWeaponsDetails, updateCompanionWeaponsCount, updateCompanionWeaponsXp, "data/ExportWeapons_en.json", 30, 100, "ExportWeapons", "SentinelWeapons")
-			.catch(function (error) { companionWeaponsDetails.append("Failed to load Sentinel Weapons data."); });
+			.catch(function (error) { companionWeaponsDetails.append("Failed to load Sentinel Weapons data."); }),
 		
 		createItemList(sentinelsDetails, updateSentinelsCount, updateSentinelsXp, "data/ExportSentinels_en.json", 30, 200, "ExportSentinels", "Sentinels")
-			.catch(function (error) { sentinelsDetails.append("Failed to load Sentinels data."); });
+			.catch(function (error) { sentinelsDetails.append("Failed to load Sentinels data."); }),
 		createItemList(beastsDetails, updateBeastsCount, updateBeastsXp, "data/ExportSentinels_en.json", 30, 200, "ExportSentinels", "KubrowPets")
-			.catch(function (error) { beastsDetails.append("Failed to load Beasts data."); });
+			.catch(function (error) { beastsDetails.append("Failed to load Beasts data."); }),
 		createItemList(moasDetails, updateMoasCount, updateMoasXp, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetParts/MoaPetHead") // somewhy these are secondary weapons
-			.catch(function (error) { moasDetails.append("Failed to load MOA data."); });
+			.catch(function (error) { moasDetails.append("Failed to load MOA data."); }),
 		createItemList(houndsDetails, updateHoundsCount, updateHoundsXp, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartHead") // somewhy these are secondary weapons
-			.catch(function (error) { houndsDetails.append("Failed to load Hound data."); });
+			.catch(function (error) { houndsDetails.append("Failed to load Hound data."); }),
 		
 		// archwings
 		createItemList(archwingDetails, updateArchwingCount, updateArchwingXp, "data/ExportWarframes_en.json", 30, 200, "ExportWarframes", "SpaceSuits")
-			.catch(function (error) { archwingDetails.append("Failed to load Archwing data."); });
+			.catch(function (error) { archwingDetails.append("Failed to load Archwing data."); }),
 		// necramechs, note they go up to 40 with 5 forma
 		createItemList(necramechDetails, updateNecramechCount, updateNecramechXp, "data/ExportWarframes_en.json", 40, 200, "ExportWarframes", "MechSuits")
-			.catch(function (error) { necramechDetails.append("Failed to load Necramech data."); });
+			.catch(function (error) { necramechDetails.append("Failed to load Necramech data."); }),
 		// kdrives
 		createItemList(kDriveDetails, updateKDriveCount, updateKDriveXp, "data/ExportWeapons_en.json", 30, 200, "ExportWeapons", "Pistols", "/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents")
-		    .catch(function (error) { kDriveDetails.append("Failed to load K-Drive data."); });
+		    .catch(function (error) { kDriveDetails.append("Failed to load K-Drive data."); }),
 		// railjack plexus not found in manifests, using placeholder file 
 		createItemList(plexusDetails, updatePlexusCount, updatePlexusXp, "data/ExportPlexus_en.json", 30, 200, "ExportPlexus", "RailjackPlexus")
-	    	.catch(function (error) { plexusDetails.append("Failed to load Plexus data."); });
+	    	.catch(function (error) { plexusDetails.append("Failed to load Plexus data."); }),
 		
 		// intrinsics not found in manifests yet, using placeholder file
 		createItemList(railjackDetails, updateRailjackCount, updateRailjackXp, "data/ExportIntrinsics_en.json", 10, 1500, "ExportIntrinsics", "RailjackIntrinsics")
-		    .catch(function (error) { railjackDetails.append("Failed to load Railjack intrinsics data."); });
+		    .catch(function (error) { railjackDetails.append("Failed to load Railjack intrinsics data."); }),
 		createItemList(drifterDetails, updateDrifterCount, updateDrifterXp, "data/ExportIntrinsics_en.json", 10, 1500, "ExportIntrinsics", "DrifterIntrinsics")
-		    .catch(function (error) { drifterDetails.append("Failed to load Drifter intrinsics data."); });
+		    .catch(function (error) { drifterDetails.append("Failed to load Drifter intrinsics data."); }),
 		
 		// star chart lists
 		const originRegions = [ // stage the regions within origin system
@@ -651,9 +651,9 @@
 		]; */
 	
 		    createNodeList(regionDetails, updateRegionCount, updateRegionXp, "data/ExportRegions_en.json", "ExportRegions", undefined, region, false)
-		        .catch(function (error) { regionDetails.append("Failed to load " + region + " data."); });
+		        .catch(function (error) { regionDetails.append("Failed to load " + region + " data."); }),
 		    createNodeList(regionDetails, updateRegionCount, updateRegionXp, "data/ExportJunctions_en.json", "ExportJunctions", undefined, region, false)
-		        .catch(function (error) { regionDetails.append("Failed to load " + region + " junction data."); });
+		        .catch(function (error) { regionDetails.append("Failed to load " + region + " junction data."); }),
 		}
 		
 		/* for (const region of proximaRegions) {
