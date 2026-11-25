@@ -318,7 +318,7 @@ td select { padding: 4px 8px; }
 
 .item-row { /* mastery source item row template */
 	display: grid;
-	grid-template-columns: 20px minmax(0, 1fr) 80px 5rem;
+	grid-template-columns: 20px minmax(0, 1fr) 80px 4rem;
 	align-items: center;
 	column-gap: 12px;
 	padding-top: 4px;
@@ -361,6 +361,10 @@ td select { padding: 4px 8px; }
 .item-current-xp,
 .item-xp-separator,
 .item-max-xp-number {
+    white-space: nowrap;
+}
+
+.item-xp-max-wrapper {
     white-space: nowrap;
 }
 
