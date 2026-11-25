@@ -343,11 +343,14 @@
 		const maxXpNumber = document.createElement("span");
 		maxXpNumber.className = "item-max-xp-number numeric-cell";
 		maxXpNumber.textContent = maxXpElement;
+		const xpMaxWrapper = document.createElement("span");
+		xpMaxWrapper.className = "item-xp-max-wrapper";
+		xpMaxWrapper.append(xpSeparator, maxXpNumber);
 
 		// xp values into cell
 		const xpWrapper = document.createElement("span");
 		xpWrapper.className = "item-xp-wrapper";
-		xpWrapper.append(currentXpElement, xpSeparator, maxXpNumber);
+		xpWrapper.append(currentXpElement, xpMaxWrapper);
 
 		// doer for maintaining state between checkboxes and earned rank numerics
 		function applyRankChange() {
