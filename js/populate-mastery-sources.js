@@ -512,7 +512,7 @@
 	}
 
 	// build layout, pass second variable of true if category has subcategories 
-	const { section: warframesSection, details: warframesDetails, updateCount: updateWarframesCount, updateXp: updateWarframesXp } = createCategoryCard("Warframes", false, updateOverviewItemCount, updateOverviewXp)
+	const { section: warframesSection, details: warframesDetails, updateCount: updateWarframesCount, updateXp: updateWarframesXp } = createCategoryCard("Warframes", false, updateOverviewItemCount, updateOverviewXp);
 	const { section: weaponsSection, details: weaponsDetails, updateCount: updateWeaponsCount, updateXp: updateWeaponsXp } = createCategoryCard("Weapons", true, updateOverviewItemCount, updateOverviewXp);
 	const { section: companionsSection, details: companionsDetails, updateCount: updateCompanionsCount, updateXp: updateCompanionsXp } = createCategoryCard("Companions", true, updateOverviewItemCount, updateOverviewXp);
 	const { section: vehiclesSection, details: vehiclesDetails, updateCount: updateVehiclesCount, updateXp: updateVehiclesXp } = createCategoryCard("Vehicles", true, updateOverviewItemCount, updateOverviewXp);
