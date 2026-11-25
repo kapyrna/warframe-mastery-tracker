@@ -563,7 +563,7 @@
 
 	// star chart cards
 	const starchartNote = document.createElement("p");
-	starchartNote.textContent = "Nodes are organized by system and region. Systems that do not award mastery points are excluded from this list. The first checkbox is for normal completion and the second checkbox is for Steel Path. Currently only able to import normal clears, Steel Path can be tracked manually until it is also imported.";
+	starchartNote.textContent = "Nodes are organized by system and region. The first checkbox is for normal completion and the second checkbox is for Steel Path. Currently only able to import normal clears, Steel Path can be tracked manually until it is also imported.";
 	starchartDetails.append(starchartNote);
 	// separate by system then by region
 	const { section: originSection, details: originDetails, updateCount: updateOriginCount, updateXp: updateOriginNodesXp } = createCategoryCard("Origin System", true, updateStarchartCount, updateStarchartXp);
