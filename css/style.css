@@ -318,7 +318,7 @@ td select { padding: 4px 8px; }
 
 .item-row { /* mastery source item row template */
 	display: grid;
-	grid-template-columns: 20px minmax(0, 1fr) 80px 50px;
+	grid-template-columns: 20px minmax(0, 1fr) 80px auto;
 	align-items: center;
 	column-gap: 12px;
 	padding-top: 4px;
@@ -352,11 +352,15 @@ td select { padding: 4px 8px; }
 }
 
 .item-xp-wrapper {
-    white-space: normal;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0;
 }
 
 .item-current-xp,
-.item-max-xp-suffix {
+.item-xp-separator,
+.item-max-xp-number {
     white-space: nowrap;
 }
 
