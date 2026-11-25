@@ -420,7 +420,9 @@
 
 		if (importerMethod !== "none") { // disallow manual entry when using API import
 		    checkboxNormal.disabled = true;
-			checkboxSteelPath.disabled = true;
+			if (canTrackSteelPath) {
+				checkboxSteelPath.disabled = true;
+			}
 		}
 		
 		const checkboxWrapper = document.createElement("div");
