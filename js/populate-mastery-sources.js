@@ -420,9 +420,7 @@
 
 		if (importerMethod !== "none") { // disallow manual entry when using API import
 		    checkboxNormal.disabled = true;
-			if (canTrackSteelPath) {
-				checkboxSteelPath.disabled = true;
-			}
+			/* checkboxSteelPath.disabled = true; uncomment once steel path node progress is found in player JSON */ 
 		}
 		
 		const checkboxWrapper = document.createElement("div");
