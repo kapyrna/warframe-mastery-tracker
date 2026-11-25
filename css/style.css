@@ -351,6 +351,15 @@ td select { padding: 4px 8px; }
 	-moz-appearance: textfield;
 }
 
+.item-xp-wrapper {
+    white-space: normal;
+}
+
+.item-current-xp,
+.item-max-xp-suffix {
+    white-space: nowrap;
+}
+
 /* for star chart */
 .chart-table th.tick, .chart-table td.tick { width: 1%; white-space: nowrap; text-align: center; }
 .chart-table th, .chart-table td { padding-left: .35rem; padding-right: .35rem; }
