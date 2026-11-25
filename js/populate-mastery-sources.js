@@ -474,6 +474,7 @@
 	            const nodeItems = (exportData[exportKey] || []).filter(function (item) {
 	                if (productCategory !== undefined && item.productCategory !== productCategory) return false;
 	                if (systemName !== undefined && item.systemName !== systemName) return false;
+					if (xp === 0) return false;
 	                return true;
 	            });
 	
@@ -481,9 +482,6 @@
 				    return a.missionIndex - b.missionIndex;
 				});
 	
-	            const completedCount = 0;
-	            const totalCount = nodeItems.length;
-				
 				if (hasRegions) {
 					const systemHeader = document.createElement("div");
 					systemHeader.className = "node-system-header";
@@ -507,11 +505,12 @@
 				let totalXp = 0;
 	            for (const node of nodeItems) {
 					const xp = nodeXpMap[node.uniqueName] ?? 0;
-					if (xp === 0) continue;
 					totalXp += xp * 2; // Normal + Steel Path
 					parentDetails.append(createNodeRow(node.name, node.uniqueName, node.masteryReq, xp));
 	            }
-	
+
+				const completedCount = 0;
+	            const totalCount = nodeItems.length;
 	            notifyParent(completedCount, totalCount);
 				notifyParentXp(0, totalXp);
 	        });
