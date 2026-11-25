@@ -37,10 +37,10 @@
             "masteryReq": 0
         },
         {
-            "uniqueName": "CeresToJupiterJunction",
+            "uniqueName": "DeimosToJupiterJunction",
             "name": "Jupiter Junction",
-            "systemIndex": 9,
-            "systemName": "Ceres",
+            "systemIndex": 16,
+            "systemName": "Deimos",
             "masteryReq": 0
         },
         {
