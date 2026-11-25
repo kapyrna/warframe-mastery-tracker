@@ -337,14 +337,17 @@
 
 		// possible xp value math
 		const maxXpElement = maxLevel * xpPerLevel;
-		const maxXpSuffix = document.createElement("span");
-		maxXpSuffix.className = "item-max-xp-suffix";
-		maxXpSuffix.textContent = "/" + maxXpElement;
+		const xpSeparator = document.createElement("span");
+		xpSeparator.className = "item-xp-separator";
+		xpSeparator.textContent = "/";
+		const maxXpNumber = document.createElement("span");
+		maxXpNumber.className = "item-max-xp-number numeric-cell";
+		maxXpNumber.textContent = maxXpElement;
 
 		// xp values into cell
 		const xpWrapper = document.createElement("span");
 		xpWrapper.className = "item-xp-wrapper";
-		xpWrapper.append(currentXpElement, maxXpSuffix);
+		xpWrapper.append(currentXpElement, xpSeparator, maxXpNumber);
 
 		// doer for maintaining state between checkboxes and earned rank numerics
 		function applyRankChange() {
