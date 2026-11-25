@@ -38,7 +38,7 @@
 		playerIntrinsics = playerData.Results &&
 			playerData.Results[0] &&
 			playerData.Results[0].PlayerSkills;
-		console.log("[populate-tenno-data] playerIntrinsics:", playerIntrinsics);
+		/* console.log("[populate-tenno-data] playerIntrinsics:", playerIntrinsics); trim from console log since this seems to work smoothly */
 
 		playerMissions = (
 			playerData.Results && 
