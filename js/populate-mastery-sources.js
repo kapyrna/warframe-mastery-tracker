@@ -474,7 +474,6 @@
 	            const nodeItems = (exportData[exportKey] || []).filter(function (item) {
 	                if (productCategory !== undefined && item.productCategory !== productCategory) return false;
 	                if (systemName !== undefined && item.systemName !== systemName) return false;
-					if (xp === 0) return false;
 	                return true;
 	            });
 	
