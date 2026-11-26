@@ -39,7 +39,9 @@
 						<span class="value">MR <!-- prefix  -->
 							<span id="stat-mastery-rank">0</span> <!-- variable  -->
 						</span>
+						<progress id="progress-mastery-rank" value="0" max="30"></progress>
 					</div>
+					
 					<div class="stat" style="white-space: nowrap;">
 						<span class="label">
 							<span>Items mastered</span>
@@ -49,7 +51,9 @@
 						<span class="value">
 							<span id="stat-items-completed">0</span>
 						</span>
+						<progress id="progress-items" value="0" max="100"></progress>
 					</div>
+					
 					<div class="stat" style="white-space: nowrap;">
 						<span class="label">
 							<span>Total XP</span>
@@ -57,11 +61,13 @@
 							<span id="stat-xp-possible">0</span> <!-- variable we will use to calculate possible MR  -->
 						</span>
 						<span class="value" id="stat-xp-earned">0</span> <!-- variable we will use to calculate earned MR  -->
+						<progress id="progress-xp" value="0" max="100"></progress>
 					</div>
 
 					<div class="stat">
 						<span class="label">XP to next MR</span>
 						<span class="value" id="stat-xp-to-next-mr">0</span>
+						<progress id="progress-xp-to-next-mr" value="0" max="100"></progress>
 					</div>
 				</div>
 				<div id="player-avatar" hidden>
