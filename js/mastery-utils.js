@@ -31,6 +31,59 @@ function xpToNextMR(xp) {
     return nextThreshold - xp;
 }
 
+function itemXpToRank(itemType, xp) {
+    // Warframes and companions: cumulative XP = 1000 * rank^2, max rank 30
+    const warframeTypes = [
+        "/Lotus/Powersuits/",
+        "/Lotus/Types/Sentinels/",
+        "/Lotus/Types/Friendly/Pets/",
+        "/Lotus/Types/Vehicles/Hoverboard/",
+        "/Lotus/Powersuits/SpaceSuits/",
+    ];
+    // Necramechs: cumulative XP = 2000 * rank^2, max rank 40
+    const necramechTypes = [
+        "/Lotus/Powersuits/MechSuits/",
+    ];
+    // Adversary weapons (Kuva, Tenet, Coda, Paracesis): same formula as weapons but max rank 40
+    const adversaryTypes = [
+        "/Lotus/Weapons/Grineer/KuvaLich/",
+        "/Lotus/Weapons/Grineer/Melee/GrnKuvaLichScythe/",
+        "/Lotus/Weapons/Grineer/LongGuns/GrnKuvaLichRifle/",
+        "/Lotus/Weapons/Grineer/HeavyWeapons/GrnHeavyGrenadeLauncher",
+        "/Lotus/Weapons/Grineer/Bows/GrnBow/GrnBowWeapon",
+        "/Lotus/Weapons/Corpus/BoardExec/",
+        "/Lotus/Weapons/Corpus/Pistols/CrpIgniterPistol/",
+        "/Lotus/Weapons/Corpus/Pistols/CrpBriefcaseAkimbo/",
+        "/Lotus/Weapons/Corpus/Melee/ShieldAndSword/CrpHammerShield/",
+        "/Lotus/Weapons/Corpus/Melee/CrpBriefcaseScythe/",
+        "/Lotus/Weapons/Corpus/Melee/CrpBriefcase2HKatana/",
+        "/Lotus/Weapons/Corpus/LongGuns/CrpBriefcaseLauncher/",
+        "/Lotus/Weapons/Tenno/Melee/Swords/CrpBigSlash/",
+        "/Lotus/Weapons/Infested/InfestedLich/",
+        "/Lotus/Weapons/Orokin/BallasSword/BallasSwordWeapon",
+    ];
+
+    var maxRank, xpPerRankSquared;
+
+    if (necramechTypes.some(function (p) { return itemType.startsWith(p); })) {
+        maxRank = 40;
+        xpPerRankSquared = 2000; // cumulative = 2000 * rank^2
+    } else if (warframeTypes.some(function (p) { return itemType.startsWith(p); })) {
+        maxRank = 30;
+        xpPerRankSquared = 1000; // cumulative = 1000 * rank^2
+    } else if (adversaryTypes.some(function (p) { return itemType.startsWith(p); })) {
+        maxRank = 40;
+        xpPerRankSquared = 500; // cumulative = 500 * rank^2
+    } else {
+        // all other weapons
+        maxRank = 30;
+        xpPerRankSquared = 500; // cumulative = 500 * rank^2
+    }
+
+    var rank = Math.min(Math.floor(Math.sqrt(xp / xpPerRankSquared)), maxRank);
+    return rank;
+}
+
 function setItemRank(uniqueName, rank) {
     var row = document.querySelector('.item-row[data-unique-name="' + uniqueName + '"]');
     if (!row) {
