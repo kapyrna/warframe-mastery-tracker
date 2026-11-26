@@ -37,13 +37,6 @@
             "masteryReq": 0
         },
         {
-            "uniqueName": "DeimosToJupiterJunction",
-            "name": "Jupiter Junction",
-            "systemIndex": 16,
-            "systemName": "Deimos",
-            "masteryReq": 0
-        },
-        {
             "uniqueName": "JupiterToEuropaJunction",
             "name": "Europa Junction",
             "systemIndex": 4,
@@ -90,6 +83,13 @@
             "name": "Sedna Junction",
             "systemIndex": 8,
             "systemName": "Pluto",
+            "masteryReq": 0
+        },
+        {
+            "uniqueName": "DeimosToJupiterJunction",
+            "name": "Jupiter Junction",
+            "systemIndex": 16,
+            "systemName": "Deimos",
             "masteryReq": 0
         }
     ]
