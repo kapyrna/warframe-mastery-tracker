@@ -525,7 +525,7 @@
 	            }
 
 				const completedCount = 0;
-	            const totalCount = nodeItems.length;
+	            const totalCount = nodeItems.length * 2; // Normal + Steel Path
 	            notifyParent(completedCount, totalCount);
 				notifyParentXp(0, totalXp);
 	        });
