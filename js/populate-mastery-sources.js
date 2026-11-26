@@ -402,7 +402,7 @@
 	}
 
 	// star chart nodes are handled differentlyt than item ranks
-	function createNodeRow(nodeName, nodeUniqueName, nodeMasteryReq, nodeXp) {
+	function createNodeRow(nodeName, nodeUniqueName, nodeMasteryReq, nodeXp, notifyParent, notifyParentXp) {
 	    const row = document.createElement("div");
 	    row.className = "node-row";
 		row.dataset.uniqueName = nodeUniqueName;
@@ -453,6 +453,22 @@
 	    xpWrapper.className = "node-xp";
 	    xpWrapper.append(xpEarnedSpan, xpSeparatorSpan, xpPossibleSpan);
 	    row.append(xpWrapper);
+
+		// process for when a checkbox is checked
+		function applyNodeClear() {
+		    const newClearedCount = (checkboxNormal.checked ? 1 : 0) + (checkboxSteelPath.checked ? 1 : 0);
+		    const xpEarned = newClearedCount * xpPerClear;
+		    const xpDelta = xpEarned - (clearedCount * xpPerClear);
+		    const completedDelta = newClearedCount - clearedCount;
+		    clearedCount = newClearedCount;
+		    xpEarnedSpan.textContent = xpEarned;
+		    notifyParent(completedDelta, 0);
+		    notifyParentXp(xpDelta, 0);
+		}
+
+		// listeners to process
+		checkboxNormal.addEventListener("change", applyNodeClear);
+		checkboxSteelPath.addEventListener("change", applyNodeClear);
 		
 	    return row;
 	}
@@ -505,7 +521,7 @@
 	            for (const node of nodeItems) {
 					const xp = nodeXpMap[node.uniqueName] ?? 0;
 					totalXp += xp * 2; // Normal + Steel Path
-					parentDetails.append(createNodeRow(node.name, node.uniqueName, node.masteryReq, xp));
+					parentDetails.append(createNodeRow(node.name, node.uniqueName, node.masteryReq, xp, notifyParent, notifyParentXp));
 	            }
 
 				const completedCount = 0;
