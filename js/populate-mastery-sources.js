@@ -149,6 +149,12 @@
 		const currentMr = xpToMasteryRank(overviewXpTotal);
 		if (statMrAchieved) statMrAchieved.textContent = currentMr;
 		if (statXpToNextMr) statXpToNextMr.textContent = xpToNextMR(overviewXpTotal);
+		
+		const mrIcon = document.getElementById("overview-mr-icon");
+		if (mrIcon) {
+		    mrIcon.src = "images/MR/" + "IconRank" + currentMr + ".png";
+		    mrIcon.alt = "Mastery Rank " + currentMr;
+		}
 
 		const progressXp = document.getElementById("progress-xp");
 		if (progressXp) {
