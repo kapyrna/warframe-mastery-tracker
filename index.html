@@ -45,6 +45,17 @@
 					
 					<div class="stat" style="white-space: nowrap;">
 						<span class="label">
+							<span>Total XP</span>
+							/
+							<span id="stat-xp-possible">0</span> <!-- variable we will use to calculate possible MR  -->
+						</span>
+						<span class="value" id="stat-xp-earned">0</span> <!-- variable we will use to calculate earned MR  -->
+						<progress id="progress-xp" value="0" max="100"></progress>
+						<progress id="progress-legendary-xp" value="0" max="100" hidden></progress>
+					</div>
+					
+					<div class="stat" style="white-space: nowrap;">
+						<span class="label">
 							<span>Items mastered</span>
 							/
 							<span id="stat-items-possible">0</span>
@@ -55,16 +66,6 @@
 						<progress id="progress-items" value="0" max="100"></progress>
 					</div>
 					
-					<div class="stat" style="white-space: nowrap;">
-						<span class="label">
-							<span>Total XP</span>
-							/
-							<span id="stat-xp-possible">0</span> <!-- variable we will use to calculate possible MR  -->
-						</span>
-						<span class="value" id="stat-xp-earned">0</span> <!-- variable we will use to calculate earned MR  -->
-						<progress id="progress-xp" value="0" max="100"></progress>
-					</div>
-
 					<div class="stat">
 						<span class="label">XP to next MR</span>
 						<span class="value" id="stat-xp-to-next-mr">0</span>
