@@ -155,7 +155,6 @@
 			const possibleMr = xpToMasteryRank(overviewXpPossible);
 			progressLr.max = Math.max(possibleMr - 30, 0);
 			progressLr.value = Math.max(currentMr - 30, 0);
-			if (currentMr >= 30) progressLr.hidden = false;
 		}
 
 		const progressXp = document.getElementById("progress-xp");
@@ -167,7 +166,7 @@
 		const progressMr = document.getElementById("progress-mastery-rank");
 		if (progressMr) {
 			progressMr.value = Math.min(currentMr, 30);
-			if (currentMr >= 30) {
+			if (currentMr > 30) {
 				progressLr.hidden = false; // unhide the LR progress bar if at 30
 			}
 		}
