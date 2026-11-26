@@ -131,6 +131,12 @@
 		overviewPossibleTotal += possibleDelta;
 		if (statItemsCompleted) statItemsCompleted.textContent = overviewCompletedTotal;
 		if (statItemsPossible) statItemsPossible.textContent = overviewPossibleTotal;
+
+		const progressItems = document.getElementById("progress-items");
+		if (progressItems) {
+		    progressItems.max = overviewPossibleTotal;
+		    progressItems.value = overviewCompletedTotal;
+		}
 	}
 
 	function updateOverviewXp(xpTotalDelta, xpPossibleDelta) {
@@ -140,9 +146,39 @@
 	    if (statXpPossible) statXpPossible.textContent = overviewXpPossible;
 		if (statMrPossible) statMrPossible.textContent = xpToMasteryRank(overviewXpPossible);
 
+		const progressLr = document.getElementById("progress-legendary-rank");
+		if (progressLr) {
+	        const possibleMr = xpToMasteryRank(overviewXpPossible);
+	        progressLr.max = Math.max(possibleMr - 30, 0);
+	        progressLr.value = Math.max(currentMr - 30, 0);
+	        if (currentMr >= 30) progressLr.hidden = false;
+	    }
+		
 		const currentMr = xpToMasteryRank(overviewXpTotal);
 		if (statMrAchieved) statMrAchieved.textContent = currentMr;
 		if (statXpToNextMr) statXpToNextMr.textContent = xpToNextMR(overviewXpTotal);
+
+		const progressXp = document.getElementById("progress-xp");
+		if (progressXp) {
+		    progressXp.max = overviewXpPossible;
+		    progressXp.value = overviewXpTotal;
+		}
+		
+		const progressMr = document.getElementById("progress-mastery-rank");
+		if (progressMr) {
+			progressMr.value = Math.min(currentMr, 30);
+			if (currentMr >= 30) {
+				progressLr.hidden = false; // unhide the LR progress bar if at 30
+			}
+		}
+		
+		const progressNextMr = document.getElementById("progress-xp-to-next-mr");
+		if (progressNextMr) {
+		    const currentMrXp = 2500 * currentMr * currentMr;
+		    const nextMrXp = currentMr < 30 ? 2500 * (currentMr + 1) * (currentMr + 1) : currentMrXp + 147500;
+		    progressNextMr.max = nextMrXp - currentMrXp;
+		    progressNextMr.value = overviewXpTotal - currentMrXp;
+		}
 	}
 
 	function createItemListHeader(details) {
