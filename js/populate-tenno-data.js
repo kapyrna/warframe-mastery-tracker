@@ -95,7 +95,10 @@
 			var row = document.querySelector('.node-row[data-unique-name="' + mission.Tag + '"]');
 			if (!row) return;
 			var checkboxes = row.querySelectorAll('.item-checkbox');
-			if (checkboxes[0]) checkboxes[0].checked = true;
+			if (checkboxes[0]) {
+				checkboxes[0].checked = true;
+				checkboxes[0].dispatchEvent(new Event("change"));
+			}
 		});
 		console.log("[populate-tenno-data] Node progress complete.");
 	}
