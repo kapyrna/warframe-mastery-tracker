@@ -146,17 +146,17 @@
 	    if (statXpPossible) statXpPossible.textContent = overviewXpPossible;
 		if (statMrPossible) statMrPossible.textContent = xpToMasteryRank(overviewXpPossible);
 
-		const progressLr = document.getElementById("progress-legendary-rank");
-		if (progressLr) {
-	        const possibleMr = xpToMasteryRank(overviewXpPossible);
-	        progressLr.max = Math.max(possibleMr - 30, 0);
-	        progressLr.value = Math.max(currentMr - 30, 0);
-	        if (currentMr >= 30) progressLr.hidden = false;
-	    }
-		
 		const currentMr = xpToMasteryRank(overviewXpTotal);
 		if (statMrAchieved) statMrAchieved.textContent = currentMr;
 		if (statXpToNextMr) statXpToNextMr.textContent = xpToNextMR(overviewXpTotal);
+
+		const progressLr = document.getElementById("progress-legendary-rank");
+		if (progressLr) {
+			const possibleMr = xpToMasteryRank(overviewXpPossible);
+			progressLr.max = Math.max(possibleMr - 30, 0);
+			progressLr.value = Math.max(currentMr - 30, 0);
+			if (currentMr >= 30) progressLr.hidden = false;
+		}
 
 		const progressXp = document.getElementById("progress-xp");
 		if (progressXp) {
