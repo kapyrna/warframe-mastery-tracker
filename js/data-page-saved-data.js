@@ -54,7 +54,12 @@
 			keySummary.textContent = savedKey.slice(keyPrefix.length); // strip off the prefix
 			const valueLine = document.createElement("div");
 			valueLine.className = "muted small saved-value";
-			valueLine.textContent = savedValue;
+
+			try { // if it's JSON try and prettyprint it
+			    const parsed = JSON.parse(savedValue);
+			    valueLine.textContent = JSON.stringify(parsed, null, 2);
+			    valueLine.style.whiteSpace = "pre-wrap";
+			} catch (e) { valueLine.textContent = savedValue; } // default to just the string
 			keyDetails.append(keySummary, valueLine);
 			keyCell.append(keyDetails);
 			
