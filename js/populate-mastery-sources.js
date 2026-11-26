@@ -150,13 +150,6 @@
 		if (statMrAchieved) statMrAchieved.textContent = currentMr;
 		if (statXpToNextMr) statXpToNextMr.textContent = xpToNextMR(overviewXpTotal);
 
-		const progressLr = document.getElementById("progress-legendary-rank");
-		if (progressLr) {
-			const possibleMr = xpToMasteryRank(overviewXpPossible);
-			progressLr.max = Math.max(possibleMr - 30, 0);
-			progressLr.value = Math.max(currentMr - 30, 0);
-		}
-
 		const progressXp = document.getElementById("progress-xp");
 		if (progressXp) {
 		    progressXp.max = overviewXpPossible;
@@ -164,11 +157,18 @@
 		}
 		
 		const progressMr = document.getElementById("progress-mastery-rank");
+		const progressLr = document.getElementById("progress-legendary-rank");
 		if (progressMr) {
 			progressMr.value = Math.min(currentMr, 30);
 			if (currentMr > 30) {
 				progressLr.hidden = false; // unhide the LR progress bar if at 30
 			}
+		}
+		if (progressLr) {
+			const possibleMr = xpToMasteryRank(overviewXpPossible);
+			progressLr.max = Math.max(possibleMr - 30, 0);
+			progressLr.value = Math.max(currentMr - 30, 0);
+			progressLr.hidden = currentMr <= 30; // hide if MR 30 or below, show if above
 		}
 		
 		const progressNextMr = document.getElementById("progress-xp-to-next-mr");
