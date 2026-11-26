@@ -463,3 +463,30 @@ input[type="radio"]:disabled ~ span {
     white-space: nowrap;
     text-align: right;
 }
+
+.stat progress {
+    width: 100%;
+    height: 6px;
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    border-radius: 3px;
+    display: block;
+    margin-top: 4px;
+}
+
+.stat progress::-webkit-progress-bar {
+    background-color: var(--border);
+    border-radius: 3px;
+}
+
+.stat progress::-webkit-progress-value {
+    background-color: var(--accent, #4a9eff);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.stat progress::-moz-progress-bar {
+    background-color: var(--accent, #4a9eff);
+    border-radius: 3px;
+}
