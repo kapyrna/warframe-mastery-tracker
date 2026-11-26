@@ -73,6 +73,19 @@
 		LPS_DRIFT_OPPORTUNITY: "/Intrinsics/Drifter/Opportunity",
 		LPS_DRIFT_ENDURANCE: "/Intrinsics/Drifter/Endurance"
 	};
+
+	function applyItems() {
+	    if (!playerData) return;
+	    var statWeapons = playerData.Stats && playerData.Stats.Weapons || [];
+	    console.log("[populate-tenno-data] Beginning item progress. Items:", statWeapons.length);
+	    statWeapons.forEach(function (item) {
+	        if (!item.type || item.xp === undefined) return;
+	        var rank = itemXpToRank(item.type, item.xp);
+	        if (rank < 1) return;
+	        setItemRank(item.type, rank);
+	    });
+	    console.log("[populate-tenno-data] Item progress complete.");
+	}
 	
 	function applyIntrinsics() {
 		if (!playerIntrinsics) return;
@@ -107,11 +120,13 @@
 		console.log("[populate-tenno-data] Sources already ready, applying intrinsics now.");
 		applyIntrinsics(); // already fired, run now
 		applyNodes();
+		applyItems();
 	} else {
 		console.warn("[populate-tenno-data] Waiting for mastery-sources-ready event.");
 		document.addEventListener("mastery-sources-ready", function () {
 			applyIntrinsics();
 			applyNodes();
+			applyItems();
 		});
 	}
 })();
