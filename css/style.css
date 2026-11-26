@@ -475,6 +475,10 @@ input[type="radio"]:disabled ~ span {
     margin-top: 4px;
 }
 
+.stat progress[hidden] {
+    display: none;
+}
+
 .stat progress::-webkit-progress-bar {
     background-color: var(--border);
     border-radius: 3px;
