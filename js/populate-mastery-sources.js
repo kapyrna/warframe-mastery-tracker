@@ -156,11 +156,11 @@
 		    mrIcon.alt = "Mastery Rank " + currentMr;
 		}
 
-		const XP_MR30_CAP = 2500 * 30 * 30; // 3,135,000 — XP needed for MR30
+		const XP_MR30_CAP = 2500 * 30 * 30; // 2,250,000 — XP needed for MR30
 		const progressXp = document.getElementById("progress-xp");
 		if (progressXp) {
-		    progressXp.max = Math.min(overviewXpPossible, XP_NORMAL_CAP);
-		    progressXp.value = Math.min(overviewXpTotal, XP_NORMAL_CAP);
+		    progressXp.max = Math.min(overviewXpPossible, XP_MR30_CAP);
+		    progressXp.value = Math.min(overviewXpTotal, XP_MR30_CAP);
 		}
 		const progressLegendaryXp = document.getElementById("progress-legendary-xp");
 		if (progressLegendaryXp) {
@@ -168,7 +168,6 @@
 		    const legendaryXpEarned = Math.max(overviewXpTotal - XP_NORMAL_CAP, 0);
 		    progressLegendaryXp.max = legendaryXpPossible;
 		    progressLegendaryXp.value = legendaryXpEarned;
-		    progressLegendaryXp.hidden = overviewXpTotal <= XP_NORMAL_CAP;
 		}
 		
 		const progressMr = document.getElementById("progress-mastery-rank");
