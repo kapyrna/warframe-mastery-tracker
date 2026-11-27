@@ -172,9 +172,10 @@
 		}
 		if (progressLr) {
 			const possibleMr = xpToMasteryRank(overviewXpPossible);
-			progressLr.max = Math.max(possibleMr - 30, 0);
+			const lrMax = Math.max(possibleMr - 30, 0);
+			progressLr.max = lrMax;
 			progressLr.value = Math.max(currentMr - 30, 0);
-			progressLr.hidden = currentMr <= 30; // hide if MR 30 or below, show if above
+			progressLr.style.maxWidth = (lrMax / possibleMr * 100) + "%";
 		}
 		
 		const progressNextMr = document.getElementById("progress-xp-to-next-mr");
