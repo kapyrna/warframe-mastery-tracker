@@ -164,8 +164,8 @@
 		}
 		const progressLegendaryXp = document.getElementById("progress-legendary-xp");
 		if (progressLegendaryXp) {
-		    const legendaryXpPossible = Math.max(overviewXpPossible - XP_NORMAL_CAP, 0);
-		    const legendaryXpEarned = Math.max(overviewXpTotal - XP_NORMAL_CAP, 0);
+		    const legendaryXpPossible = Math.max(overviewXpPossible - XP_MR30_CAP, 0);
+		    const legendaryXpEarned = Math.max(overviewXpTotal - XP_MR30_CAP, 0);
 		    progressLegendaryXp.max = legendaryXpPossible;
 		    progressLegendaryXp.value = legendaryXpEarned;
 		}
